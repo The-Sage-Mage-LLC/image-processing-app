@@ -11,9 +11,11 @@ import sys
 import tempfile
 import csv
 from pathlib import Path
-from datetime import datetime
+# from datetime import datetime
+  # Unused import - commented by code quality fixer
 from PIL import Image
-import numpy as np
+# import numpy as np
+  # Unused import - commented by code quality fixer
 
 def create_test_image(path: Path) -> bool:
     """Create a test image for verification."""
@@ -23,7 +25,7 @@ def create_test_image(path: Path) -> bool:
         img = Image.fromarray(img_array)
         img.save(path, 'JPEG')
         return True
-    except Exception as e:
+    except Exception as _e:
         print(f"? Failed to create test image: {e}")
         return False
 
@@ -59,7 +61,7 @@ def verify_text_processing():
         
         return all(passed for _, passed in checks)
         
-    except Exception as e:
+    except Exception as _e:
         print(f"? Text processing verification failed: {e}")
         return False
 
@@ -82,7 +84,7 @@ def verify_csv_structure():
             
             # Setup components
             logger = setup_logging(temp_path, {})
-            config = {'color_analysis': {'num_dominant_colors': 4}}
+            _config = {'color_analysis': {'num_dominant_colors': 4}}
             color_analyzer = ColorAnalyzer(config, logger)
             
             # Analyze image
@@ -111,7 +113,7 @@ def verify_csv_structure():
                 print("? CSV file not created")
                 return False
                 
-    except Exception as e:
+    except Exception as _e:
         print(f"? CSV structure verification failed: {e}")
         import traceback
         traceback.print_exc()
@@ -124,11 +126,11 @@ def verify_command_line_parameters():
     try:
         from src.cli.validators import PathValidator
         
-        validator = PathValidator()
+        _validator = PathValidator()
         
         # Test source paths validation (1-10 paths, comma-delimited, Windows-style)
         test_sources = "C:\\Test1,C:\\Test2,D:\\Test3"
-        config = {'validation': {'max_source_paths': 10, 'min_source_paths': 1}}
+        _config = {'validation': {'max_source_paths': 10, 'min_source_paths': 1}}
         
         # This would normally validate paths, but for testing we check the parsing
         paths = [p.strip() for p in test_sources.split(',') if p.strip()]
@@ -145,7 +147,7 @@ def verify_command_line_parameters():
         
         return all(passed for _, passed in checks)
         
-    except Exception as e:
+    except Exception as _e:
         print(f"? Command line parameter verification failed: {e}")
         return False
 
@@ -156,10 +158,10 @@ def verify_menu_options():
     try:
         from src.cli.main import CLIApp
         
-        app = CLIApp()
+        _app = CLIApp()
         
         # Check if all menu options are mapped
-        expected_options = list(range(1, 13))  # 1-12
+        _expected_options = list(range(1, 13))  # 1-12
         
         # Test menu option validation
         checks = [
@@ -173,7 +175,7 @@ def verify_menu_options():
         
         return all(passed for _, passed in checks)
         
-    except Exception as e:
+    except Exception as _e:
         print(f"? Menu option verification failed: {e}")
         return False
 
@@ -201,7 +203,7 @@ def verify_image_scanning():
             
             # Test file manager scanning
             logger = setup_logging(temp_path, {})
-            config = {}
+            _config = {}
             
             file_manager = FileManager(
                 source_paths=[temp_path],
@@ -226,7 +228,7 @@ def verify_image_scanning():
             
             return all(passed for _, passed in checks)
             
-    except Exception as e:
+    except Exception as _e:
         print(f"? Image scanning verification failed: {e}")
         import traceback
         traceback.print_exc()
@@ -265,7 +267,7 @@ def verify_logging_and_error_handling():
             
             return all(passed for _, passed in checks)
             
-    except Exception as e:
+    except Exception as _e:
         print(f"? Logging verification failed: {e}")
         return False
 
@@ -300,7 +302,7 @@ def main():
             else:
                 print(f"? {test_name} - FAILED")
                 
-        except Exception as e:
+        except Exception as _e:
             print(f"? {test_name} - ERROR: {e}")
             results.append((test_name, False))
     

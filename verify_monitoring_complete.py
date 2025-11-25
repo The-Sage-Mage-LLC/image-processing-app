@@ -13,18 +13,25 @@ This test verifies all monitoring and self-monitoring requirements:
 """
 
 import sys
-import os
+# import os
+  # Unused import - commented by code quality fixer
 import tempfile
-import shutil
+# import shutil
+  # Unused import - commented by code quality fixer
 from pathlib import Path
-from datetime import datetime
+# from datetime import datetime
+  # Unused import - commented by code quality fixer
 import logging
-import numpy as np
+# import numpy as np
+  # Unused import - commented by code quality fixer
 from PIL import Image
-import cv2
+# import cv2
+  # Unused import - commented by code quality fixer
 import time
-import threading
-from unittest.mock import Mock
+# import threading
+  # Unused import - commented by code quality fixer
+# from unittest.mock import Mock
+  # Unused import - commented by code quality fixer
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -379,7 +386,7 @@ def verify_qa_qc_functionality():
         shutil.copy2(normal_file, duplicate_file)
         
         normal_size = normal_file.stat().st_size
-        tiny_size = tiny_file.stat().st_size
+        _tiny_size = tiny_file.stat().st_size
         large_size = large_file.stat().st_size
         
         # Establish baseline with normal files
@@ -400,7 +407,7 @@ def verify_qa_qc_functionality():
         
         # 3. Hash duplicate check
         original_hash = monitor._calculate_file_hash(normal_file)
-        duplicate_hash = monitor._calculate_file_hash(duplicate_file)
+        _duplicate_hash = monitor._calculate_file_hash(duplicate_file)
         monitor.record_processing_result(normal_file, normal_size, duplicate_file, 1.0, True, original_hash)
         
         # 4. Size anomaly
@@ -437,7 +444,7 @@ def verify_qa_qc_functionality():
         # Show QA alerts found
         print(f"    ?? QA alerts generated: {len(qa_alerts)}")
         for level, msg in qa_alerts[:3]:  # Show first 3 alerts
-            print(f"      • {msg}")
+            print(f"       {msg}")
         
         return all(passed for _, passed in checks)
 
@@ -493,7 +500,7 @@ def verify_self_monitoring_statistics():
             # Simulate realistic variations
             processing_time = base_time + np.random.normal(0, 0.2)  # Small variation
             original_size = base_size_original + np.random.randint(-5000, 5000)
-            processed_size = int(base_size_processed * (1 + np.random.normal(0, 0.1)))  # 10% variation
+            _processed_size = int(base_size_processed * (1 + np.random.normal(0, 0.1)))  # 10% variation
             
             processed_file = test_dir / f"processed_{i:02d}.jpg"
             create_varied_test_image(processed_file, (400, 300), complexity=1)
@@ -592,7 +599,7 @@ def main():
             else:
                 print(f"? {test_name} - FAILED")
                 
-        except Exception as e:
+        except Exception as _e:
             print(f"? {test_name} - ERROR: {e}")
             import traceback
             traceback.print_exc()
@@ -617,32 +624,32 @@ def main():
         print("?? SUCCESS! All monitoring requirements are fully implemented!")
         print("\n? CONFIRMED: All monitoring and QA/QC requirements met:")
         print("\n?? Progress Monitoring:")
-        print("   • 'Still processing' heartbeat messages ?")
-        print("   • 'Still alive' status indicators ?") 
-        print("   • Progress percentage and ETA reporting ?")
-        print("   • Real-time rate calculations ?")
+        print("    'Still processing' heartbeat messages ?")
+        print("    'Still alive' status indicators ?") 
+        print("    Progress percentage and ETA reporting ?")
+        print("    Real-time rate calculations ?")
         
         print("\n?? Self-Monitoring & Statistical Analysis:")
-        print("   • Processing time statistical analysis ?")
-        print("   • File size pattern analysis ?")
-        print("   • Performance rate tracking ?")
-        print("   • Outlier and anomaly detection ?")
-        print("   • Mean, median, std dev calculations ?")
+        print("    Processing time statistical analysis ?")
+        print("    File size pattern analysis ?")
+        print("    Performance rate tracking ?")
+        print("    Outlier and anomaly detection ?")
+        print("    Mean, median, std dev calculations ?")
         
         print("\n?? Quality Assurance Checks:")
-        print("   • Empty or near-empty file detection ?")
-        print("   • Oversized file alerts ?")
-        print("   • Processing time anomaly detection ?")
-        print("   • Hash comparison for duplicate detection ?")
-        print("   • Statistical deviation monitoring ?")
-        print("   • Expected vs actual results comparison ?")
+        print("    Empty or near-empty file detection ?")
+        print("    Oversized file alerts ?")
+        print("    Processing time anomaly detection ?")
+        print("    Hash comparison for duplicate detection ?")
+        print("    Statistical deviation monitoring ?")
+        print("    Expected vs actual results comparison ?")
         
         print("\n?? Advanced Features:")
-        print("   • Comprehensive operation lifecycle tracking ?")
-        print("   • Multi-threaded heartbeat monitoring ?")
-        print("   • Configurable thresholds and parameters ?")
-        print("   • Detailed completion summaries ?")
-        print("   • Performance benchmarking ?")
+        print("    Comprehensive operation lifecycle tracking ?")
+        print("    Multi-threaded heartbeat monitoring ?")
+        print("    Configurable thresholds and parameters ?")
+        print("    Detailed completion summaries ?")
+        print("    Performance benchmarking ?")
         
         return True
     else:

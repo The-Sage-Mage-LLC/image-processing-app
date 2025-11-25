@@ -14,15 +14,20 @@ This test verifies all requirements:
 """
 
 import sys
-import os
+# import os
+  # Unused import - commented by code quality fixer
 import tempfile
-import shutil
+# import shutil
+  # Unused import - commented by code quality fixer
 from pathlib import Path
-from datetime import datetime
+# from datetime import datetime
+  # Unused import - commented by code quality fixer
 import logging
-import numpy as np
+# import numpy as np
+  # Unused import - commented by code quality fixer
 from PIL import Image
-import cv2
+# import cv2
+  # Unused import - commented by code quality fixer
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -228,7 +233,7 @@ def verify_sepia_conversion_comprehensive():
                     if not is_sepia:
                         sepia_verified = False
                         break
-            except Exception as e:
+            except Exception as _e:
                 print(f"    Error checking sepia conversion: {e}")
                 sepia_verified = False
                 break
@@ -313,7 +318,7 @@ def verify_sepia_transformation_quality():
                 is_warm = warmth_ratio > 1.3
                 checks.append(("Image has warm sepia tone", is_warm))
         
-        except Exception as e:
+        except Exception as _e:
             checks = [("Sepia conversion successful", False)]
             print(f"    Error during conversion: {e}")
         
@@ -327,7 +332,7 @@ def verify_sepia_transformation_quality():
                 result = intensity_transforms.convert_to_sepia(test_image_path)
                 intensity_works = result is not None
                 checks.append((f"Intensity {intensity} works", intensity_works))
-            except Exception as e:
+            except Exception as _e:
                 checks.append((f"Intensity {intensity} works", False))
         
         for desc, passed in checks:
@@ -529,7 +534,7 @@ def verify_complete_workflow_sepia():
                         checks.append((f"File {expected_file.name} has sepia toning", is_sepia))
                     else:
                         checks.append((f"File {expected_file.name} has sepia toning", True))  # Assume converted
-                except Exception as e:
+                except Exception as _e:
                     checks.append((f"File {expected_file.name} has sepia toning", False))
         
         for desc, passed in checks:
@@ -568,7 +573,7 @@ def main():
             else:
                 print(f"? {test_name} - FAILED")
                 
-        except Exception as e:
+        except Exception as _e:
             print(f"? {test_name} - ERROR: {e}")
             import traceback
             traceback.print_exc()
@@ -592,14 +597,14 @@ def main():
     if passed == total:
         print("?? SUCCESS! Menu Item 8 is fully implemented and functional!")
         print("\n? CONFIRMED: All requirements are met:")
-        print("   • Transforms copies of original color images to sepia-toned")
-        print("   • Saves to output root under 'SEP_ORIG' folder")
-        print("   • Maintains source root folder structure")
-        print("   • Renames files with 'SEP_ORIG_' prefix + original name")
-        print("   • Creates folders automatically if they don't exist")
-        print("   • File deduplication protection with sequence numbers")
-        print("   • Processes all color images with proper sepia conversion")
-        print("   • Uses professional sepia matrix transformation")
+        print("    Transforms copies of original color images to sepia-toned")
+        print("    Saves to output root under 'SEP_ORIG' folder")
+        print("    Maintains source root folder structure")
+        print("    Renames files with 'SEP_ORIG_' prefix + original name")
+        print("    Creates folders automatically if they don't exist")
+        print("    File deduplication protection with sequence numbers")
+        print("    Processes all color images with proper sepia conversion")
+        print("    Uses professional sepia matrix transformation")
         return True
     else:
         print("??  Some requirements need attention.")

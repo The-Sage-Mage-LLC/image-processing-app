@@ -17,22 +17,16 @@ Features:
 - Password security and compliance enforcement
 """
 
-import os
-import hashlib
-import secrets
 import uuid
 import json
 import sqlite3
 import threading
 from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional, Set, Union, Callable
-from dataclasses import dataclass, field, asdict
+from typing import Dict, List, Any, Optional, Set
+from dataclasses import dataclass, field
 from enum import Enum
 import bcrypt
-import jwt
-import logging
 from pathlib import Path
-from contextlib import contextmanager
 import time
 
 # Import our structured logging and audit systems
@@ -293,7 +287,7 @@ class PasswordManager:
         """Verify password against stored hash and salt."""
         try:
             stored_hash = bytes.fromhex(password_hash)
-            salt_bytes = bytes.fromhex(salt)
+            # Salt bytes not needed for bcrypt.checkpw with stored hash
             
             return bcrypt.checkpw(password.encode(), stored_hash)
         except Exception as e:
@@ -417,26 +411,27 @@ class SessionManager:
         with self.session_lock:
             session = self.sessions.get(session_id)
             
-            if not session:
-                return None
+            def _is_session_expired(session: UserSession, now: datetime) -> bool:
+                # Check expiration
+                if session.expires_at <= now:
+                    session.status = SessionStatus.EXPIRED
+                    return True
+                
+                # Check status
+                if session.status != SessionStatus.ACTIVE:
+                    return True
+                
+                return False
             
-            now = datetime.now()
-            
-            # Check expiration
-            if session.expires_at <= now:
-                session.status = SessionStatus.EXPIRED
-                return None
-            
-            # Check status
-            if session.status != SessionStatus.ACTIVE:
+            if not session or _is_session_expired(session, datetime.now()):
                 return None
             
             # Update last activity and extend session
-            session.last_activity = now
+            session.last_activity = datetime.now()
             
             # Extend session timeout (sliding window)
             session_timeout = timedelta(minutes=self.config.session_timeout_minutes)
-            new_expires_at = now + session_timeout
+            new_expires_at = session.last_activity + session_timeout
             
             # Don't extend beyond absolute timeout
             absolute_limit = session.created_at + timedelta(hours=self.config.session_absolute_timeout_hours)
@@ -915,4 +910,4 @@ if __name__ == "__main__":
                 print(f"Can read files: {can_read}")
                 print(f"Can admin system: {can_admin}")
     
-    print("Access control demonstration completed!")
+    print("Access control demonstration completed!")    print("Access control demonstration completed!")

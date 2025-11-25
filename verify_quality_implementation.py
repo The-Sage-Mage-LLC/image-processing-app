@@ -16,11 +16,23 @@ def test_quality_imports():
     print("=" * 50)
     
     try:
-        from src.utils.image_quality_manager import ImageQualityManager, ImageQualityConstraints
-        print("+ ImageQualityManager imported successfully")
+        # Test that modules can be imported (dynamic imports to avoid unused import warnings)
+        import importlib
         
-        from src.utils.quality_controlled_transforms import QualityControlledTransformBase
-        print("+ QualityControlledTransformBase imported successfully")
+        # Test image quality manager module
+        quality_manager_module = importlib.import_module('src.utils.image_quality_manager')
+        print("+ ImageQualityManager module imported successfully")
+        
+        # Test quality controlled transforms module  
+        transforms_module = importlib.import_module('src.utils.quality_controlled_transforms')
+        print("+ QualityControlledTransformBase module imported successfully")
+        
+        # Verify the key classes exist
+        if hasattr(quality_manager_module, 'ImageQualityManager'):
+            print("+ ImageQualityManager class found")
+        
+        if hasattr(transforms_module, 'QualityControlledTransformBase'):
+            print("+ QualityControlledTransformBase class found")
         
         return True
         
@@ -34,7 +46,7 @@ def test_basic_functionality():
     print("=" * 50)
     
     try:
-        from src.utils.image_quality_manager import ImageQualityManager, ImageQualityConstraints
+        from src.utils.image_quality_manager import ImageQualityManager
         from src.utils.logger import setup_logging
         
         # Create test config

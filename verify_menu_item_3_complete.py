@@ -14,15 +14,12 @@ This test verifies all requirements:
 """
 
 import sys
-import os
 import tempfile
-import shutil
 import csv
 from pathlib import Path
 from datetime import datetime
 import logging
-import numpy as np
-from PIL import Image, ExifTags
+from PIL import Image
 import piexif
 
 # Add src to path
@@ -66,9 +63,9 @@ def create_test_image_with_metadata(file_path: Path, has_gps: bool = False) -> P
     if has_gps:
         exif_dict["GPS"] = {
             piexif.GPSIFD.GPSLatitudeRef: 'N',
-            piexif.GPSIFD.GPSLatitude: ((40, 1), (45, 1), (30, 1)),  # 40°45'30"N
+            piexif.GPSIFD.GPSLatitude: ((40, 1), (45, 1), (30, 1)),  # 4045'30"N
             piexif.GPSIFD.GPSLongitudeRef: 'W',
-            piexif.GPSIFD.GPSLongitude: ((74, 1), (0, 1), (45, 1)),  # 74°0'45"W
+            piexif.GPSIFD.GPSLongitude: ((74, 1), (0, 1), (45, 1)),  # 740'45"W
             piexif.GPSIFD.GPSAltitude: (100, 1),  # 100 meters
             piexif.GPSIFD.GPSAltitudeRef: 0,  # Above sea level
             piexif.GPSIFD.GPSDateStamp: "2023:06:15",
@@ -187,7 +184,7 @@ def verify_csv_output_structure():
         test_dir = Path(temp_dir)
         
         # Create test image
-        test_image = create_test_image_with_metadata(test_dir / "test.jpg")
+        _ = create_test_image_with_metadata(test_dir / "test.jpg")  # Used to setup test environment
         
         # Create output directories
         output_dir = test_dir / "output"
@@ -294,7 +291,7 @@ def verify_gps_formats():
             ("GPS DMS latitude present", 'gps_latitude_dms' in metadata),
             ("GPS DMS longitude present", 'gps_longitude_dms' in metadata),
             ("DMS format correct", 
-             metadata.get('gps_latitude_dms', '').count('°') == 1 and 
+             metadata.get('gps_latitude_dms', '').count('') == 1 and 
              metadata.get('gps_latitude_dms', '').count("'") == 1 and
              metadata.get('gps_latitude_dms', '').count('"') == 1),
             ("Decimal coordinates are numeric", 
@@ -317,7 +314,7 @@ def verify_calculated_fields():
         test_dir = Path(temp_dir)
         
         # Create test image
-        test_image = create_test_image_with_metadata(test_dir / "calc_test.jpg")
+        _test_image = create_test_image_with_metadata(test_dir / "calc_test.jpg")
         
         config = {}
         logger = logging.getLogger("test")
@@ -494,16 +491,16 @@ def main():
     if passed == total:
         print("?? SUCCESS! Menu Item 3 is fully implemented and functional!")
         print("\n? CONFIRMED: All requirements are met:")
-        print("   • All image file properties and attributes extracted")
-        print("   • Windows security descriptors included")
-        print("   • Complete EXIF metadata extraction")
-        print("   • GPS data in both DMS and decimal formats")
-        print("   • All 10 required calculated fields present")
-        print("   • Date fields grouped in ISO format (local time)")
-        print("   • CSV stored with proper naming convention")
-        print("   • Primary key first, timestamp last")
-        print("   • Text normalization (comma?semicolon, line break removal)")
-        print("   • File deduplication protection")
+        print("    All image file properties and attributes extracted")
+        print("    Windows security descriptors included")
+        print("    Complete EXIF metadata extraction")
+        print("    GPS data in both DMS and decimal formats")
+        print("    All 10 required calculated fields present")
+        print("    Date fields grouped in ISO format (local time)")
+        print("    CSV stored with proper naming convention")
+        print("    Primary key first, timestamp last")
+        print("    Text normalization (comma?semicolon, line break removal)")
+        print("    File deduplication protection")
         return True
     else:
         print("??  Some requirements need attention.")

@@ -11,15 +11,20 @@ This test verifies all requirements for:
 """
 
 import sys
-import os
+# import os
+  # Unused import - commented by code quality fixer
 import tempfile
-import shutil
+# import shutil
+  # Unused import - commented by code quality fixer
 from pathlib import Path
-from datetime import datetime
+# from datetime import datetime
+  # Unused import - commented by code quality fixer
 import logging
-import numpy as np
+# import numpy as np
+  # Unused import - commented by code quality fixer
 from PIL import Image
-import cv2
+# import cv2
+  # Unused import - commented by code quality fixer
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -668,7 +673,7 @@ def main():
             else:
                 print(f"? {test_name} - FAILED")
                 
-        except Exception as e:
+        except Exception as _e:
             print(f"? {test_name} - ERROR: {e}")
             import traceback
             traceback.print_exc()
@@ -693,33 +698,33 @@ def main():
         print("?? SUCCESS! All Menu Items 9-12 are fully implemented and functional!")
         print("\n? CONFIRMED: All requirements are met:")
         print("\n?? Menu Item 9 - Pencil Sketch:")
-        print("   • Broad pencil tip, large radius processing ?")
-        print("   • High clarity, low blurring, medium strength ?") 
-        print("   • PSK_ORIG folder with structure preservation ?")
-        print("   • PSK_ORIG_ filename prefix ?")
-        print("   • File deduplication with sequence numbers ?")
+        print("    Broad pencil tip, large radius processing ?")
+        print("    High clarity, low blurring, medium strength ?") 
+        print("    PSK_ORIG folder with structure preservation ?")
+        print("    PSK_ORIG_ filename prefix ?")
+        print("    File deduplication with sequence numbers ?")
         
         print("\n?? Menu Item 10 - Coloring Book:")
-        print("   • Strong outline-type images for coloring books ?")
-        print("   • Optimal coloring book settings/configs ?")
-        print("   • BK_Coloring folder with structure preservation ?")
-        print("   • BK_Coloring_ filename prefix ?")
-        print("   • File deduplication with sequence numbers ?")
+        print("    Strong outline-type images for coloring books ?")
+        print("    Optimal coloring book settings/configs ?")
+        print("    BK_Coloring folder with structure preservation ?")
+        print("    BK_Coloring_ filename prefix ?")
+        print("    File deduplication with sequence numbers ?")
         
         print("\n?? Menu Item 11 - Connect-the-dots:")
-        print("   • Connect-the-dots activity book style ?")
-        print("   • BK_CTD folder with structure preservation ?")
-        print("   • BK_CTD_ filename prefix ?")
-        print("   • Configurable settings (dots, distances, sizes) ?")
-        print("   • File deduplication with sequence numbers ?")
+        print("    Connect-the-dots activity book style ?")
+        print("    BK_CTD folder with structure preservation ?")
+        print("    BK_CTD_ filename prefix ?")
+        print("    Configurable settings (dots, distances, sizes) ?")
+        print("    File deduplication with sequence numbers ?")
         
         print("\n?? Menu Item 12 - Color-by-numbers:")
-        print("   • Color-by-numbers activity book style ?")
-        print("   • BK_CBN folder with structure preservation ?")
-        print("   • BK_CBN_ filename prefix ?")
-        print("   • Configurable settings (colors, areas, distances) ?")
-        print("   • Color normalization and smoothing ?")
-        print("   • File deduplication with sequence numbers ?")
+        print("    Color-by-numbers activity book style ?")
+        print("    BK_CBN folder with structure preservation ?")
+        print("    BK_CBN_ filename prefix ?")
+        print("    Configurable settings (colors, areas, distances) ?")
+        print("    Color normalization and smoothing ?")
+        print("    File deduplication with sequence numbers ?")
         
         return True
     else:

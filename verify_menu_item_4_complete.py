@@ -16,16 +16,21 @@ This test verifies all requirements:
 """
 
 import sys
-import os
+# import os
+  # Unused import - commented by code quality fixer
 import tempfile
-import shutil
+# import shutil
+  # Unused import - commented by code quality fixer
 import csv
 from pathlib import Path
-from datetime import datetime
+# from datetime import datetime
+  # Unused import - commented by code quality fixer
 import logging
-import numpy as np
+# import numpy as np
+  # Unused import - commented by code quality fixer
 from PIL import Image
-import cv2
+# import cv2
+  # Unused import - commented by code quality fixer
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
@@ -192,7 +197,7 @@ def verify_ai_models_implementation():
         colors = caption_generator._detect_dominant_colors(test_image)
         checks.append(("Color detection functional", len(colors) > 0))
         
-    except Exception as e:
+    except Exception as _e:
         checks.append(("Color detection functional", False))
     
     # Test shape detection
@@ -203,7 +208,7 @@ def verify_ai_models_implementation():
         shapes = caption_generator._detect_basic_shapes(test_image)
         checks.append(("Shape detection functional", isinstance(shapes, list)))
         
-    except Exception as e:
+    except Exception as _e:
         checks.append(("Shape detection functional", False))
     
     for desc, passed in checks:
@@ -354,7 +359,7 @@ def verify_gps_location_components():
             result = caption_generator.generate_captions(test_image)
             gps_integration = 'gps_location' in result
             checks.append(("GPS location integrated in captions", gps_integration))
-        except Exception as e:
+        except Exception as _e:
             checks.append(("GPS location integrated in captions", False))
         
         for desc, passed in checks:
@@ -397,7 +402,7 @@ def verify_text_processing_quality():
                 ("Text processing applied", hasattr(caption_generator, '_apply_text_corrections')),
             ])
             
-    except Exception as e:
+    except Exception as _e:
         checks.extend([
             ("Caption generation functional", False),
             ("Text processing applied", False),
@@ -449,7 +454,7 @@ def verify_content_variation():
                 ("Alt text appropriate length", 10 <= len(result.get('alt_text', '')) <= 125),
             ]
             
-        except Exception as e:
+        except Exception as _e:
             checks = [("Content generation functional", False)]
         
         for desc, passed in checks:
@@ -489,7 +494,7 @@ def main():
             else:
                 print(f"? {test_name} - FAILED")
                 
-        except Exception as e:
+        except Exception as _e:
             print(f"? {test_name} - ERROR: {e}")
             import traceback
             traceback.print_exc()
@@ -513,17 +518,17 @@ def main():
     if passed == total:
         print("?? SUCCESS! Menu Item 4 is fully implemented and functional!")
         print("\n? CONFIRMED: All requirements are met:")
-        print("   • Multiple AI image processing models implemented")
-        print("   • Primary + 2 alternate captions generated")
-        print("   • Primary + 2 alternate verbose descriptions generated") 
-        print("   • 1-25 keywords and 1-25 tags/hashtags generated")
-        print("   • Alt text meeting accessibility specifications (10-125 chars)")
-        print("   • GPS location in human-readable format with 9 components")
-        print("   • CSV stored with proper naming convention")
-        print("   • Primary key first, timestamp last")
-        print("   • Text normalization (comma?semicolon, line break removal)")
-        print("   • Date fields grouped in ISO format (local time from GPS)")
-        print("   • File deduplication protection")
+        print("    Multiple AI image processing models implemented")
+        print("    Primary + 2 alternate captions generated")
+        print("    Primary + 2 alternate verbose descriptions generated") 
+        print("    1-25 keywords and 1-25 tags/hashtags generated")
+        print("    Alt text meeting accessibility specifications (10-125 chars)")
+        print("    GPS location in human-readable format with 9 components")
+        print("    CSV stored with proper naming convention")
+        print("    Primary key first, timestamp last")
+        print("    Text normalization (comma?semicolon, line break removal)")
+        print("    Date fields grouped in ISO format (local time from GPS)")
+        print("    File deduplication protection")
         return True
     else:
         print("??  Some requirements need attention.")
