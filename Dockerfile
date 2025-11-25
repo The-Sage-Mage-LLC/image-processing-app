@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image
 
 # Build stage
-FROM python:3.11-slim as builder
+FROM python:3.14-slim as builder
 
 # Set build arguments
 ARG BUILDPLATFORM
@@ -36,7 +36,7 @@ RUN pip install --no-cache-dir build wheel && \
     python -m build --wheel
 
 # Production stage
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Set metadata
 LABEL org.opencontainers.image.title="Image Processing Application"
