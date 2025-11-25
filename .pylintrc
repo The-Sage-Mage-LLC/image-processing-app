@@ -1,0 +1,24 @@
+[MASTER]
+jobs = 0
+persistent = yes
+
+[MESSAGES CONTROL]
+disable = 
+    wrong-import-order,
+    wrong-import-position,
+    line-too-long,
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-locals,
+    invalid-name,
+    redefined-outer-name
+
+[REPORTS]
+output-format = colorized
+score = yes
+
+[FORMAT]
+max-line-length = 88
