@@ -1,0 +1,193 @@
+# Image Processing App Configuration
+# Project ID: Image Processing App 20251119
+# Created: 2025-01-19
+
+[general]
+app_name = "Image Processing App"
+version = "1.0.0"
+max_parallel_workers = 4
+log_level = "INFO"
+enable_gpu = true
+preview_mode = false
+checkpoint_enabled = true
+checkpoint_interval = 100  # Save progress every N images
+
+[paths]
+# These will be overridden by command-line parameters
+default_admin_output = ""
+supported_formats = ["jpg", "jpeg", "png"]
+
+[processing]
+strip_sensitive_metadata = true
+maintain_folder_structure = true
+skip_hidden_files = true
+skip_system_files = true
+max_path_length = 260  # Windows MAX_PATH
+
+[blur_detection]
+enabled = true
+models = ["laplacian", "variance_of_laplacian", "gradient_magnitude"]
+center_weight = 1.5
+peripheral_weight = 0.5
+blur_threshold_laplacian = 100.0
+blur_threshold_variance = 50.0
+blur_threshold_gradient = 75.0
+consensus_threshold = 2  # Need 2 out of 3 models to agree
+
+[basic_transforms]
+jpeg_quality = 95
+png_compression = 6
+preserve_metadata = false
+
+[grayscale]
+method = "luminosity"  # Options: average, luminosity, desaturation
+
+[sepia]
+intensity = 0.8
+red_factor = 0.393
+green_factor = 0.769
+blue_factor = 0.189
+
+[pencil_sketch]
+pencil_tip_size = "broad"
+radius = 15
+clarity = 0.8
+blur_amount = 0.2
+strength = 0.5
+
+[coloring_book]
+edge_detection_method = "canny"
+lower_threshold = 50
+upper_threshold = 150
+line_thickness = 2
+simplification_level = 3
+background_color = [255, 255, 255]
+line_color = [0, 0, 0]
+
+[connect_the_dots]
+max_dots_per_image = 50          # Reduced from 200 for cleaner results
+min_dots_per_image = 8           # Increased from 20 for better minimum
+min_distance_between_dots = 25   # Increased from 10 for better spacing
+min_distance_unit = "pixels"
+max_distance_between_dots = 80   # Increased from 50 for better layout
+max_distance_unit = "pixels"
+dot_size = 8                     # Increased from 5 for better visibility
+dot_size_unit = "pixels"
+number_font_size = 14            # Increased from 10 for better readability
+edge_detection_sensitivity = 0.7
+
+[color_by_numbers]
+max_distinct_colors = 8          # Reduced from 20 for simpler results
+min_distinct_colors = 3          # Reduced from 5 for flexibility
+min_area_size = 500              # Increased from 100 for larger regions
+max_area_size = 50000            # Increased from 10000 for better region sizes
+smoothing_kernel_size = 15       # Increased from 5 for better smoothing
+color_similarity_threshold = 30  # Delta E
+number_font_size = 16            # Increased from 12 for better readability
+border_thickness = 2             # Increased from 1 for better visibility
+
+[csv_output]
+delimiter = ","
+encoding = "utf-8-sig"
+include_header = true
+datetime_format = "%Y-%m-%d %H:%M:%S"
+include_primary_key = true
+include_timestamp = true
+
+[logging]
+log_to_console = true
+log_to_file = true
+console_format = "%(asctime)s - %(levelname)s - %(message)s"
+file_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+max_log_size_mb = 100
+backup_count = 5
+progress_update_interval = 10  # seconds
+
+[validation]
+max_source_paths = 10
+min_source_paths = 1
+max_output_paths = 1
+min_output_paths = 1
+max_admin_paths = 1
+min_admin_paths = 1
+
+[watermark]
+enabled = false
+text = "© 2025"
+position = "bottom-right"  # Options: top-left, top-right, bottom-left, bottom-right, center
+opacity = 0.5
+font_size = 20
+font_color = [255, 255, 255]
+
+[database]
+db_name = "image_processing.db"
+connection_pool_size = 5
+echo_sql = false
+
+[batch_profiles]
+# Preset profiles for common workflows
+[batch_profiles.family_photos]
+menu_items = [6, 7, 8]
+description = "Color, B&W, and Sepia versions"
+
+[batch_profiles.activity_books]
+menu_items = [10, 11, 12]
+description = "Coloring, Connect-the-dots, and Color-by-numbers"
+
+[batch_profiles.commercial]
+menu_items = [2, 3, 4, 6]
+description = "Blur check, metadata, captions, and color copy"
+
+[batch_profiles.full_processing]
+menu_items = [1]
+description = "Complete processing suite"
+
+[color_analysis]
+num_dominant_colors = 4              # Fixed at 4 colors as per requirements
+enable_advanced_cv = true            # Use advanced computer vision models
+color_similarity_threshold = 30      # Euclidean distance threshold for color matching
+validate_color_presence = true       # Validate that colors actually appear in image
+merge_similar_colors = true          # Merge colors that are very similar
+use_ensemble_methods = true          # Use multiple color extraction methods
+color_databases = ["CSS3", "X11", "Pantone_Basic", "RAL_Classic", "Crayola", "Natural"]
+output_precision = 2                 # Decimal places for percentages
+
+[monitoring]
+# Enhanced progress monitoring and QA/QC settings
+heartbeat_interval = 30  # seconds between heartbeat messages
+progress_update_interval = 10  # log detailed progress every N items
+continuous_monitoring_enabled = true  # enable background monitoring thread
+system_resource_monitoring = true  # monitor CPU, RAM, disk usage
+
+# QA/QC thresholds
+min_file_size = 1024  # 1KB - minimum acceptable processed file size
+max_file_size = 104857600  # 100MB - maximum acceptable processed file size
+timing_deviation_multiplier = 3  # how many std deviations for timing alerts
+size_deviation_multiplier = 2  # how many std deviations for size alerts
+
+# Enhanced self-monitoring features
+enable_hash_checking = true  # compare original vs processed file hashes
+enable_statistical_analysis = true  # perform statistical QA on processing metrics
+enable_performance_tracking = true  # track detailed performance metrics
+enable_image_integrity_checks = true  # validate processed images aren't corrupted
+enable_format_validation = true  # validate output file formats
+enable_resolution_validation = true  # check for unexpected resolution changes
+qa_sample_size = 10  # minimum samples before statistical analysis starts
+
+# Performance benchmarks and alerts
+items_per_minute_target = 60  # target processing rate
+memory_usage_threshold = 80   # warning at 80% memory usage
+cpu_usage_threshold = 90      # warning at 90% CPU usage
+disk_space_threshold = 85     # warning at 85% disk usage (in percent)
+min_disk_space_gb = 2        # alert when less than 2GB free
+
+# Error tracking and analysis
+enable_error_pattern_tracking = true  # track and analyze error patterns
+max_error_patterns = 50      # maximum number of error patterns to track
+error_frequency_window = 300  # seconds to track recent error frequency
+
+# Advanced monitoring features
+enable_realtime_alerts = true  # send immediate alerts for critical issues
+enable_performance_benchmarking = true  # compare against performance benchmarks
+enable_trend_analysis = true  # analyze performance trends over time
+monitoring_data_retention = 1000  # keep last N items for analysis
