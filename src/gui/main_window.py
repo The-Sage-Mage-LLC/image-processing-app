@@ -1520,3 +1520,202 @@ class DestinationMatrix(RowFrame):
         
         matrix_widget.setLayout(matrix_layout)
         layout.addWidget(matrix_widget)
+    
+    def on_files_dropped_to_cell(self, files: List[Path], row: int, col: int, source_type: str):
+        """Handle files dropped to a specific destination cell."""
+        cell = self.destination_cells.get((row, col))
+        if not cell or not cell.destination_path:
+            return
+        
+        import shutil
+        success_count = 0
+        
+        for file_path in files:
+            try:
+                dest_file_path = cell.destination_path / file_path.name
+                
+                if source_type == "pickup_zone":
+                    # Move operation
+                    shutil.move(str(file_path), str(dest_file_path))
+                else:
+                    # Copy operation  
+                    shutil.copy2(str(file_path), str(dest_file_path))
+                
+                success_count += 1
+            except Exception:
+                pass
+        
+        # Update cell display
+        cell.refresh_file_list()
+        self.files_copied.emit(files, row, col, source_type)
+    
+    def on_row_header_drop(self, files: List[Path], row: int):
+        """Handle files dropped on row header - distribute to all cells in row."""
+        for col in range(3):
+            cell = self.destination_cells.get((row, col))
+            if cell and cell.destination_path:
+                self.on_files_dropped_to_cell(files, row, col, "frame_a")
+
+
+class MaximizedImageProcessingGUI(QMainWindow):
+    """Main GUI window optimized for 32" Samsung monitor (1920x1080) - Always Maximized."""
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Force maximized state for optimal 32" monitor usage
+        self.setWindowState(Qt.WindowState.WindowMaximized)
+        
+        # Initialize components
+        self.config = self.load_config()
+        self.logger = None
+        self.processor = None
+        self.metadata_handler = None
+        self.processing_thread = None
+        self.selected_files = []
+        
+        self.setup_ui()
+        self.setup_processor()
+    
+    def load_config(self) -> dict:
+        """Load configuration from file."""
+        config_path = Path("config/config.toml")
+        if config_path.exists():
+            try:
+                import tomli
+                with open(config_path, "rb") as f:
+                    return tomli.load(f)
+            except:
+                pass
+        return {}
+    
+    def setup_processor(self):
+        """Setup the image processor and metadata handler."""
+        try:
+            # Setup logging
+            admin_path = Path("./admin_output")
+            admin_path.mkdir(exist_ok=True)
+            self.logger = setup_logging(admin_path, self.config)
+            
+            # Setup metadata handler
+            self.metadata_handler = MetadataHandler(self.config, self.logger)
+            
+            # Set metadata handler in file explorer
+            if hasattr(self, 'file_explorer'):
+                self.file_explorer.set_metadata_handler(self.metadata_handler)
+            
+        except Exception as e:
+            QMessageBox.critical(self, "Setup Error", f"Failed to initialize processor: {e}")
+    
+    def setup_ui(self):
+        """Setup the main UI with Frame A and Frame B layout."""
+        # Set window properties for 32" monitor optimization
+        self.setWindowTitle("Image Processing Application - Optimized for 32\" Samsung Monitor")
+        self.setMinimumSize(1920, 1080)
+        
+        # Central widget
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        
+        # Main horizontal layout: Frame A (50%) | Frame B (50%)
+        main_layout = QHBoxLayout()
+        main_layout.setContentsMargins(5, 5, 5, 5)
+        main_layout.setSpacing(5)
+        central_widget.setLayout(main_layout)
+        
+        # Create Frame A (left side - 50% width)
+        frame_a = self.create_frame_a()
+        main_layout.addWidget(frame_a, 1)  # Stretch factor 1 = 50%
+        
+        # Create Frame B (right side - 50% width) 
+        frame_b = self.create_frame_b()
+        main_layout.addWidget(frame_b, 1)  # Stretch factor 1 = 50%
+        
+        # Setup menu and status bar
+        self.setup_menu_bar()
+        self.statusBar().showMessage("Ready - Optimized for 32\" Monitor @ 1920x1080")
+    
+    def create_frame_a(self) -> QFrame:
+        """Create Frame A - Windows Explorer-like file browser."""
+        frame = QFrame()
+        frame.setFrameStyle(QFrame.Shape.Box)
+        frame.setLineWidth(2)
+        
+        layout = QVBoxLayout()
+        layout.setContentsMargins(5, 5, 5, 5)
+        
+        # Title
+        title = QLabel("Frame A - Source Files Explorer")
+        title.setStyleSheet("font-size: 16px; font-weight: bold; padding: 5px; background-color: #e3f2fd;")
+        layout.addWidget(title)
+        
+        # Enhanced file explorer
+        self.file_explorer = EnhancedFileExplorer()
+        layout.addWidget(self.file_explorer)
+        
+        frame.setLayout(layout)
+        return frame
+    
+    def create_frame_b(self) -> QFrame:
+        """Create Frame B - Processing and destinations."""
+        frame = QFrame()
+        frame.setFrameStyle(QFrame.Shape.Box)
+        frame.setLineWidth(2)
+        
+        layout = QVBoxLayout()
+        layout.setContentsMargins(5, 5, 5, 5)
+        layout.setSpacing(3)
+        
+        # Title
+        title = QLabel("Frame B - Processing & Destinations")
+        title.setStyleSheet("font-size: 16px; font-weight: bold; padding: 5px; background-color: #fff3e0;")
+        layout.addWidget(title)
+        
+        # Row 1: Processing controls (7% height)
+        self.processing_controls = ProcessingControlsRow()
+        layout.addWidget(self.processing_controls, 1)
+        
+        # Row 2: Processing drop zone (14% height)
+        self.processing_zone = ProcessingDropZone()
+        layout.addWidget(self.processing_zone, 2)
+        
+        # Row 3: Pickup zone (14% height)
+        self.pickup_zone = PickupZone()
+        layout.addWidget(self.pickup_zone, 2)
+        
+        # Row 4: Matrix header (7% height)
+        self.matrix_header = MatrixHeaderRow()
+        layout.addWidget(self.matrix_header, 1)
+        
+        # Rows 5-8: Destination matrix (56% height total)
+        self.destination_matrix = DestinationMatrix()
+        layout.addWidget(self.destination_matrix, 8)
+        
+        frame.setLayout(layout)
+        return frame
+    
+    def setup_menu_bar(self):
+        """Setup menu bar."""
+        menubar = self.menuBar()
+        
+        # File menu
+        file_menu = menubar.addMenu('File')
+        file_menu.addAction('Exit', self.close)
+
+
+def main():
+    """Main entry point for the GUI application."""
+    app = QApplication(sys.argv)
+    app.setApplicationName("Image Processing GUI")
+    app.setApplicationVersion("1.0")
+    
+    # Create and show main window
+    window = MaximizedImageProcessingGUI()
+    window.show()
+    
+    # Run application
+    sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()
