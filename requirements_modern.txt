@@ -15,7 +15,7 @@ scikit-image>=0.22.0      # Scientific image processing
 piexif>=1.1.3             # EXIF metadata handling
 
 # === DATA PROCESSING & ANALYSIS ===
-numpy>=1.20.0,<2.0.0      # Numerical computing
+numpy>=1.20.0,<3.0.0      # Numerical computing
 pandas>=2.0.3             # Data analysis
 scipy>=1.11.0             # Scientific computing
 scikit-learn>=1.3.0       # Machine learning
