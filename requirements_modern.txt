@@ -1,0 +1,175 @@
+# Modern Image Processing Application - Enhanced Requirements
+# Python 3.11+ compatible with modern development patterns
+
+# === CORE DEPENDENCIES ===
+click>=8.1.0,<8.2.2  # CLI framework
+colorama>=0.4.6      # Terminal colors
+tomli>=2.0.1         # TOML parsing
+tomli-w>=1.0.0       # TOML writing
+tqdm>=4.66.0         # Progress bars
+
+# === IMAGE PROCESSING & COMPUTER VISION ===
+opencv-python>=4.9.0      # Computer vision
+Pillow>=10.2.0            # Image processing library
+scikit-image>=0.22.0      # Scientific image processing
+piexif>=1.1.3             # EXIF metadata handling
+
+# === DATA PROCESSING & ANALYSIS ===
+numpy>=1.20.0,<2.0.0      # Numerical computing
+pandas>=2.0.3             # Data analysis
+scipy>=1.11.0             # Scientific computing
+scikit-learn>=1.3.0       # Machine learning
+matplotlib>=3.7.2         # Plotting
+
+# === ASYNC & CONCURRENCY ===
+aiofiles>=23.2.1          # Async file operations
+aiohttp>=3.9.0            # Async HTTP client
+asyncio-mqtt>=0.13.0      # Async MQTT (optional)
+uvloop>=0.19.0; sys_platform != "win32"  # Fast async event loop (Unix only)
+
+# === MODERN CONFIGURATION & VALIDATION ===
+pydantic>=2.5.0           # Data validation and settings
+pydantic-settings>=2.1.0  # Settings management
+python-dotenv>=1.0.0      # Environment variable loading
+dynaconf>=3.2.4           # Advanced configuration management
+
+# === OBSERVABILITY & MONITORING ===
+# OpenTelemetry
+opentelemetry-api>=1.21.0
+opentelemetry-sdk>=1.21.0
+opentelemetry-instrumentation>=0.42b0
+opentelemetry-exporter-jaeger-thrift>=1.21.0
+opentelemetry-exporter-prometheus>=1.12.0rc1
+opentelemetry-instrumentation-requests>=0.42b0
+opentelemetry-instrumentation-asyncio>=0.42b0
+opentelemetry-instrumentation-sqlite3>=0.42b0
+
+# Prometheus monitoring
+prometheus-client>=0.19.0
+
+# Structured logging
+structlog>=23.2.0
+python-json-logger>=2.0.7
+
+# === DATABASE & PERSISTENCE ===
+sqlalchemy>=2.0.23        # ORM and database toolkit
+alembic>=1.13.0          # Database migrations
+aiosqlite>=0.19.0        # Async SQLite
+asyncpg>=0.29.0          # Async PostgreSQL driver
+aiomysql>=0.2.0          # Async MySQL driver
+
+# === WEB FRAMEWORK (Optional) ===
+fastapi>=0.104.1         # Modern web framework
+uvicorn[standard]>=0.24.0 # ASGI server
+websockets>=12.0         # WebSocket support
+jinja2>=3.1.2           # Template engine
+
+# === GUI FRAMEWORK ===
+PyQt6>=6.6.0             # Modern Qt bindings
+PyQt6-Qt6>=6.6.0
+PyQt6-sip>=13.6.0
+
+# === TESTING FRAMEWORK ===
+pytest>=7.4.3           # Testing framework
+pytest-asyncio>=0.21.1  # Async testing support
+pytest-cov>=4.1.0       # Coverage reporting
+pytest-mock>=3.12.0     # Mocking utilities
+pytest-xvfb>=3.0.0      # Virtual display for GUI testing
+pytest-qt>=4.3.1        # Qt testing utilities
+pytest-benchmark>=4.0.0  # Performance benchmarking
+pytest-timeout>=2.2.0   # Test timeouts
+pytest-html>=4.1.1      # HTML test reports
+pytest-json-report>=1.5.0 # JSON test reports
+
+# Testing utilities
+factory-boy>=3.3.0      # Test data factories
+faker>=20.1.0           # Fake data generation
+hypothesis>=6.92.0      # Property-based testing
+responses>=0.24.1       # HTTP mocking
+aioresponses>=0.7.4     # Async HTTP mocking
+freezegun>=1.2.2        # Time mocking
+
+# === DEVELOPMENT TOOLS ===
+# Code formatting and linting
+black>=23.11.0           # Code formatter
+isort>=5.12.0           # Import sorter
+ruff>=0.1.6             # Fast linter
+mypy>=1.7.0             # Type checking
+
+# Pre-commit hooks
+pre-commit>=3.6.0       # Git pre-commit hooks
+
+# Security scanning
+bandit>=1.7.5           # Security linter
+safety>=2.3.0           # Dependency vulnerability scanner
+
+# === DOCUMENTATION ===
+sphinx>=7.2.0           # Documentation generator
+sphinx-rtd-theme>=2.0.0 # Read the Docs theme
+sphinx-autodoc-typehints>=1.25.0 # Type hints in docs
+myst-parser>=2.0.0      # Markdown parser for Sphinx
+
+# === AI/ML (Optional) ===
+torch>=2.1.0            # PyTorch for ML
+transformers>=4.35.0    # Hugging Face transformers
+ultralytics>=8.0.200   # YOLO models
+timm>=0.9.12           # PyTorch image models
+
+# === PERFORMANCE PROFILING ===
+py-spy>=0.3.14          # Sampling profiler
+memory-profiler>=0.61.0 # Memory usage profiling
+line-profiler>=4.1.1   # Line-by-line profiling
+psutil>=5.9.6          # System and process utilities
+
+# === UTILITY LIBRARIES ===
+rich>=13.7.0           # Rich text and beautiful formatting
+typer>=0.9.0          # Modern CLI framework (alternative to click)
+pydash>=7.0.6         # Utility functions
+more-itertools>=10.1.0 # Extended itertools
+toolz>=0.12.0         # Functional programming utilities
+
+# === CRYPTOGRAPHY & SECURITY ===
+cryptography>=41.0.8   # Cryptographic recipes
+bcrypt>=4.1.2          # Password hashing
+pyjwt>=2.8.0          # JWT tokens
+
+# === FILE HANDLING ===
+pathlib2>=2.3.7       # Enhanced pathlib (Python < 3.6 compat)
+watchdog>=3.0.0       # File system event monitoring
+send2trash>=1.8.2     # Safe file deletion
+
+# === SYSTEM INTEGRATION ===
+python-multipart>=0.0.6 # Multipart form data
+python-magic>=0.4.27   # File type detection
+pillow-heif>=0.14.0    # HEIF image support
+
+# === WINDOWS-SPECIFIC ===
+pywin32>=306; sys_platform=="win32"  # Windows API access
+
+# === DEVELOPMENT & BUILD TOOLS ===
+setuptools>=69.0.0     # Package building
+wheel>=0.42.0          # Wheel format support
+build>=1.0.0          # Modern build tool
+twine>=4.0.2          # Package uploading
+
+# === VERSION MANAGEMENT ===
+bump-my-version>=0.15.0 # Version bumping tool
+
+# === OPTIONAL INTEGRATIONS ===
+# Message queues
+celery>=5.3.4          # Distributed task queue
+redis>=5.0.1           # Redis client
+
+# Cloud storage
+boto3>=1.34.0          # AWS SDK
+google-cloud-storage>=2.10.0 # Google Cloud Storage
+azure-storage-blob>=12.19.0  # Azure Blob Storage
+
+# === JUPYTER NOTEBOOKS (Optional) ===
+jupyter>=1.0.0         # Jupyter metapackage
+notebook>=7.0.6        # Classic notebook
+jupyterlab>=4.0.9     # JupyterLab
+
+# === API DOCUMENTATION ===
+swagger-ui-bundle>=0.0.9  # Swagger UI
+redoc>=0.1.0              # ReDoc documentation
