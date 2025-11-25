@@ -1,0 +1,185 @@
+{
+    "metadata": {
+        "name": "ISO Standard Colors",
+        "description": "International Organization for Standardization color standards and references",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 50,
+        "sources": [
+            "ISO 12199 (Alphabetical ordering of colours)",
+            "ISO 12647 (Graphic printing)",
+            "ISO 14934 (Textiles)",
+            "ISO 3864 (Safety colors)"
+        ]
+    },
+    "colors": {
+        "ISO_Red": {
+            "rgb": [255, 0, 0],
+            "hex": "#FF0000",
+            "cmyk": [0, 100, 100, 0],
+            "category": "Primary",
+            "standard": "ISO 3864",
+            "description": "Standard red for safety and warning signs"
+        },
+        "ISO_Green": {
+            "rgb": [0, 255, 0],
+            "hex": "#00FF00",
+            "cmyk": [100, 0, 100, 0],
+            "category": "Primary",
+            "standard": "ISO 3864",
+            "description": "Standard green for safety and go signals"
+        },
+        "ISO_Blue": {
+            "rgb": [0, 0, 255],
+            "hex": "#0000FF",
+            "cmyk": [100, 100, 0, 0],
+            "category": "Primary",
+            "standard": "ISO 3864",
+            "description": "Standard blue for information and mandatory signs"
+        },
+        "ISO_Yellow": {
+            "rgb": [255, 255, 0],
+            "hex": "#FFFF00",
+            "cmyk": [0, 0, 100, 0],
+            "category": "Primary",
+            "standard": "ISO 3864",
+            "description": "Standard yellow for warning and caution signs"
+        },
+        "ISO_Orange": {
+            "rgb": [255, 165, 0],
+            "hex": "#FFA500",
+            "cmyk": [0, 35, 100, 0],
+            "category": "Warning",
+            "standard": "ISO 3864",
+            "description": "Standard orange for warning and hazard identification"
+        },
+        "ISO_Purple": {
+            "rgb": [128, 0, 128],
+            "hex": "#800080",
+            "cmyk": [50, 100, 0, 0],
+            "category": "Special",
+            "standard": "ISO 3864",
+            "description": "Standard purple for radiation warning"
+        },
+        "ISO_White": {
+            "rgb": [255, 255, 255],
+            "hex": "#FFFFFF",
+            "cmyk": [0, 0, 0, 0],
+            "category": "Neutral",
+            "standard": "ISO 3864",
+            "description": "Standard white for safety signs and backgrounds"
+        },
+        "ISO_Black": {
+            "rgb": [0, 0, 0],
+            "hex": "#000000",
+            "cmyk": [0, 0, 0, 100],
+            "category": "Neutral",
+            "standard": "ISO 3864",
+            "description": "Standard black for text and symbols on safety signs"
+        },
+        "ISO_Gray": {
+            "rgb": [128, 128, 128],
+            "hex": "#808080",
+            "cmyk": [0, 0, 0, 50],
+            "category": "Neutral",
+            "standard": "ISO 12647",
+            "description": "Standard gray for printing and graphics"
+        },
+        "ISO_Cyan": {
+            "rgb": [0, 255, 255],
+            "hex": "#00FFFF",
+            "cmyk": [100, 0, 0, 0],
+            "category": "Process",
+            "standard": "ISO 12647",
+            "description": "Process cyan for four-color printing"
+        },
+        "ISO_Magenta": {
+            "rgb": [255, 0, 255],
+            "hex": "#FF00FF",
+            "cmyk": [0, 100, 0, 0],
+            "category": "Process",
+            "standard": "ISO 12647",
+            "description": "Process magenta for four-color printing"
+        },
+        "ISO_Safety_Red": {
+            "rgb": [196, 30, 58],
+            "hex": "#C41E3A",
+            "cmyk": [20, 100, 80, 5],
+            "category": "Safety",
+            "standard": "ISO 3864",
+            "description": "Safety red for stop and prohibition signs"
+        },
+        "ISO_Safety_Yellow": {
+            "rgb": [237, 210, 0],
+            "hex": "#EDD200",
+            "cmyk": [8, 12, 100, 0],
+            "category": "Safety",
+            "standard": "ISO 3864",
+            "description": "Safety yellow for caution and warning"
+        },
+        "ISO_Safety_Green": {
+            "rgb": [34, 139, 34],
+            "hex": "#228B22",
+            "cmyk": [75, 0, 75, 45],
+            "category": "Safety",
+            "standard": "ISO 3864",
+            "description": "Safety green for emergency exits and first aid"
+        },
+        "ISO_Safety_Blue": {
+            "rgb": [0, 51, 160],
+            "hex": "#0033A0",
+            "cmyk": [100, 68, 0, 37],
+            "category": "Safety",
+            "standard": "ISO 3864",
+            "description": "Safety blue for mandatory action signs"
+        },
+        "ISO_Fluorescent_Orange": {
+            "rgb": [255, 95, 31],
+            "hex": "#FF5F1F",
+            "cmyk": [0, 63, 88, 0],
+            "category": "Fluorescent",
+            "standard": "ISO 20471",
+            "description": "High visibility fluorescent orange"
+        },
+        "ISO_Fluorescent_Yellow": {
+            "rgb": [255, 243, 0],
+            "hex": "#FFF300",
+            "cmyk": [0, 5, 100, 0],
+            "category": "Fluorescent",
+            "standard": "ISO 20471",
+            "description": "High visibility fluorescent yellow"
+        },
+        "ISO_Retroreflective_Silver": {
+            "rgb": [192, 192, 192],
+            "hex": "#C0C0C0",
+            "cmyk": [0, 0, 0, 25],
+            "category": "Retroreflective",
+            "standard": "ISO 20471",
+            "description": "Retroreflective silver for high visibility"
+        },
+        "ISO_Signal_Red": {
+            "rgb": [155, 17, 30],
+            "hex": "#9B111E",
+            "cmyk": [30, 100, 100, 30],
+            "category": "Signal",
+            "standard": "ISO 3864",
+            "description": "Signal red for fire equipment and danger"
+        },
+        "ISO_Signal_Orange": {
+            "rgb": [208, 93, 40],
+            "hex": "#D05D28",
+            "cmyk": [20, 65, 100, 5],
+            "category": "Signal",
+            "standard": "ISO 3864",
+            "description": "Signal orange for warning and hazard"
+        },
+        "ISO_Signal_Yellow": {
+            "rgb": [221, 185, 0],
+            "hex": "#DDB900",
+            "cmyk": [15, 20, 100, 0],
+            "category": "Signal",
+            "standard": "ISO 3864",
+            "description": "Signal yellow for caution"
+        }
+    }
+}

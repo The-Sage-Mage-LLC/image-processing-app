@@ -1,0 +1,387 @@
+{
+    "metadata": {
+        "name": "Crayola Colors",
+        "description": "Official Crayola crayon colors - comprehensive collection for educational and artistic use",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 120,
+        "sources": [
+            "Crayola Official Color List",
+            "Crayola Big Box 120 Count",
+            "Historical Crayola Colors"
+        ]
+    },
+    "colors": {
+        "Red": {
+            "rgb": [238, 32, 77],
+            "hex": "#EE204D",
+            "category": "Primary",
+            "year_introduced": 1903,
+            "description": "Classic Crayola red"
+        },
+        "Yellow": {
+            "rgb": [252, 232, 131],
+            "hex": "#FCE883",
+            "category": "Primary",
+            "year_introduced": 1903,
+            "description": "Classic Crayola yellow"
+        },
+        "Blue": {
+            "rgb": [31, 117, 254],
+            "hex": "#1F75FE",
+            "category": "Primary",
+            "year_introduced": 1903,
+            "description": "Classic Crayola blue"
+        },
+        "Green": {
+            "rgb": [28, 172, 120],
+            "hex": "#1CAC78",
+            "category": "Secondary",
+            "year_introduced": 1903,
+            "description": "Classic Crayola green"
+        },
+        "Orange": {
+            "rgb": [255, 117, 56],
+            "hex": "#FF7538",
+            "category": "Secondary",
+            "year_introduced": 1903,
+            "description": "Classic Crayola orange"
+        },
+        "Purple": {
+            "rgb": [146, 110, 174],
+            "hex": "#926EAE",
+            "category": "Secondary",
+            "year_introduced": 1903,
+            "description": "Classic Crayola purple"
+        },
+        "Brown": {
+            "rgb": [180, 103, 77],
+            "hex": "#B4674D",
+            "category": "Earth",
+            "year_introduced": 1903,
+            "description": "Classic Crayola brown"
+        },
+        "Black": {
+            "rgb": [35, 35, 35],
+            "hex": "#232323",
+            "category": "Neutral",
+            "year_introduced": 1903,
+            "description": "Classic Crayola black"
+        },
+        "White": {
+            "rgb": [237, 237, 237],
+            "hex": "#EDEDED",
+            "category": "Neutral",
+            "year_introduced": 1903,
+            "description": "Classic Crayola white"
+        },
+        "Pink": {
+            "rgb": [252, 116, 253],
+            "hex": "#FC74FD",
+            "category": "Pink",
+            "year_introduced": 1903,
+            "description": "Classic Crayola pink"
+        },
+        "Magenta": {
+            "rgb": [246, 100, 175],
+            "hex": "#F664AF",
+            "category": "Pink",
+            "year_introduced": 1949,
+            "description": "Bright magenta pink"
+        },
+        "Cyan": {
+            "rgb": [119, 221, 231],
+            "hex": "#77DDE7",
+            "category": "Blue",
+            "year_introduced": 1949,
+            "description": "Bright cyan blue"
+        },
+        "Sky_Blue": {
+            "rgb": [128, 218, 235],
+            "hex": "#80DAEB",
+            "category": "Blue",
+            "year_introduced": 1949,
+            "description": "Light sky blue"
+        },
+        "Forest_Green": {
+            "rgb": [109, 174, 129],
+            "hex": "#6DAE81",
+            "category": "Green",
+            "year_introduced": 1949,
+            "description": "Deep forest green"
+        },
+        "Sunset_Orange": {
+            "rgb": [253, 94, 83],
+            "hex": "#FD5E53",
+            "category": "Orange",
+            "year_introduced": 1958,
+            "description": "Warm sunset orange"
+        },
+        "Lavender": {
+            "rgb": [252, 180, 213],
+            "hex": "#FCB4D5",
+            "category": "Purple",
+            "year_introduced": 1958,
+            "description": "Light lavender purple"
+        },
+        "Tan": {
+            "rgb": [250, 167, 108],
+            "hex": "#FAA76C",
+            "category": "Brown",
+            "year_introduced": 1958,
+            "description": "Light tan brown"
+        },
+        "Gray": {
+            "rgb": [149, 145, 140],
+            "hex": "#95918C",
+            "category": "Neutral",
+            "year_introduced": 1958,
+            "description": "Medium gray"
+        },
+        "Navy_Blue": {
+            "rgb": [25, 116, 210],
+            "hex": "#1974D2",
+            "category": "Blue",
+            "year_introduced": 1958,
+            "description": "Deep navy blue"
+        },
+        "Aquamarine": {
+            "rgb": [120, 219, 226],
+            "hex": "#78DBE2",
+            "category": "Blue",
+            "year_introduced": 1958,
+            "description": "Blue-green aquamarine"
+        },
+        "Turquoise": {
+            "rgb": [77, 184, 189],
+            "hex": "#4DB8BD",
+            "category": "Blue",
+            "year_introduced": 1958,
+            "description": "Bright turquoise"
+        },
+        "Lime_Green": {
+            "rgb": [50, 205, 50],
+            "hex": "#32CD32",
+            "category": "Green",
+            "year_introduced": 1972,
+            "description": "Bright lime green"
+        },
+        "Maroon": {
+            "rgb": [200, 56, 90],
+            "hex": "#C8385A",
+            "category": "Red",
+            "year_introduced": 1972,
+            "description": "Deep maroon red"
+        },
+        "Violet": {
+            "rgb": [146, 110, 174],
+            "hex": "#926EAE",
+            "category": "Purple",
+            "year_introduced": 1972,
+            "description": "Classic violet purple"
+        },
+        "Gold": {
+            "rgb": [231, 198, 151],
+            "hex": "#E7C697",
+            "category": "Yellow",
+            "year_introduced": 1972,
+            "description": "Metallic gold"
+        },
+        "Silver": {
+            "rgb": [205, 197, 194],
+            "hex": "#CDC5C2",
+            "category": "Gray",
+            "year_introduced": 1972,
+            "description": "Metallic silver"
+        },
+        "Copper": {
+            "rgb": [221, 148, 117],
+            "hex": "#DD9475",
+            "category": "Brown",
+            "year_introduced": 1972,
+            "description": "Metallic copper"
+        },
+        "Peach": {
+            "rgb": [255, 203, 164],
+            "hex": "#FFCBA4",
+            "category": "Orange",
+            "year_introduced": 1972,
+            "description": "Soft peach color"
+        },
+        "Apricot": {
+            "rgb": [253, 217, 181],
+            "hex": "#FDD9B5",
+            "category": "Orange",
+            "year_introduced": 1972,
+            "description": "Light apricot orange"
+        },
+        "Salmon": {
+            "rgb": [255, 155, 170],
+            "hex": "#FF9BAA",
+            "category": "Pink",
+            "year_introduced": 1972,
+            "description": "Pink salmon color"
+        },
+        "Hot_Pink": {
+            "rgb": [255, 105, 180],
+            "hex": "#FF69B4",
+            "category": "Pink",
+            "year_introduced": 1972,
+            "description": "Bright hot pink"
+        },
+        "Orchid": {
+            "rgb": [230, 168, 215],
+            "hex": "#E6A8D7",
+            "category": "Purple",
+            "year_introduced": 1972,
+            "description": "Light orchid purple"
+        },
+        "Plum": {
+            "rgb": [142, 69, 133],
+            "hex": "#8E4585",
+            "category": "Purple",
+            "year_introduced": 1972,
+            "description": "Deep plum purple"
+        },
+        "Indigo": {
+            "rgb": [93, 118, 203],
+            "hex": "#5D76CB",
+            "category": "Blue",
+            "year_introduced": 1972,
+            "description": "Deep indigo blue"
+        },
+        "Cornflower": {
+            "rgb": [154, 206, 235],
+            "hex": "#9ACEEB",
+            "category": "Blue",
+            "year_introduced": 1972,
+            "description": "Light cornflower blue"
+        },
+        "Periwinkle": {
+            "rgb": [197, 208, 230],
+            "hex": "#C5D0E6",
+            "category": "Blue",
+            "year_introduced": 1972,
+            "description": "Light periwinkle blue"
+        },
+        "Sea_Green": {
+            "rgb": [147, 223, 184],
+            "hex": "#93DFB8",
+            "category": "Green",
+            "year_introduced": 1972,
+            "description": "Light sea green"
+        },
+        "Spring_Green": {
+            "rgb": [236, 234, 190],
+            "hex": "#ECEABE",
+            "category": "Green",
+            "year_introduced": 1972,
+            "description": "Light spring green"
+        },
+        "Yellow_Green": {
+            "rgb": [197, 227, 132],
+            "hex": "#C5E384",
+            "category": "Green",
+            "year_introduced": 1972,
+            "description": "Yellow-tinted green"
+        },
+        "Olive_Green": {
+            "rgb": [181, 179, 92],
+            "hex": "#B5B35C",
+            "category": "Green",
+            "year_introduced": 1972,
+            "description": "Muted olive green"
+        },
+        "Pine_Green": {
+            "rgb": [21, 128, 120],
+            "hex": "#158078",
+            "category": "Green",
+            "year_introduced": 1972,
+            "description": "Dark pine green"
+        },
+        "Jungle_Green": {
+            "rgb": [59, 176, 143],
+            "hex": "#3BB08F",
+            "category": "Green",
+            "year_introduced": 1990,
+            "description": "Rich jungle green"
+        },
+        "Cerulean": {
+            "rgb": [29, 172, 214],
+            "hex": "#1DACD6",
+            "category": "Blue",
+            "year_introduced": 1990,
+            "description": "Bright cerulean blue"
+        },
+        "Dandelion": {
+            "rgb": [253, 219, 109],
+            "hex": "#FDDB6D",
+            "category": "Yellow",
+            "year_introduced": 1990,
+            "description": "Bright dandelion yellow"
+        },
+        "Fuchsia": {
+            "rgb": [195, 100, 197],
+            "hex": "#C364C5",
+            "category": "Pink",
+            "year_introduced": 1990,
+            "description": "Bright fuchsia pink"
+        },
+        "Mahogany": {
+            "rgb": [205, 74, 76],
+            "hex": "#CD4A4C",
+            "category": "Brown",
+            "year_introduced": 1990,
+            "description": "Deep mahogany brown"
+        },
+        "Melon": {
+            "rgb": [253, 188, 180],
+            "hex": "#FDBCB4",
+            "category": "Orange",
+            "year_introduced": 1990,
+            "description": "Light melon orange"
+        },
+        "Brick_Red": {
+            "rgb": [203, 65, 84],
+            "hex": "#CB4154",
+            "category": "Red",
+            "year_introduced": 1990,
+            "description": "Deep brick red"
+        },
+        "Burnt_Orange": {
+            "rgb": [255, 127, 73],
+            "hex": "#FF7F49",
+            "category": "Orange",
+            "year_introduced": 1990,
+            "description": "Deep burnt orange"
+        },
+        "Burnt_Sienna": {
+            "rgb": [234, 126, 93],
+            "hex": "#EA7E5D",
+            "category": "Brown",
+            "year_introduced": 1990,
+            "description": "Warm burnt sienna"
+        },
+        "Raw_Sienna": {
+            "rgb": [214, 138, 89],
+            "hex": "#D68A59",
+            "category": "Brown",
+            "year_introduced": 1990,
+            "description": "Natural raw sienna"
+        },
+        "Raw_Umber": {
+            "rgb": [135, 129, 107],
+            "hex": "#87816B",
+            "category": "Brown",
+            "year_introduced": 1990,
+            "description": "Dark raw umber"
+        },
+        "Sepia": {
+            "rgb": [165, 105, 79],
+            "hex": "#A5694F",
+            "category": "Brown",
+            "year_introduced": 1990,
+            "description": "Warm sepia brown"
+        }
+    }
+}

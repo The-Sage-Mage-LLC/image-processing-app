@@ -1,0 +1,325 @@
+{
+    "metadata": {
+        "name": "Laboratory and Scientific Colors",
+        "description": "CIE LAB, Munsell, and other scientific color standards for precise color measurement",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 65,
+        "sources": [
+            "CIE International Commission on Illumination",
+            "Munsell Color System",
+            "Scientific Color Standards",
+            "Laboratory Color References"
+        ]
+    },
+    "colors": {
+        "CIE_Illuminant_A": {
+            "name": "CIE Illuminant A",
+            "rgb": [255, 180, 107],
+            "hex": "#FFB46B",
+            "lab": [73.9, 15.7, 45.2],
+            "category": "Reference White",
+            "description": "Incandescent lamp light (2856K)"
+        },
+        "CIE_Illuminant_C": {
+            "name": "CIE Illuminant C",
+            "rgb": [255, 255, 255],
+            "hex": "#FFFFFF",
+            "lab": [100.0, 0.0, 0.0],
+            "category": "Reference White",
+            "description": "Average daylight (6774K)"
+        },
+        "CIE_Illuminant_D50": {
+            "name": "CIE Illuminant D50",
+            "rgb": [255, 255, 241],
+            "hex": "#FFFFF1",
+            "lab": [100.0, -1.3, 2.6],
+            "category": "Reference White",
+            "description": "Horizon daylight (5003K)"
+        },
+        "CIE_Illuminant_D65": {
+            "name": "CIE Illuminant D65",
+            "rgb": [255, 255, 255],
+            "hex": "#FFFFFF",
+            "lab": [100.0, 0.0, 0.0],
+            "category": "Reference White",
+            "description": "Noon daylight (6504K)"
+        },
+        "Lab_Red": {
+            "name": "LAB Pure Red",
+            "rgb": [255, 0, 0],
+            "hex": "#FF0000",
+            "lab": [53.2, 80.1, 67.2],
+            "category": "LAB Primary",
+            "description": "Pure red in LAB color space"
+        },
+        "Lab_Green": {
+            "name": "LAB Pure Green",
+            "rgb": [0, 255, 0],
+            "hex": "#00FF00",
+            "lab": [87.7, -86.2, 83.2],
+            "category": "LAB Primary",
+            "description": "Pure green in LAB color space"
+        },
+        "Lab_Blue": {
+            "name": "LAB Pure Blue",
+            "rgb": [0, 0, 255],
+            "hex": "#0000FF",
+            "lab": [32.3, 79.2, -107.9],
+            "category": "LAB Primary",
+            "description": "Pure blue in LAB color space"
+        },
+        "Lab_Cyan": {
+            "name": "LAB Pure Cyan",
+            "rgb": [0, 255, 255],
+            "hex": "#00FFFF",
+            "lab": [91.1, -48.1, -14.1],
+            "category": "LAB Secondary",
+            "description": "Pure cyan in LAB color space"
+        },
+        "Lab_Magenta": {
+            "name": "LAB Pure Magenta",
+            "rgb": [255, 0, 255],
+            "hex": "#FF00FF",
+            "lab": [60.3, 98.3, -60.8],
+            "category": "LAB Secondary",
+            "description": "Pure magenta in LAB color space"
+        },
+        "Lab_Yellow": {
+            "name": "LAB Pure Yellow",
+            "rgb": [255, 255, 0],
+            "hex": "#FFFF00",
+            "lab": [97.1, -21.6, 94.5],
+            "category": "LAB Secondary",
+            "description": "Pure yellow in LAB color space"
+        },
+        "Munsell_5R_4_14": {
+            "name": "Munsell 5R 4/14",
+            "rgb": [179, 40, 81],
+            "hex": "#B32851",
+            "munsell": "5R 4/14",
+            "category": "Munsell Red",
+            "description": "Medium red at maximum chroma"
+        },
+        "Munsell_5Y_8_12": {
+            "name": "Munsell 5Y 8/12",
+            "rgb": [243, 195, 0],
+            "hex": "#F3C300",
+            "munsell": "5Y 8/12",
+            "category": "Munsell Yellow",
+            "description": "Light yellow at high chroma"
+        },
+        "Munsell_5G_6_12": {
+            "name": "Munsell 5G 6/12",
+            "rgb": [0, 158, 96],
+            "hex": "#009E60",
+            "munsell": "5G 6/12",
+            "category": "Munsell Green",
+            "description": "Medium green at high chroma"
+        },
+        "Munsell_5B_5_12": {
+            "name": "Munsell 5B 5/12",
+            "rgb": [0, 114, 188],
+            "hex": "#0072BC",
+            "munsell": "5B 5/12",
+            "category": "Munsell Blue",
+            "description": "Medium blue at high chroma"
+        },
+        "Munsell_5P_4_12": {
+            "name": "Munsell 5P 4/12",
+            "rgb": [146, 39, 143],
+            "hex": "#92278F",
+            "munsell": "5P 4/12",
+            "category": "Munsell Purple",
+            "description": "Medium purple at high chroma"
+        },
+        "Munsell_N_2": {
+            "name": "Munsell N 2/",
+            "rgb": [51, 51, 51],
+            "hex": "#333333",
+            "munsell": "N 2/",
+            "category": "Munsell Neutral",
+            "description": "Very dark neutral gray"
+        },
+        "Munsell_N_5": {
+            "name": "Munsell N 5/",
+            "rgb": [119, 119, 119],
+            "hex": "#777777",
+            "munsell": "N 5/",
+            "category": "Munsell Neutral",
+            "description": "Medium neutral gray"
+        },
+        "Munsell_N_8": {
+            "name": "Munsell N 8/",
+            "rgb": [200, 200, 200],
+            "hex": "#C8C8C8",
+            "munsell": "N 8/",
+            "category": "Munsell Neutral",
+            "description": "Light neutral gray"
+        },
+        "Scientific_Chrome_Yellow": {
+            "name": "Chrome Yellow",
+            "rgb": [255, 167, 0],
+            "hex": "#FFA700",
+            "category": "Pigment",
+            "description": "Lead chromate pigment yellow"
+        },
+        "Scientific_Ultramarine": {
+            "name": "Ultramarine Blue",
+            "rgb": [65, 102, 245],
+            "hex": "#4166F5",
+            "category": "Pigment",
+            "description": "Sodium aluminum silicate blue"
+        },
+        "Scientific_Cadmium_Red": {
+            "name": "Cadmium Red",
+            "rgb": [227, 0, 34],
+            "hex": "#E30022",
+            "category": "Pigment",
+            "description": "Cadmium selenide red pigment"
+        },
+        "Scientific_Viridian": {
+            "name": "Viridian Green",
+            "rgb": [64, 130, 109],
+            "hex": "#40826D",
+            "category": "Pigment",
+            "description": "Chromium oxide green"
+        },
+        "Scientific_Cobalt_Blue": {
+            "name": "Cobalt Blue",
+            "rgb": [0, 71, 171],
+            "hex": "#0047AB",
+            "category": "Pigment",
+            "description": "Cobalt aluminum oxide blue"
+        },
+        "Standard_Spectrum_Red": {
+            "name": "Spectrum Red",
+            "rgb": [255, 0, 0],
+            "hex": "#FF0000",
+            "wavelength": 700,
+            "category": "Spectral",
+            "description": "700nm wavelength red light"
+        },
+        "Standard_Spectrum_Orange": {
+            "name": "Spectrum Orange",
+            "rgb": [255, 165, 0],
+            "hex": "#FFA500",
+            "wavelength": 590,
+            "category": "Spectral",
+            "description": "590nm wavelength orange light"
+        },
+        "Standard_Spectrum_Yellow": {
+            "name": "Spectrum Yellow",
+            "rgb": [255, 255, 0],
+            "hex": "#FFFF00",
+            "wavelength": 570,
+            "category": "Spectral",
+            "description": "570nm wavelength yellow light"
+        },
+        "Standard_Spectrum_Green": {
+            "name": "Spectrum Green",
+            "rgb": [0, 255, 0],
+            "hex": "#00FF00",
+            "wavelength": 510,
+            "category": "Spectral",
+            "description": "510nm wavelength green light"
+        },
+        "Standard_Spectrum_Blue": {
+            "name": "Spectrum Blue",
+            "rgb": [0, 0, 255],
+            "hex": "#0000FF",
+            "wavelength": 475,
+            "category": "Spectral",
+            "description": "475nm wavelength blue light"
+        },
+        "Standard_Spectrum_Violet": {
+            "name": "Spectrum Violet",
+            "rgb": [138, 43, 226],
+            "hex": "#8A2BE2",
+            "wavelength": 380,
+            "category": "Spectral",
+            "description": "380nm wavelength violet light"
+        },
+        "Blackbody_3000K": {
+            "name": "Blackbody 3000K",
+            "rgb": [255, 180, 107],
+            "hex": "#FFB46B",
+            "temperature": 3000,
+            "category": "Temperature",
+            "description": "3000K blackbody radiation color"
+        },
+        "Blackbody_4000K": {
+            "name": "Blackbody 4000K",
+            "rgb": [255, 209, 163],
+            "hex": "#FFD1A3",
+            "temperature": 4000,
+            "category": "Temperature",
+            "description": "4000K blackbody radiation color"
+        },
+        "Blackbody_5000K": {
+            "name": "Blackbody 5000K",
+            "rgb": [255, 228, 206],
+            "hex": "#FFE4CE",
+            "temperature": 5000,
+            "category": "Temperature",
+            "description": "5000K blackbody radiation color"
+        },
+        "Blackbody_6500K": {
+            "name": "Blackbody 6500K",
+            "rgb": [255, 255, 255],
+            "hex": "#FFFFFF",
+            "temperature": 6500,
+            "category": "Temperature",
+            "description": "6500K blackbody radiation color"
+        },
+        "Calibration_Red": {
+            "name": "Calibration Red",
+            "rgb": [255, 64, 64],
+            "hex": "#FF4040",
+            "category": "Reference",
+            "description": "Standard red for monitor calibration"
+        },
+        "Calibration_Green": {
+            "name": "Calibration Green",
+            "rgb": [64, 255, 64],
+            "hex": "#40FF40",
+            "category": "Reference",
+            "description": "Standard green for monitor calibration"
+        },
+        "Calibration_Blue": {
+            "name": "Calibration Blue",
+            "rgb": [64, 64, 255],
+            "hex": "#4040FF",
+            "category": "Reference",
+            "description": "Standard blue for monitor calibration"
+        },
+        "Fluorescent_Green": {
+            "name": "Fluorescent Green",
+            "rgb": [57, 255, 20],
+            "hex": "#39FF14",
+            "category": "Fluorescent",
+            "description": "Bright fluorescent green"
+        },
+        "Fluorescent_Pink": {
+            "name": "Fluorescent Pink",
+            "rgb": [255, 20, 147],
+            "hex": "#FF1493",
+            "category": "Fluorescent",
+            "description": "Bright fluorescent pink"
+        },
+        "Fluorescent_Orange": {
+            "name": "Fluorescent Orange",
+            "rgb": [255, 95, 31],
+            "hex": "#FF5F1F",
+            "category": "Fluorescent",
+            "description": "Bright fluorescent orange"
+        },
+        "Fluorescent_Yellow": {
+            "name": "Fluorescent Yellow",
+            "rgb": [255, 255, 20],
+            "hex": "#FFFF14",
+            "category": "Fluorescent",
+            "description": "Bright fluorescent yellow"
+        }
+    }
+}

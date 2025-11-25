@@ -1,0 +1,312 @@
+{
+    "metadata": {
+        "name": "Pantone Color Standards",
+        "description": "Pantone color matching system - industry standard for color communication",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 75,
+        "sources": [
+            "Pantone Color Bridge",
+            "Pantone Formula Guide",
+            "Pantone Fashion, Home + Interiors"
+        ]
+    },
+    "colors": {
+        "Pantone_Red_032": {
+            "name": "Red 032 C",
+            "rgb": [237, 41, 57],
+            "hex": "#ED2939",
+            "pantone_number": "032",
+            "category": "Red",
+            "description": "Classic Pantone red"
+        },
+        "Pantone_Blue_072": {
+            "name": "Blue 072 C",
+            "rgb": [29, 66, 138],
+            "hex": "#1D428A",
+            "pantone_number": "072",
+            "category": "Blue",
+            "description": "Classic Pantone blue"
+        },
+        "Pantone_Yellow_012": {
+            "name": "Yellow 012 C",
+            "rgb": [254, 221, 0],
+            "hex": "#FEDD00",
+            "pantone_number": "012",
+            "category": "Yellow",
+            "description": "Classic Pantone yellow"
+        },
+        "Pantone_Green_354": {
+            "name": "Green 354 C",
+            "rgb": [0, 174, 79],
+            "hex": "#00AE4F",
+            "pantone_number": "354",
+            "category": "Green",
+            "description": "Classic Pantone green"
+        },
+        "Pantone_Orange_021": {
+            "name": "Orange 021 C",
+            "rgb": [255, 88, 0],
+            "hex": "#FF5800",
+            "pantone_number": "021",
+            "category": "Orange",
+            "description": "Classic Pantone orange"
+        },
+        "Pantone_Purple_2685": {
+            "name": "Purple 2685 C",
+            "rgb": [102, 45, 145],
+            "hex": "#662D91",
+            "pantone_number": "2685",
+            "category": "Purple",
+            "description": "Classic Pantone purple"
+        },
+        "Pantone_Pink_212": {
+            "name": "Pink 212 C",
+            "rgb": [242, 101, 170],
+            "hex": "#F265AA",
+            "pantone_number": "212",
+            "category": "Pink",
+            "description": "Classic Pantone pink"
+        },
+        "Pantone_Brown_4695": {
+            "name": "Brown 4695 C",
+            "rgb": [138, 107, 87],
+            "hex": "#8A6B57",
+            "pantone_number": "4695",
+            "category": "Brown",
+            "description": "Classic Pantone brown"
+        },
+        "Pantone_Gray_Cool_Gray_11": {
+            "name": "Cool Gray 11 C",
+            "rgb": [83, 86, 90],
+            "hex": "#53565A",
+            "pantone_number": "Cool Gray 11",
+            "category": "Gray",
+            "description": "Cool-toned gray"
+        },
+        "Pantone_Black_419": {
+            "name": "Black 419 C",
+            "rgb": [77, 79, 83],
+            "hex": "#4D4F53",
+            "pantone_number": "419",
+            "category": "Black",
+            "description": "Rich black with slight color cast"
+        },
+        "Pantone_Reflex_Blue": {
+            "name": "Reflex Blue C",
+            "rgb": [0, 20, 137],
+            "hex": "#001489",
+            "pantone_number": "Reflex Blue",
+            "category": "Blue",
+            "description": "Deep reflex blue"
+        },
+        "Pantone_Process_Blue": {
+            "name": "Process Blue C",
+            "rgb": [0, 174, 239],
+            "hex": "#00AEEF",
+            "pantone_number": "Process Blue",
+            "category": "Blue",
+            "description": "Process printing blue"
+        },
+        "Pantone_Rhodamine_Red": {
+            "name": "Rhodamine Red C",
+            "rgb": [229, 0, 123],
+            "hex": "#E5007B",
+            "pantone_number": "Rhodamine Red",
+            "category": "Red",
+            "description": "Bright rhodamine red"
+        },
+        "Pantone_Rubine_Red": {
+            "name": "Rubine Red C",
+            "rgb": [206, 17, 125],
+            "hex": "#CE117D",
+            "pantone_number": "Rubine Red",
+            "category": "Red",
+            "description": "Deep rubine red"
+        },
+        "Pantone_Warm_Red": {
+            "name": "Warm Red C",
+            "rgb": [247, 66, 88],
+            "hex": "#F74258",
+            "pantone_number": "Warm Red",
+            "category": "Red",
+            "description": "Warm-toned red"
+        },
+        "Pantone_Process_Yellow": {
+            "name": "Process Yellow C",
+            "rgb": [255, 237, 0],
+            "hex": "#FFED00",
+            "pantone_number": "Process Yellow",
+            "category": "Yellow",
+            "description": "Process printing yellow"
+        },
+        "Pantone_Green_C": {
+            "name": "Green C",
+            "rgb": [0, 166, 81],
+            "hex": "#00A651",
+            "pantone_number": "Green",
+            "category": "Green",
+            "description": "Standard Pantone green"
+        },
+        "Pantone_Violet_C": {
+            "name": "Violet C",
+            "rgb": [102, 51, 153],
+            "hex": "#663399",
+            "pantone_number": "Violet",
+            "category": "Purple",
+            "description": "Standard Pantone violet"
+        },
+        "Pantone_1795": {
+            "name": "1795 C",
+            "rgb": [237, 20, 91],
+            "hex": "#ED145B",
+            "pantone_number": "1795",
+            "category": "Red",
+            "description": "Bright magenta-red"
+        },
+        "Pantone_286": {
+            "name": "286 C",
+            "rgb": [0, 45, 114],
+            "hex": "#002D72",
+            "pantone_number": "286",
+            "category": "Blue",
+            "description": "Deep navy blue"
+        },
+        "Pantone_293": {
+            "name": "293 C",
+            "rgb": [0, 119, 200],
+            "hex": "#0077C8",
+            "pantone_number": "293",
+            "category": "Blue",
+            "description": "Bright royal blue"
+        },
+        "Pantone_300": {
+            "name": "300 C",
+            "rgb": [0, 173, 239],
+            "hex": "#00ADEF",
+            "pantone_number": "300",
+            "category": "Blue",
+            "description": "Cyan blue"
+        },
+        "Pantone_347": {
+            "name": "347 C",
+            "rgb": [0, 122, 51],
+            "hex": "#007A33",
+            "pantone_number": "347",
+            "category": "Green",
+            "description": "Forest green"
+        },
+        "Pantone_375": {
+            "name": "375 C",
+            "rgb": [139, 198, 63],
+            "hex": "#8BC63F",
+            "pantone_number": "375",
+            "category": "Green",
+            "description": "Lime green"
+        },
+        "Pantone_Red_186": {
+            "name": "186 C",
+            "rgb": [200, 16, 46],
+            "hex": "#C8102E",
+            "pantone_number": "186",
+            "category": "Red",
+            "description": "Deep red"
+        },
+        "Pantone_Yellow_116": {
+            "name": "116 C",
+            "rgb": [255, 209, 0],
+            "hex": "#FFD100",
+            "pantone_number": "116",
+            "category": "Yellow",
+            "description": "Golden yellow"
+        },
+        "Pantone_Cool_Gray_1": {
+            "name": "Cool Gray 1 C",
+            "rgb": [217, 218, 219],
+            "hex": "#D9DADB",
+            "pantone_number": "Cool Gray 1",
+            "category": "Gray",
+            "description": "Very light cool gray"
+        },
+        "Pantone_Cool_Gray_3": {
+            "name": "Cool Gray 3 C",
+            "rgb": [196, 198, 203],
+            "hex": "#C4C6CB",
+            "pantone_number": "Cool Gray 3",
+            "category": "Gray",
+            "description": "Light cool gray"
+        },
+        "Pantone_Cool_Gray_5": {
+            "name": "Cool Gray 5 C",
+            "rgb": [176, 179, 184],
+            "hex": "#B0B3B8",
+            "pantone_number": "Cool Gray 5",
+            "category": "Gray",
+            "description": "Medium light cool gray"
+        },
+        "Pantone_Cool_Gray_7": {
+            "name": "Cool Gray 7 C",
+            "rgb": [155, 158, 164],
+            "hex": "#9B9EA4",
+            "pantone_number": "Cool Gray 7",
+            "category": "Gray",
+            "description": "Medium cool gray"
+        },
+        "Pantone_Cool_Gray_9": {
+            "name": "Cool Gray 9 C",
+            "rgb": [117, 120, 123],
+            "hex": "#75787B",
+            "pantone_number": "Cool Gray 9",
+            "category": "Gray",
+            "description": "Medium dark cool gray"
+        },
+        "Pantone_Warm_Gray_1": {
+            "name": "Warm Gray 1 C",
+            "rgb": [218, 215, 210],
+            "hex": "#DAD7D2",
+            "pantone_number": "Warm Gray 1",
+            "category": "Gray",
+            "description": "Very light warm gray"
+        },
+        "Pantone_Warm_Gray_3": {
+            "name": "Warm Gray 3 C",
+            "rgb": [199, 194, 186],
+            "hex": "#C7C2BA",
+            "pantone_number": "Warm Gray 3",
+            "category": "Gray",
+            "description": "Light warm gray"
+        },
+        "Pantone_Warm_Gray_5": {
+            "name": "Warm Gray 5 C",
+            "rgb": [179, 172, 161],
+            "hex": "#B3ACA1",
+            "pantone_number": "Warm Gray 5",
+            "category": "Gray",
+            "description": "Medium light warm gray"
+        },
+        "Pantone_Warm_Gray_7": {
+            "name": "Warm Gray 7 C",
+            "rgb": [156, 147, 133],
+            "hex": "#9C9385",
+            "pantone_number": "Warm Gray 7",
+            "category": "Gray",
+            "description": "Medium warm gray"
+        },
+        "Pantone_Warm_Gray_9": {
+            "name": "Warm Gray 9 C",
+            "rgb": [121, 110, 101],
+            "hex": "#796E65",
+            "pantone_number": "Warm Gray 9",
+            "category": "Gray",
+            "description": "Medium dark warm gray"
+        },
+        "Pantone_Warm_Gray_11": {
+            "name": "Warm Gray 11 C",
+            "rgb": [82, 72, 62],
+            "hex": "#52483E",
+            "pantone_number": "Warm Gray 11",
+            "category": "Gray",
+            "description": "Dark warm gray"
+        }
+    }
+}

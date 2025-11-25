@@ -1,0 +1,856 @@
+{
+    "metadata": {
+        "name": "X11 Color Names",
+        "description": "X11 color name standards for computer graphics and web development",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 140,
+        "sources": [
+            "X Window System",
+            "Unix Color Database",
+            "X11 rgb.txt"
+        ]
+    },
+    "colors": {
+        "AliceBlue": {
+            "rgb": [240, 248, 255],
+            "hex": "#F0F8FF",
+            "category": "Blue",
+            "description": "A pale blue color"
+        },
+        "AntiqueWhite": {
+            "rgb": [250, 235, 215],
+            "hex": "#FAEBD7",
+            "category": "White",
+            "description": "An off-white color with warm undertones"
+        },
+        "Aqua": {
+            "rgb": [0, 255, 255],
+            "hex": "#00FFFF",
+            "category": "Cyan",
+            "description": "Pure cyan water color"
+        },
+        "Aquamarine": {
+            "rgb": [127, 255, 212],
+            "hex": "#7FFFD4",
+            "category": "Green",
+            "description": "Blue-green gemstone color"
+        },
+        "Azure": {
+            "rgb": [240, 255, 255],
+            "hex": "#F0FFFF",
+            "category": "Blue",
+            "description": "Very light blue"
+        },
+        "Beige": {
+            "rgb": [245, 245, 220],
+            "hex": "#F5F5DC",
+            "category": "Brown",
+            "description": "Light grayish yellow"
+        },
+        "Bisque": {
+            "rgb": [255, 228, 196],
+            "hex": "#FFE4C4",
+            "category": "Orange",
+            "description": "Light orange-pink"
+        },
+        "Black": {
+            "rgb": [0, 0, 0],
+            "hex": "#000000",
+            "category": "Black",
+            "description": "Pure black"
+        },
+        "BlanchedAlmond": {
+            "rgb": [255, 235, 205],
+            "hex": "#FFEBCD",
+            "category": "Orange",
+            "description": "Very light orange"
+        },
+        "Blue": {
+            "rgb": [0, 0, 255],
+            "hex": "#0000FF",
+            "category": "Blue",
+            "description": "Pure blue"
+        },
+        "BlueViolet": {
+            "rgb": [138, 43, 226],
+            "hex": "#8A2BE2",
+            "category": "Purple",
+            "description": "Blue-tinted violet"
+        },
+        "Brown": {
+            "rgb": [165, 42, 42],
+            "hex": "#A52A2A",
+            "category": "Brown",
+            "description": "Dark reddish brown"
+        },
+        "BurlyWood": {
+            "rgb": [222, 184, 135],
+            "hex": "#DEB887",
+            "category": "Brown",
+            "description": "Light brown wood color"
+        },
+        "CadetBlue": {
+            "rgb": [95, 158, 160],
+            "hex": "#5F9EA0",
+            "category": "Blue",
+            "description": "Grayish blue"
+        },
+        "Chartreuse": {
+            "rgb": [127, 255, 0],
+            "hex": "#7FFF00",
+            "category": "Green",
+            "description": "Bright yellow-green"
+        },
+        "Chocolate": {
+            "rgb": [210, 105, 30],
+            "hex": "#D2691E",
+            "category": "Brown",
+            "description": "Medium brown"
+        },
+        "Coral": {
+            "rgb": [255, 127, 80],
+            "hex": "#FF7F50",
+            "category": "Orange",
+            "description": "Pinkish orange"
+        },
+        "CornflowerBlue": {
+            "rgb": [100, 149, 237],
+            "hex": "#6495ED",
+            "category": "Blue",
+            "description": "Medium blue"
+        },
+        "Cornsilk": {
+            "rgb": [255, 248, 220],
+            "hex": "#FFF8DC",
+            "category": "Yellow",
+            "description": "Very light yellow"
+        },
+        "Crimson": {
+            "rgb": [220, 20, 60],
+            "hex": "#DC143C",
+            "category": "Red",
+            "description": "Deep red"
+        },
+        "Cyan": {
+            "rgb": [0, 255, 255],
+            "hex": "#00FFFF",
+            "category": "Cyan",
+            "description": "Pure cyan"
+        },
+        "DarkBlue": {
+            "rgb": [0, 0, 139],
+            "hex": "#00008B",
+            "category": "Blue",
+            "description": "Dark blue"
+        },
+        "DarkCyan": {
+            "rgb": [0, 139, 139],
+            "hex": "#008B8B",
+            "category": "Cyan",
+            "description": "Dark cyan"
+        },
+        "DarkGoldenRod": {
+            "rgb": [184, 134, 11],
+            "hex": "#B8860B",
+            "category": "Yellow",
+            "description": "Dark golden yellow"
+        },
+        "DarkGray": {
+            "rgb": [169, 169, 169],
+            "hex": "#A9A9A9",
+            "category": "Gray",
+            "description": "Dark gray"
+        },
+        "DarkGreen": {
+            "rgb": [0, 100, 0],
+            "hex": "#006400",
+            "category": "Green",
+            "description": "Dark green"
+        },
+        "DarkKhaki": {
+            "rgb": [189, 183, 107],
+            "hex": "#BDB76B",
+            "category": "Yellow",
+            "description": "Dark khaki"
+        },
+        "DarkMagenta": {
+            "rgb": [139, 0, 139],
+            "hex": "#8B008B",
+            "category": "Purple",
+            "description": "Dark magenta"
+        },
+        "DarkOliveGreen": {
+            "rgb": [85, 107, 47],
+            "hex": "#556B2F",
+            "category": "Green",
+            "description": "Dark olive green"
+        },
+        "DarkOrange": {
+            "rgb": [255, 140, 0],
+            "hex": "#FF8C00",
+            "category": "Orange",
+            "description": "Dark orange"
+        },
+        "DarkOrchid": {
+            "rgb": [153, 50, 204],
+            "hex": "#9932CC",
+            "category": "Purple",
+            "description": "Dark orchid purple"
+        },
+        "DarkRed": {
+            "rgb": [139, 0, 0],
+            "hex": "#8B0000",
+            "category": "Red",
+            "description": "Dark red"
+        },
+        "DarkSalmon": {
+            "rgb": [233, 150, 122],
+            "hex": "#E9967A",
+            "category": "Orange",
+            "description": "Dark salmon"
+        },
+        "DarkSeaGreen": {
+            "rgb": [143, 188, 143],
+            "hex": "#8FBC8F",
+            "category": "Green",
+            "description": "Dark sea green"
+        },
+        "DarkSlateBlue": {
+            "rgb": [72, 61, 139],
+            "hex": "#483D8B",
+            "category": "Blue",
+            "description": "Dark slate blue"
+        },
+        "DarkSlateGray": {
+            "rgb": [47, 79, 79],
+            "hex": "#2F4F4F",
+            "category": "Gray",
+            "description": "Dark slate gray"
+        },
+        "DarkTurquoise": {
+            "rgb": [0, 206, 209],
+            "hex": "#00CED1",
+            "category": "Cyan",
+            "description": "Dark turquoise"
+        },
+        "DarkViolet": {
+            "rgb": [148, 0, 211],
+            "hex": "#9400D3",
+            "category": "Purple",
+            "description": "Dark violet"
+        },
+        "DeepPink": {
+            "rgb": [255, 20, 147],
+            "hex": "#FF1493",
+            "category": "Pink",
+            "description": "Deep pink"
+        },
+        "DeepSkyBlue": {
+            "rgb": [0, 191, 255],
+            "hex": "#00BFFF",
+            "category": "Blue",
+            "description": "Deep sky blue"
+        },
+        "DimGray": {
+            "rgb": [105, 105, 105],
+            "hex": "#696969",
+            "category": "Gray",
+            "description": "Dim gray"
+        },
+        "DodgerBlue": {
+            "rgb": [30, 144, 255],
+            "hex": "#1E90FF",
+            "category": "Blue",
+            "description": "Bright blue"
+        },
+        "FireBrick": {
+            "rgb": [178, 34, 34],
+            "hex": "#B22222",
+            "category": "Red",
+            "description": "Brick red"
+        },
+        "FloralWhite": {
+            "rgb": [255, 250, 240],
+            "hex": "#FFFAF0",
+            "category": "White",
+            "description": "Floral white"
+        },
+        "ForestGreen": {
+            "rgb": [34, 139, 34],
+            "hex": "#228B22",
+            "category": "Green",
+            "description": "Forest green"
+        },
+        "Fuchsia": {
+            "rgb": [255, 0, 255],
+            "hex": "#FF00FF",
+            "category": "Purple",
+            "description": "Bright magenta"
+        },
+        "Gainsboro": {
+            "rgb": [220, 220, 220],
+            "hex": "#DCDCDC",
+            "category": "Gray",
+            "description": "Light gray"
+        },
+        "GhostWhite": {
+            "rgb": [248, 248, 255],
+            "hex": "#F8F8FF",
+            "category": "White",
+            "description": "Very light blue-white"
+        },
+        "Gold": {
+            "rgb": [255, 215, 0],
+            "hex": "#FFD700",
+            "category": "Yellow",
+            "description": "Golden yellow"
+        },
+        "GoldenRod": {
+            "rgb": [218, 165, 32],
+            "hex": "#DAA520",
+            "category": "Yellow",
+            "description": "Goldenrod yellow"
+        },
+        "Gray": {
+            "rgb": [128, 128, 128],
+            "hex": "#808080",
+            "category": "Gray",
+            "description": "Medium gray"
+        },
+        "Green": {
+            "rgb": [0, 128, 0],
+            "hex": "#008000",
+            "category": "Green",
+            "description": "Pure green"
+        },
+        "GreenYellow": {
+            "rgb": [173, 255, 47],
+            "hex": "#ADFF2F",
+            "category": "Green",
+            "description": "Green-yellow"
+        },
+        "HoneyDew": {
+            "rgb": [240, 255, 240],
+            "hex": "#F0FFF0",
+            "category": "Green",
+            "description": "Very light green"
+        },
+        "HotPink": {
+            "rgb": [255, 105, 180],
+            "hex": "#FF69B4",
+            "category": "Pink",
+            "description": "Hot pink"
+        },
+        "IndianRed": {
+            "rgb": [205, 92, 92],
+            "hex": "#CD5C5C",
+            "category": "Red",
+            "description": "Indian red"
+        },
+        "Indigo": {
+            "rgb": [75, 0, 130],
+            "hex": "#4B0082",
+            "category": "Purple",
+            "description": "Deep blue-purple"
+        },
+        "Ivory": {
+            "rgb": [255, 255, 240],
+            "hex": "#FFFFF0",
+            "category": "White",
+            "description": "Ivory white"
+        },
+        "Khaki": {
+            "rgb": [240, 230, 140],
+            "hex": "#F0E68C",
+            "category": "Yellow",
+            "description": "Khaki color"
+        },
+        "Lavender": {
+            "rgb": [230, 230, 250],
+            "hex": "#E6E6FA",
+            "category": "Purple",
+            "description": "Light lavender"
+        },
+        "LavenderBlush": {
+            "rgb": [255, 240, 245],
+            "hex": "#FFF0F5",
+            "category": "Pink",
+            "description": "Lavender blush"
+        },
+        "LawnGreen": {
+            "rgb": [124, 252, 0],
+            "hex": "#7CFC00",
+            "category": "Green",
+            "description": "Bright lawn green"
+        },
+        "LemonChiffon": {
+            "rgb": [255, 250, 205],
+            "hex": "#FFFACD",
+            "category": "Yellow",
+            "description": "Lemon chiffon"
+        },
+        "LightBlue": {
+            "rgb": [173, 216, 230],
+            "hex": "#ADD8E6",
+            "category": "Blue",
+            "description": "Light blue"
+        },
+        "LightCoral": {
+            "rgb": [240, 128, 128],
+            "hex": "#F08080",
+            "category": "Red",
+            "description": "Light coral"
+        },
+        "LightCyan": {
+            "rgb": [224, 255, 255],
+            "hex": "#E0FFFF",
+            "category": "Cyan",
+            "description": "Light cyan"
+        },
+        "LightGoldenRodYellow": {
+            "rgb": [250, 250, 210],
+            "hex": "#FAFAD2",
+            "category": "Yellow",
+            "description": "Light goldenrod yellow"
+        },
+        "LightGray": {
+            "rgb": [211, 211, 211],
+            "hex": "#D3D3D3",
+            "category": "Gray",
+            "description": "Light gray"
+        },
+        "LightGreen": {
+            "rgb": [144, 238, 144],
+            "hex": "#90EE90",
+            "category": "Green",
+            "description": "Light green"
+        },
+        "LightPink": {
+            "rgb": [255, 182, 193],
+            "hex": "#FFB6C1",
+            "category": "Pink",
+            "description": "Light pink"
+        },
+        "LightSalmon": {
+            "rgb": [255, 160, 122],
+            "hex": "#FFA07A",
+            "category": "Orange",
+            "description": "Light salmon"
+        },
+        "LightSeaGreen": {
+            "rgb": [32, 178, 170],
+            "hex": "#20B2AA",
+            "category": "Green",
+            "description": "Light sea green"
+        },
+        "LightSkyBlue": {
+            "rgb": [135, 206, 250],
+            "hex": "#87CEEB",
+            "category": "Blue",
+            "description": "Light sky blue"
+        },
+        "LightSlateGray": {
+            "rgb": [119, 136, 153],
+            "hex": "#778899",
+            "category": "Gray",
+            "description": "Light slate gray"
+        },
+        "LightSteelBlue": {
+            "rgb": [176, 196, 222],
+            "hex": "#B0C4DE",
+            "category": "Blue",
+            "description": "Light steel blue"
+        },
+        "LightYellow": {
+            "rgb": [255, 255, 224],
+            "hex": "#FFFFE0",
+            "category": "Yellow",
+            "description": "Light yellow"
+        },
+        "Lime": {
+            "rgb": [0, 255, 0],
+            "hex": "#00FF00",
+            "category": "Green",
+            "description": "Pure lime green"
+        },
+        "LimeGreen": {
+            "rgb": [50, 205, 50],
+            "hex": "#32CD32",
+            "category": "Green",
+            "description": "Lime green"
+        },
+        "Linen": {
+            "rgb": [250, 240, 230],
+            "hex": "#FAF0E6",
+            "category": "White",
+            "description": "Linen color"
+        },
+        "Magenta": {
+            "rgb": [255, 0, 255],
+            "hex": "#FF00FF",
+            "category": "Purple",
+            "description": "Pure magenta"
+        },
+        "Maroon": {
+            "rgb": [128, 0, 0],
+            "hex": "#800000",
+            "category": "Red",
+            "description": "Dark red"
+        },
+        "MediumAquaMarine": {
+            "rgb": [102, 205, 170],
+            "hex": "#66CDAA",
+            "category": "Green",
+            "description": "Medium aquamarine"
+        },
+        "MediumBlue": {
+            "rgb": [0, 0, 205],
+            "hex": "#0000CD",
+            "category": "Blue",
+            "description": "Medium blue"
+        },
+        "MediumOrchid": {
+            "rgb": [186, 85, 211],
+            "hex": "#BA55D3",
+            "category": "Purple",
+            "description": "Medium orchid"
+        },
+        "MediumPurple": {
+            "rgb": [147, 112, 219],
+            "hex": "#9370DB",
+            "category": "Purple",
+            "description": "Medium purple"
+        },
+        "MediumSeaGreen": {
+            "rgb": [60, 179, 113],
+            "hex": "#3CB371",
+            "category": "Green",
+            "description": "Medium sea green"
+        },
+        "MediumSlateBlue": {
+            "rgb": [123, 104, 238],
+            "hex": "#7B68EE",
+            "category": "Blue",
+            "description": "Medium slate blue"
+        },
+        "MediumSpringGreen": {
+            "rgb": [0, 250, 154],
+            "hex": "#00FA9A",
+            "category": "Green",
+            "description": "Medium spring green"
+        },
+        "MediumTurquoise": {
+            "rgb": [72, 209, 204],
+            "hex": "#48D1CC",
+            "category": "Cyan",
+            "description": "Medium turquoise"
+        },
+        "MediumVioletRed": {
+            "rgb": [199, 21, 133],
+            "hex": "#C71585",
+            "category": "Purple",
+            "description": "Medium violet red"
+        },
+        "MidnightBlue": {
+            "rgb": [25, 25, 112],
+            "hex": "#191970",
+            "category": "Blue",
+            "description": "Midnight blue"
+        },
+        "MintCream": {
+            "rgb": [245, 255, 250],
+            "hex": "#F5FFFA",
+            "category": "Green",
+            "description": "Mint cream"
+        },
+        "MistyRose": {
+            "rgb": [255, 228, 225],
+            "hex": "#FFE4E1",
+            "category": "Pink",
+            "description": "Misty rose"
+        },
+        "Moccasin": {
+            "rgb": [255, 228, 181],
+            "hex": "#FFE4B5",
+            "category": "Orange",
+            "description": "Moccasin color"
+        },
+        "NavajoWhite": {
+            "rgb": [255, 222, 173],
+            "hex": "#FFDEAD",
+            "category": "Orange",
+            "description": "Navajo white"
+        },
+        "Navy": {
+            "rgb": [0, 0, 128],
+            "hex": "#000080",
+            "category": "Blue",
+            "description": "Navy blue"
+        },
+        "OldLace": {
+            "rgb": [253, 245, 230],
+            "hex": "#FDF5E6",
+            "category": "White",
+            "description": "Old lace"
+        },
+        "Olive": {
+            "rgb": [128, 128, 0],
+            "hex": "#808000",
+            "category": "Green",
+            "description": "Olive color"
+        },
+        "OliveDrab": {
+            "rgb": [107, 142, 35],
+            "hex": "#6B8E23",
+            "category": "Green",
+            "description": "Olive drab"
+        },
+        "Orange": {
+            "rgb": [255, 165, 0],
+            "hex": "#FFA500",
+            "category": "Orange",
+            "description": "Pure orange"
+        },
+        "OrangeRed": {
+            "rgb": [255, 69, 0],
+            "hex": "#FF4500",
+            "category": "Red",
+            "description": "Orange red"
+        },
+        "Orchid": {
+            "rgb": [218, 112, 214],
+            "hex": "#DA70D6",
+            "category": "Purple",
+            "description": "Orchid color"
+        },
+        "PaleGoldenRod": {
+            "rgb": [238, 232, 170],
+            "hex": "#EEE8AA",
+            "category": "Yellow",
+            "description": "Pale goldenrod"
+        },
+        "PaleGreen": {
+            "rgb": [152, 251, 152],
+            "hex": "#98FB98",
+            "category": "Green",
+            "description": "Pale green"
+        },
+        "PaleTurquoise": {
+            "rgb": [175, 238, 238],
+            "hex": "#AFEEEE",
+            "category": "Cyan",
+            "description": "Pale turquoise"
+        },
+        "PaleVioletRed": {
+            "rgb": [219, 112, 147],
+            "hex": "#DB7093",
+            "category": "Purple",
+            "description": "Pale violet red"
+        },
+        "PapayaWhip": {
+            "rgb": [255, 239, 213],
+            "hex": "#FFEFD5",
+            "category": "Orange",
+            "description": "Papaya whip"
+        },
+        "PeachPuff": {
+            "rgb": [255, 218, 185],
+            "hex": "#FFDAB9",
+            "category": "Orange",
+            "description": "Peach puff"
+        },
+        "Peru": {
+            "rgb": [205, 133, 63],
+            "hex": "#CD853F",
+            "category": "Brown",
+            "description": "Peru brown"
+        },
+        "Pink": {
+            "rgb": [255, 192, 203],
+            "hex": "#FFC0CB",
+            "category": "Pink",
+            "description": "Pure pink"
+        },
+        "Plum": {
+            "rgb": [221, 160, 221],
+            "hex": "#DDA0DD",
+            "category": "Purple",
+            "description": "Plum color"
+        },
+        "PowderBlue": {
+            "rgb": [176, 224, 230],
+            "hex": "#B0E0E6",
+            "category": "Blue",
+            "description": "Powder blue"
+        },
+        "Purple": {
+            "rgb": [128, 0, 128],
+            "hex": "#800080",
+            "category": "Purple",
+            "description": "Pure purple"
+        },
+        "Red": {
+            "rgb": [255, 0, 0],
+            "hex": "#FF0000",
+            "category": "Red",
+            "description": "Pure red"
+        },
+        "RosyBrown": {
+            "rgb": [188, 143, 143],
+            "hex": "#BC8F8F",
+            "category": "Brown",
+            "description": "Rosy brown"
+        },
+        "RoyalBlue": {
+            "rgb": [65, 105, 225],
+            "hex": "#4169E1",
+            "category": "Blue",
+            "description": "Royal blue"
+        },
+        "SaddleBrown": {
+            "rgb": [139, 69, 19],
+            "hex": "#8B4513",
+            "category": "Brown",
+            "description": "Saddle brown"
+        },
+        "Salmon": {
+            "rgb": [250, 128, 114],
+            "hex": "#FA8072",
+            "category": "Orange",
+            "description": "Salmon color"
+        },
+        "SandyBrown": {
+            "rgb": [244, 164, 96],
+            "hex": "#F4A460",
+            "category": "Brown",
+            "description": "Sandy brown"
+        },
+        "SeaGreen": {
+            "rgb": [46, 139, 87],
+            "hex": "#2E8B57",
+            "category": "Green",
+            "description": "Sea green"
+        },
+        "SeaShell": {
+            "rgb": [255, 245, 238],
+            "hex": "#FFF5EE",
+            "category": "White",
+            "description": "Seashell color"
+        },
+        "Sienna": {
+            "rgb": [160, 82, 45],
+            "hex": "#A0522D",
+            "category": "Brown",
+            "description": "Sienna brown"
+        },
+        "Silver": {
+            "rgb": [192, 192, 192],
+            "hex": "#C0C0C0",
+            "category": "Gray",
+            "description": "Silver color"
+        },
+        "SkyBlue": {
+            "rgb": [135, 206, 235],
+            "hex": "#87CEEB",
+            "category": "Blue",
+            "description": "Sky blue"
+        },
+        "SlateBlue": {
+            "rgb": [106, 90, 205],
+            "hex": "#6A5ACD",
+            "category": "Blue",
+            "description": "Slate blue"
+        },
+        "SlateGray": {
+            "rgb": [112, 128, 144],
+            "hex": "#708090",
+            "category": "Gray",
+            "description": "Slate gray"
+        },
+        "Snow": {
+            "rgb": [255, 250, 250],
+            "hex": "#FFFAFA",
+            "category": "White",
+            "description": "Snow white"
+        },
+        "SpringGreen": {
+            "rgb": [0, 255, 127],
+            "hex": "#00FF7F",
+            "category": "Green",
+            "description": "Spring green"
+        },
+        "SteelBlue": {
+            "rgb": [70, 130, 180],
+            "hex": "#4682B4",
+            "category": "Blue",
+            "description": "Steel blue"
+        },
+        "Tan": {
+            "rgb": [210, 180, 140],
+            "hex": "#D2B48C",
+            "category": "Brown",
+            "description": "Tan color"
+        },
+        "Teal": {
+            "rgb": [0, 128, 128],
+            "hex": "#008080",
+            "category": "Cyan",
+            "description": "Teal color"
+        },
+        "Thistle": {
+            "rgb": [216, 191, 216],
+            "hex": "#D8BFD8",
+            "category": "Purple",
+            "description": "Thistle color"
+        },
+        "Tomato": {
+            "rgb": [255, 99, 71],
+            "hex": "#FF6347",
+            "category": "Red",
+            "description": "Tomato red"
+        },
+        "Turquoise": {
+            "rgb": [64, 224, 208],
+            "hex": "#40E0D0",
+            "category": "Cyan",
+            "description": "Turquoise color"
+        },
+        "Violet": {
+            "rgb": [238, 130, 238],
+            "hex": "#EE82EE",
+            "category": "Purple",
+            "description": "Violet color"
+        },
+        "Wheat": {
+            "rgb": [245, 222, 179],
+            "hex": "#F5DEB3",
+            "category": "Brown",
+            "description": "Wheat color"
+        },
+        "White": {
+            "rgb": [255, 255, 255],
+            "hex": "#FFFFFF",
+            "category": "White",
+            "description": "Pure white"
+        },
+        "WhiteSmoke": {
+            "rgb": [245, 245, 245],
+            "hex": "#F5F5F5",
+            "category": "White",
+            "description": "White smoke"
+        },
+        "Yellow": {
+            "rgb": [255, 255, 0],
+            "hex": "#FFFF00",
+            "category": "Yellow",
+            "description": "Pure yellow"
+        },
+        "YellowGreen": {
+            "rgb": [154, 205, 50],
+            "hex": "#9ACD32",
+            "category": "Green",
+            "description": "Yellow green"
+        }
+    }
+}

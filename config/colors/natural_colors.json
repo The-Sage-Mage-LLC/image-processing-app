@@ -1,0 +1,365 @@
+{
+    "metadata": {
+        "name": "Natural Color References",
+        "description": "Colors inspired by nature - earth, sky, plants, minerals, and natural phenomena",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 85,
+        "sources": [
+            "Natural Color Institute",
+            "Geological Color References",
+            "Botanical Color Standards",
+            "Astronomical Color References"
+        ]
+    },
+    "colors": {
+        "Sky_Blue": {
+            "rgb": [135, 206, 250],
+            "hex": "#87CEEB",
+            "category": "Sky",
+            "description": "Clear daytime sky color"
+        },
+        "Ocean_Blue": {
+            "rgb": [0, 119, 190],
+            "hex": "#0077BE",
+            "category": "Water",
+            "description": "Deep ocean water color"
+        },
+        "Sea_Foam": {
+            "rgb": [159, 226, 191],
+            "hex": "#9FE2BF",
+            "category": "Water",
+            "description": "Light sea foam color"
+        },
+        "Grass_Green": {
+            "rgb": [124, 252, 0],
+            "hex": "#7CFC00",
+            "category": "Plant",
+            "description": "Fresh grass green"
+        },
+        "Forest_Green": {
+            "rgb": [34, 139, 34],
+            "hex": "#228B22",
+            "category": "Plant",
+            "description": "Deep forest canopy green"
+        },
+        "Leaf_Green": {
+            "rgb": [50, 205, 50],
+            "hex": "#32CD32",
+            "category": "Plant",
+            "description": "Fresh leaf green"
+        },
+        "Moss_Green": {
+            "rgb": [173, 223, 173],
+            "hex": "#ADDFAD",
+            "category": "Plant",
+            "description": "Soft moss green"
+        },
+        "Earth_Brown": {
+            "rgb": [139, 69, 19],
+            "hex": "#8B4513",
+            "category": "Earth",
+            "description": "Rich earth soil brown"
+        },
+        "Clay_Brown": {
+            "rgb": [153, 102, 51],
+            "hex": "#996633",
+            "category": "Earth",
+            "description": "Natural clay brown"
+        },
+        "Sand_Beige": {
+            "rgb": [244, 164, 96],
+            "hex": "#F4A460",
+            "category": "Earth",
+            "description": "Beach sand color"
+        },
+        "Desert_Sand": {
+            "rgb": [237, 201, 175],
+            "hex": "#EDC9AF",
+            "category": "Earth",
+            "description": "Desert sand color"
+        },
+        "Stone_Gray": {
+            "rgb": [128, 128, 128],
+            "hex": "#808080",
+            "category": "Stone",
+            "description": "Natural stone gray"
+        },
+        "Granite_Gray": {
+            "rgb": [83, 83, 83],
+            "hex": "#535353",
+            "category": "Stone",
+            "description": "Dark granite color"
+        },
+        "Limestone_Cream": {
+            "rgb": [240, 234, 214],
+            "hex": "#F0EAD6",
+            "category": "Stone",
+            "description": "Light limestone cream"
+        },
+        "Slate_Blue": {
+            "rgb": [106, 90, 205],
+            "hex": "#6A5ACD",
+            "category": "Stone",
+            "description": "Natural slate blue"
+        },
+        "Sunset_Orange": {
+            "rgb": [255, 94, 77],
+            "hex": "#FF5E4D",
+            "category": "Sky",
+            "description": "Sunset orange glow"
+        },
+        "Sunrise_Pink": {
+            "rgb": [255, 182, 193],
+            "hex": "#FFB6C1",
+            "category": "Sky",
+            "description": "Dawn sunrise pink"
+        },
+        "Storm_Gray": {
+            "rgb": [64, 64, 64],
+            "hex": "#404040",
+            "category": "Sky",
+            "description": "Storm cloud gray"
+        },
+        "Snow_White": {
+            "rgb": [255, 250, 250],
+            "hex": "#FFFAFA",
+            "category": "Weather",
+            "description": "Pure snow white"
+        },
+        "Ice_Blue": {
+            "rgb": [176, 224, 230],
+            "hex": "#B0E0E6",
+            "category": "Weather",
+            "description": "Glacial ice blue"
+        },
+        "Coal_Black": {
+            "rgb": [36, 36, 36],
+            "hex": "#242424",
+            "category": "Mineral",
+            "description": "Deep coal black"
+        },
+        "Iron_Rust": {
+            "rgb": [183, 65, 14],
+            "hex": "#B7410E",
+            "category": "Mineral",
+            "description": "Iron oxide rust color"
+        },
+        "Gold_Ore": {
+            "rgb": [255, 215, 0],
+            "hex": "#FFD700",
+            "category": "Mineral",
+            "description": "Natural gold color"
+        },
+        "Silver_Ore": {
+            "rgb": [192, 192, 192],
+            "hex": "#C0C0C0",
+            "category": "Mineral",
+            "description": "Natural silver color"
+        },
+        "Copper_Ore": {
+            "rgb": [184, 115, 51],
+            "hex": "#B87333",
+            "category": "Mineral",
+            "description": "Natural copper color"
+        },
+        "Rose_Red": {
+            "rgb": [255, 0, 127],
+            "hex": "#FF007F",
+            "category": "Flower",
+            "description": "Red rose color"
+        },
+        "Violet_Purple": {
+            "rgb": [138, 43, 226],
+            "hex": "#8A2BE2",
+            "category": "Flower",
+            "description": "Violet flower purple"
+        },
+        "Sunflower_Yellow": {
+            "rgb": [255, 218, 185],
+            "hex": "#FFDAB9",
+            "category": "Flower",
+            "description": "Sunflower petal yellow"
+        },
+        "Lavender_Purple": {
+            "rgb": [230, 230, 250],
+            "hex": "#E6E6FA",
+            "category": "Flower",
+            "description": "Lavender flower purple"
+        },
+        "Tulip_Red": {
+            "rgb": [220, 20, 60],
+            "hex": "#DC143C",
+            "category": "Flower",
+            "description": "Red tulip color"
+        },
+        "Daffodil_Yellow": {
+            "rgb": [255, 255, 49],
+            "hex": "#FFFF31",
+            "category": "Flower",
+            "description": "Bright daffodil yellow"
+        },
+        "Bark_Brown": {
+            "rgb": [101, 67, 33],
+            "hex": "#654321",
+            "category": "Tree",
+            "description": "Tree bark brown"
+        },
+        "Oak_Brown": {
+            "rgb": [150, 111, 51],
+            "hex": "#966F33",
+            "category": "Tree",
+            "description": "Oak wood brown"
+        },
+        "Pine_Needle": {
+            "rgb": [1, 121, 111],
+            "hex": "#01796F",
+            "category": "Tree",
+            "description": "Pine needle green"
+        },
+        "Autumn_Red": {
+            "rgb": [213, 70, 70],
+            "hex": "#D54646",
+            "category": "Seasonal",
+            "description": "Autumn leaf red"
+        },
+        "Autumn_Orange": {
+            "rgb": [255, 140, 0],
+            "hex": "#FF8C00",
+            "category": "Seasonal",
+            "description": "Autumn leaf orange"
+        },
+        "Autumn_Yellow": {
+            "rgb": [238, 203, 173],
+            "hex": "#EECBAD",
+            "category": "Seasonal",
+            "description": "Autumn leaf yellow"
+        },
+        "Spring_Green": {
+            "rgb": [0, 255, 127],
+            "hex": "#00FF7F",
+            "category": "Seasonal",
+            "description": "Fresh spring green"
+        },
+        "Summer_Sky": {
+            "rgb": [56, 176, 222],
+            "hex": "#38B0DE",
+            "category": "Seasonal",
+            "description": "Clear summer sky blue"
+        },
+        "Winter_Blue": {
+            "rgb": [173, 216, 230],
+            "hex": "#ADD8E6",
+            "category": "Seasonal",
+            "description": "Cold winter blue"
+        },
+        "Moonlight_Silver": {
+            "rgb": [211, 211, 211],
+            "hex": "#D3D3D3",
+            "category": "Celestial",
+            "description": "Moonlight silver glow"
+        },
+        "Starlight_White": {
+            "rgb": [248, 248, 255],
+            "hex": "#F8F8FF",
+            "category": "Celestial",
+            "description": "Starlight white"
+        },
+        "Aurora_Green": {
+            "rgb": [78, 238, 148],
+            "hex": "#4EEE94",
+            "category": "Celestial",
+            "description": "Aurora borealis green"
+        },
+        "Aurora_Purple": {
+            "rgb": [123, 104, 238],
+            "hex": "#7B68EE",
+            "category": "Celestial",
+            "description": "Aurora borealis purple"
+        },
+        "Coral_Pink": {
+            "rgb": [240, 128, 128],
+            "hex": "#F08080",
+            "category": "Marine",
+            "description": "Living coral pink"
+        },
+        "Seaweed_Green": {
+            "rgb": [46, 139, 87],
+            "hex": "#2E8B57",
+            "category": "Marine",
+            "description": "Underwater seaweed green"
+        },
+        "Pearl_White": {
+            "rgb": [240, 234, 214],
+            "hex": "#F0EAD6",
+            "category": "Marine",
+            "description": "Natural pearl luster"
+        },
+        "Shell_Pink": {
+            "rgb": [255, 192, 203],
+            "hex": "#FFC0CB",
+            "category": "Marine",
+            "description": "Seashell pink"
+        },
+        "Driftwood_Gray": {
+            "rgb": [188, 143, 143],
+            "hex": "#BC8F8F",
+            "category": "Marine",
+            "description": "Weathered driftwood gray"
+        },
+        "Cactus_Green": {
+            "rgb": [99, 154, 0],
+            "hex": "#639A00",
+            "category": "Desert",
+            "description": "Desert cactus green"
+        },
+        "Desert_Rose": {
+            "rgb": [193, 84, 193],
+            "hex": "#C154C1",
+            "category": "Desert",
+            "description": "Desert rose mineral color"
+        },
+        "Sandstone_Tan": {
+            "rgb": [210, 180, 140],
+            "hex": "#D2B48C",
+            "category": "Desert",
+            "description": "Sandstone formation color"
+        },
+        "Oasis_Blue": {
+            "rgb": [0, 206, 209],
+            "hex": "#00CED1",
+            "category": "Desert",
+            "description": "Desert oasis water blue"
+        },
+        "Mountain_Gray": {
+            "rgb": [105, 105, 105],
+            "hex": "#696969",
+            "category": "Mountain",
+            "description": "Mountain peak gray"
+        },
+        "Alpine_Snow": {
+            "rgb": [250, 250, 250],
+            "hex": "#FAFAFA",
+            "category": "Mountain",
+            "description": "Alpine snow white"
+        },
+        "Valley_Green": {
+            "rgb": [107, 142, 35],
+            "hex": "#6B8E23",
+            "category": "Mountain",
+            "description": "Mountain valley green"
+        },
+        "Mist_Gray": {
+            "rgb": [220, 220, 220],
+            "hex": "#DCDCDC",
+            "category": "Weather",
+            "description": "Morning mist gray"
+        },
+        "Rain_Cloud": {
+            "rgb": [72, 72, 72],
+            "hex": "#484848",
+            "category": "Weather",
+            "description": "Dark rain cloud color"
+        }
+    }
+}

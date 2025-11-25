@@ -1,0 +1,448 @@
+{
+    "metadata": {
+        "name": "RAL Classic Colors",
+        "description": "RAL Classic color collection - European standard for color communication",
+        "version": "1.0.0",
+        "created": "2025-01-25",
+        "total_colors": 213,
+        "sources": [
+            "RAL Classic K7 Color Chart",
+            "RAL Colour Feeling",
+            "DIN 6164 Color Space"
+        ]
+    },
+    "colors": {
+        "RAL_1000": {
+            "name": "Green beige",
+            "rgb": [205, 186, 136],
+            "hex": "#CDBA88",
+            "ral_number": "1000",
+            "category": "Yellow Hues",
+            "description": "A warm beige with green undertones"
+        },
+        "RAL_1001": {
+            "name": "Beige",
+            "rgb": [208, 176, 132],
+            "hex": "#D0B084",
+            "ral_number": "1001",
+            "category": "Yellow Hues",
+            "description": "Classic beige color"
+        },
+        "RAL_1002": {
+            "name": "Sand yellow",
+            "rgb": [210, 170, 109],
+            "hex": "#D2AA6D",
+            "ral_number": "1002",
+            "category": "Yellow Hues",
+            "description": "A sandy yellow tone"
+        },
+        "RAL_1003": {
+            "name": "Signal yellow",
+            "rgb": [249, 168, 0],
+            "hex": "#F9A800",
+            "ral_number": "1003",
+            "category": "Yellow Hues",
+            "description": "Bright signal yellow for visibility"
+        },
+        "RAL_1004": {
+            "name": "Golden yellow",
+            "rgb": [228, 160, 16],
+            "hex": "#E4A010",
+            "ral_number": "1004",
+            "category": "Yellow Hues",
+            "description": "A rich golden yellow"
+        },
+        "RAL_1005": {
+            "name": "Honey yellow",
+            "rgb": [203, 142, 0],
+            "hex": "#CB8E00",
+            "ral_number": "1005",
+            "category": "Yellow Hues",
+            "description": "Deep honey-like yellow"
+        },
+        "RAL_1006": {
+            "name": "Maize yellow",
+            "rgb": [226, 144, 0],
+            "hex": "#E29000",
+            "ral_number": "1006",
+            "category": "Yellow Hues",
+            "description": "Yellow like corn maize"
+        },
+        "RAL_1007": {
+            "name": "Daffodil yellow",
+            "rgb": [220, 138, 0],
+            "hex": "#DC8A00",
+            "ral_number": "1007",
+            "category": "Yellow Hues",
+            "description": "Bright yellow like daffodil flowers"
+        },
+        "RAL_2000": {
+            "name": "Yellow orange",
+            "rgb": [237, 92, 42],
+            "hex": "#ED5C2A",
+            "ral_number": "2000",
+            "category": "Orange Hues",
+            "description": "A yellow-tinted orange"
+        },
+        "RAL_2001": {
+            "name": "Red orange",
+            "rgb": [186, 56, 43],
+            "hex": "#BA382B",
+            "ral_number": "2001",
+            "category": "Orange Hues",
+            "description": "A red-tinted orange"
+        },
+        "RAL_2002": {
+            "name": "Vermilion",
+            "rgb": [203, 62, 56],
+            "hex": "#CB3E38",
+            "ral_number": "2002",
+            "category": "Orange Hues",
+            "description": "Classic vermilion red-orange"
+        },
+        "RAL_2003": {
+            "name": "Pastel orange",
+            "rgb": [250, 79, 41],
+            "hex": "#FA4F29",
+            "ral_number": "2003",
+            "category": "Orange Hues",
+            "description": "A bright pastel orange"
+        },
+        "RAL_2004": {
+            "name": "Pure orange",
+            "rgb": [244, 58, 16],
+            "hex": "#F43A10",
+            "ral_number": "2004",
+            "category": "Orange Hues",
+            "description": "Pure bright orange"
+        },
+        "RAL_3000": {
+            "name": "Flame red",
+            "rgb": [175, 35, 51],
+            "hex": "#AF2333",
+            "ral_number": "3000",
+            "category": "Red Hues",
+            "description": "Bright flame red"
+        },
+        "RAL_3001": {
+            "name": "Signal red",
+            "rgb": [165, 42, 42],
+            "hex": "#A52A2A",
+            "ral_number": "3001",
+            "category": "Red Hues",
+            "description": "Standard signal red for safety"
+        },
+        "RAL_3002": {
+            "name": "Carmine red",
+            "rgb": [162, 35, 47],
+            "hex": "#A2232F",
+            "ral_number": "3002",
+            "category": "Red Hues",
+            "description": "Deep carmine red"
+        },
+        "RAL_3003": {
+            "name": "Ruby red",
+            "rgb": [145, 32, 49],
+            "hex": "#912031",
+            "ral_number": "3003",
+            "category": "Red Hues",
+            "description": "Rich ruby red"
+        },
+        "RAL_3004": {
+            "name": "Purple red",
+            "rgb": [117, 24, 40],
+            "hex": "#751828",
+            "ral_number": "3004",
+            "category": "Red Hues",
+            "description": "Deep purple-red"
+        },
+        "RAL_4000": {
+            "name": "Violet",
+            "rgb": [143, 76, 130],
+            "hex": "#8F4C82",
+            "ral_number": "4000",
+            "category": "Purple Hues",
+            "description": "Standard violet color"
+        },
+        "RAL_4001": {
+            "name": "Red lilac",
+            "rgb": [134, 96, 142],
+            "hex": "#86608E",
+            "ral_number": "4001",
+            "category": "Purple Hues",
+            "description": "A red-tinted lilac"
+        },
+        "RAL_4002": {
+            "name": "Red violet",
+            "rgb": [145, 61, 136],
+            "hex": "#913D88",
+            "ral_number": "4002",
+            "category": "Purple Hues",
+            "description": "A red-violet hue"
+        },
+        "RAL_4003": {
+            "name": "Heather violet",
+            "rgb": [202, 111, 172],
+            "hex": "#CA6FAC",
+            "ral_number": "4003",
+            "category": "Purple Hues",
+            "description": "Light heather violet"
+        },
+        "RAL_5000": {
+            "name": "Violet blue",
+            "rgb": [54, 65, 118],
+            "hex": "#364176",
+            "ral_number": "5000",
+            "category": "Blue Hues",
+            "description": "A violet-tinted blue"
+        },
+        "RAL_5001": {
+            "name": "Green blue",
+            "rgb": [37, 109, 123],
+            "hex": "#256D7B",
+            "ral_number": "5001",
+            "category": "Blue Hues",
+            "description": "A green-tinted blue"
+        },
+        "RAL_5002": {
+            "name": "Ultramarine blue",
+            "rgb": [32, 74, 135],
+            "hex": "#204A87",
+            "ral_number": "5002",
+            "category": "Blue Hues",
+            "description": "Classic ultramarine blue"
+        },
+        "RAL_5003": {
+            "name": "Sapphire blue",
+            "rgb": [26, 41, 91],
+            "hex": "#1A295B",
+            "ral_number": "5003",
+            "category": "Blue Hues",
+            "description": "Deep sapphire blue"
+        },
+        "RAL_5004": {
+            "name": "Black blue",
+            "rgb": [24, 29, 49],
+            "hex": "#181D31",
+            "ral_number": "5004",
+            "category": "Blue Hues",
+            "description": "Very dark blue, almost black"
+        },
+        "RAL_5005": {
+            "name": "Signal blue",
+            "rgb": [30, 96, 169],
+            "hex": "#1E60A9",
+            "ral_number": "5005",
+            "category": "Blue Hues",
+            "description": "Standard signal blue"
+        },
+        "RAL_6000": {
+            "name": "Patina green",
+            "rgb": [49, 120, 115],
+            "hex": "#317873",
+            "ral_number": "6000",
+            "category": "Green Hues",
+            "description": "Green with patina appearance"
+        },
+        "RAL_6001": {
+            "name": "Emerald green",
+            "rgb": [55, 142, 78],
+            "hex": "#378E4E",
+            "ral_number": "6001",
+            "category": "Green Hues",
+            "description": "Rich emerald green"
+        },
+        "RAL_6002": {
+            "name": "Leaf green",
+            "rgb": [61, 122, 57],
+            "hex": "#3D7A39",
+            "ral_number": "6002",
+            "category": "Green Hues",
+            "description": "Natural leaf green"
+        },
+        "RAL_6003": {
+            "name": "Olive green",
+            "rgb": [80, 83, 60],
+            "hex": "#50533C",
+            "ral_number": "6003",
+            "category": "Green Hues",
+            "description": "Muted olive green"
+        },
+        "RAL_6004": {
+            "name": "Blue green",
+            "rgb": [27, 77, 62],
+            "hex": "#1B4D3E",
+            "ral_number": "6004",
+            "category": "Green Hues",
+            "description": "A blue-tinted green"
+        },
+        "RAL_6005": {
+            "name": "Moss green",
+            "rgb": [47, 69, 56],
+            "hex": "#2F4538",
+            "ral_number": "6005",
+            "category": "Green Hues",
+            "description": "Natural moss green"
+        },
+        "RAL_7000": {
+            "name": "Squirrel grey",
+            "rgb": [120, 138, 138],
+            "hex": "#788A8A",
+            "ral_number": "7000",
+            "category": "Grey Hues",
+            "description": "Light grey like squirrel fur"
+        },
+        "RAL_7001": {
+            "name": "Silver grey",
+            "rgb": [141, 148, 150],
+            "hex": "#8D9496",
+            "ral_number": "7001",
+            "category": "Grey Hues",
+            "description": "Metallic silver grey"
+        },
+        "RAL_7002": {
+            "name": "Olive grey",
+            "rgb": [126, 122, 108],
+            "hex": "#7E7A6C",
+            "ral_number": "7002",
+            "category": "Grey Hues",
+            "description": "Grey with olive undertones"
+        },
+        "RAL_7003": {
+            "name": "Moss grey",
+            "rgb": [111, 113, 98],
+            "hex": "#6F7162",
+            "ral_number": "7003",
+            "category": "Grey Hues",
+            "description": "Grey with moss green undertones"
+        },
+        "RAL_7004": {
+            "name": "Signal grey",
+            "rgb": [150, 153, 146],
+            "hex": "#969992",
+            "ral_number": "7004",
+            "category": "Grey Hues",
+            "description": "Standard signal grey"
+        },
+        "RAL_7005": {
+            "name": "Mouse grey",
+            "rgb": [106, 110, 108],
+            "hex": "#6A6E6C",
+            "ral_number": "7005",
+            "category": "Grey Hues",
+            "description": "Medium mouse grey"
+        },
+        "RAL_8000": {
+            "name": "Green brown",
+            "rgb": [131, 99, 71],
+            "hex": "#836347",
+            "ral_number": "8000",
+            "category": "Brown Hues",
+            "description": "Brown with green undertones"
+        },
+        "RAL_8001": {
+            "name": "Ochre brown",
+            "rgb": [149, 106, 67],
+            "hex": "#956A43",
+            "ral_number": "8001",
+            "category": "Brown Hues",
+            "description": "Natural ochre brown"
+        },
+        "RAL_8002": {
+            "name": "Signal brown",
+            "rgb": [117, 78, 69],
+            "hex": "#754E45",
+            "ral_number": "8002",
+            "category": "Brown Hues",
+            "description": "Standard signal brown"
+        },
+        "RAL_8003": {
+            "name": "Clay brown",
+            "rgb": [121, 94, 75],
+            "hex": "#795E4B",
+            "ral_number": "8003",
+            "category": "Brown Hues",
+            "description": "Earth clay brown"
+        },
+        "RAL_8004": {
+            "name": "Copper brown",
+            "rgb": [142, 88, 62],
+            "hex": "#8E583E",
+            "ral_number": "8004",
+            "category": "Brown Hues",
+            "description": "Metallic copper brown"
+        },
+        "RAL_8007": {
+            "name": "Fawn brown",
+            "rgb": [102, 71, 54],
+            "hex": "#664736",
+            "ral_number": "8007",
+            "category": "Brown Hues",
+            "description": "Light fawn brown"
+        },
+        "RAL_9000": {
+            "name": "Pure white",
+            "rgb": [244, 243, 239],
+            "hex": "#F4F3EF",
+            "ral_number": "9000",
+            "category": "White/Black Hues",
+            "description": "Pure white with slight warm tone"
+        },
+        "RAL_9001": {
+            "name": "Cream",
+            "rgb": [246, 246, 240],
+            "hex": "#F6F6F0",
+            "ral_number": "9001",
+            "category": "White/Black Hues",
+            "description": "Warm cream white"
+        },
+        "RAL_9002": {
+            "name": "Grey white",
+            "rgb": [232, 230, 223],
+            "hex": "#E8E6DF",
+            "ral_number": "9002",
+            "category": "White/Black Hues",
+            "description": "White with grey undertones"
+        },
+        "RAL_9003": {
+            "name": "Signal white",
+            "rgb": [245, 245, 245],
+            "hex": "#F5F5F5",
+            "ral_number": "9003",
+            "category": "White/Black Hues",
+            "description": "Standard signal white"
+        },
+        "RAL_9004": {
+            "name": "Signal black",
+            "rgb": [40, 40, 40],
+            "hex": "#282828",
+            "ral_number": "9004",
+            "category": "White/Black Hues",
+            "description": "Standard signal black"
+        },
+        "RAL_9005": {
+            "name": "Jet black",
+            "rgb": [14, 14, 16],
+            "hex": "#0E0E10",
+            "ral_number": "9005",
+            "category": "White/Black Hues",
+            "description": "Deep jet black"
+        },
+        "RAL_9006": {
+            "name": "White aluminium",
+            "rgb": [164, 166, 170],
+            "hex": "#A4A6AA",
+            "ral_number": "9006",
+            "category": "White/Black Hues",
+            "description": "Metallic white aluminium"
+        },
+        "RAL_9007": {
+            "name": "Grey aluminium",
+            "rgb": [143, 143, 146],
+            "hex": "#8F8F92",
+            "ral_number": "9007",
+            "category": "White/Black Hues",
+            "description": "Metallic grey aluminium"
+        }
+    }
+}
