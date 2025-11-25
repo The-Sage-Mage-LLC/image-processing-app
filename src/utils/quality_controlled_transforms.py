@@ -55,7 +55,7 @@ class QualityControlledTransformBase:
                     self.logger.warning(f"  - {issue}")
             
             self.logger.info(f"Processing: {image_path.name}")
-            self.logger.info(f"  Source: {source_metrics.width_inches:.2f}\"×{source_metrics.height_inches:.2f}\" @ {source_metrics.dpi:.0f} DPI")
+            self.logger.info(f"  Source: {source_metrics.width_inches:.2f}x{source_metrics.height_inches:.2f} @ {source_metrics.dpi:.0f} DPI")
             
             # Apply the transformation
             result = transform_func(image_path, *args, **kwargs)
@@ -105,11 +105,11 @@ class QualityControlledTransformBase:
                     validation = self.quality_manager.validate_output_quality(output_path)
                     
                     if validation['meets_all_constraints']:
-                        self.logger.info(f"? Quality validation PASSED for {output_path.name}")
+                        self.logger.info(f"+ Quality validation PASSED for {output_path.name}")
                         metrics = validation['metrics']
-                        self.logger.info(f"  Output: {metrics['width_inches']:.2f}\"×{metrics['height_inches']:.2f}\" @ {metrics['dpi']:.0f} DPI")
+                        self.logger.info(f"  Output: {metrics['width_inches']:.2f}x{metrics['height_inches']:.2f} @ {metrics['dpi']:.0f} DPI")
                     else:
-                        self.logger.warning(f"? Quality validation FAILED for {output_path.name}")
+                        self.logger.warning(f"! Quality validation FAILED for {output_path.name}")
                         if 'issues' in validation:
                             for issue in validation['issues']:
                                 self.logger.warning(f"  Issue: {issue}")
@@ -131,7 +131,7 @@ class QualityControlledTransformBase:
             else:
                 final_result = optimized_result
             
-            self.logger.info(f"? Processing completed for {image_path.name}")
+            self.logger.info(f"+ Processing completed for {image_path.name}")
             return final_result
             
         except Exception as e:
