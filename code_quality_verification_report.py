@@ -58,7 +58,7 @@ def run_syntax_checks():
     if syntax_issues:
         print("\n?? Files with syntax issues:")
         for file_path in syntax_issues:
-            print(f"   • {file_path}")
+            print(f"   - {file_path}")
     
     return len(syntax_issues) == 0
 
@@ -320,12 +320,12 @@ def generate_quality_report():
     if passed == total:
         print("\n?? SUCCESS: All code quality issues have been resolved!")
         print("\n? CONFIRMED FIXES:")
-        print("   • Unused imports removed or commented")
-        print("   • Unused variables prefixed with underscore")
-        print("   • All Python files have valid syntax")
-        print("   • Modern features are accessible")
-        print("   • Requirements files are valid")
-        print("   • Import statements are correct")
+        print("   - Unused imports removed or commented")
+        print("   - Unused variables prefixed with underscore")
+        print("   - All Python files have valid syntax")
+        print("   - Modern features are accessible")
+        print("   - Requirements files are valid")
+        print("   - Import statements are correct")
         print("\n?? APPLICATION IS READY FOR PRODUCTION!")
         return True
     else:

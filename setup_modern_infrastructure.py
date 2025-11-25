@@ -431,12 +431,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         if self.warnings:
             print(f"\n??  Warnings:")
             for warning in self.warnings:
-                print(f"   • {warning}")
+                print(f"   - {warning}")
         
         if self.errors:
             print(f"\n? Errors:")
             for error in self.errors:
-                print(f"   • {error}")
+                print(f"   - {error}")
         
         print(f"\n?? Infrastructure Enhancements Added:")
         print(f"   ?? pyproject.toml - Modern Python packaging")

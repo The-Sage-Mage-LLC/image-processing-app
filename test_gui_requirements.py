@@ -162,11 +162,11 @@ def verify_specific_requirements():
     print("\nFRAME B REQUIREMENTS:")
     print("? 50% width allocation (implemented via layout stretch factors)")
     print("? Row height allocations:")
-    print("  • Row 1: 7% (ProcessingControlsRow)")
-    print("  • Row 2: 14% (ProcessingDropZone)")
-    print("  • Row 3: 14% (PickupZone)")
-    print("  • Row 4: 7% (MatrixHeaderRow)")
-    print("  • Rows 5-8: 14% each = 56% total (DestinationMatrix)")
+    print("  - Row 1: 7% (ProcessingControlsRow)")
+    print("  - Row 2: 14% (ProcessingDropZone)")
+    print("  - Row 3: 14% (PickupZone)")
+    print("  - Row 4: 7% (MatrixHeaderRow)")
+    print("  - Rows 5-8: 14% each = 56% total (DestinationMatrix)")
     requirements_check.append(("Frame B Requirements", True))
     
     print("\nWINDOW REQUIREMENTS:")
@@ -224,22 +224,22 @@ def main():
     if passed_checks == total_checks:
         print("\nSUCCESS: GUI IMPLEMENTATION FULLY MEETS REQUIREMENTS!")
         print("\nCONFIRMED FEATURES FOR 32\" SAMSUNG MONITOR:")
-        print("• Always maximized window for optimal screen usage")
-        print("• Frame A: 50% width - Windows Explorer with metadata evaluation")
-        print("• Frame B: 50% width - Processing controls and destination matrix")
-        print("• Visual metadata indicators (checkmark = rich, X = poor)")
-        print("• Real-time file statistics display")
-        print("• Drag-and-drop workflow optimization")
-        print("• Proper row height allocations as specified")
-        print("• Multi-select and batch operations")
-        print("• 3x4 destination matrix for organized output")
-        print("• Background metadata evaluation threading")
+        print("- Always maximized window for optimal screen usage")
+        print("- Frame A: 50% width - Windows Explorer with metadata evaluation")
+        print("- Frame B: 50% width - Processing controls and destination matrix")
+        print("- Visual metadata indicators (checkmark = rich, X = poor)")
+        print("- Real-time file statistics display")
+        print("- Drag-and-drop workflow optimization")
+        print("- Proper row height allocations as specified")
+        print("- Multi-select and batch operations")
+        print("- 3x4 destination matrix for organized output")
+        print("- Background metadata evaluation threading")
         print("\nDISPLAY OPTIMIZATION:")
-        print("• Target Resolution: 1920x1080 (Full HD)")
-        print("• Aspect Ratio: 16:9 (Samsung LS32CM502EKXKR)")
-        print("• Display Size: 32\" (81.3cm)")
-        print("• Layout: Frame A (~16\") | Frame B (~16\")")
-        print("• Height: ~18\" full screen utilization")
+        print("- Target Resolution: 1920x1080 (Full HD)")
+        print("- Aspect Ratio: 16:9 (Samsung LS32CM502EKXKR)")
+        print("- Display Size: 32\" (81.3cm)")
+        print("- Layout: Frame A (~16\") | Frame B (~16\")")
+        print("- Height: ~18\" full screen utilization")
         
         print("\nREADY FOR PRODUCTION USE!")
         return True
@@ -248,7 +248,7 @@ def main():
         failed_checks = [name for name, result in all_results if not result]
         print("Failed checks:")
         for check in failed_checks:
-            print(f"  • {check}")
+            print(f"  - {check}")
         return False
 
 if __name__ == "__main__":

@@ -319,7 +319,7 @@ class CodeQualityFixer:
         if self.fixes_applied:
             print("\nFixes Applied:")
             for fix in self.fixes_applied[:10]:  # Show first 10
-                print(f"  • {fix}")
+                print(f"  - {fix}")
             if len(self.fixes_applied) > 10:
                 print(f"  ... and {len(self.fixes_applied) - 10} more")
         

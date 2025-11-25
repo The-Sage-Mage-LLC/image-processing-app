@@ -495,7 +495,7 @@ class EnterpriseSetupManager:
         if report["recommendations"]:
             print(f"\n?? Recommendations:")
             for rec in report["recommendations"]:
-                print(f"   • {rec}")
+                print(f"   - {rec}")
         
         print(f"\n?? Detailed report: {report_file}")
         

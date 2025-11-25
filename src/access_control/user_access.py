@@ -641,17 +641,17 @@ class UserAccessControl:
             user = self.get_user_by_email(username)
         
         if not user:
-            self.logger.warning(f"Authentication failed: user not found", username=username)
+            self.logger.warning("Authentication failed: user not found", username=username)
             return None
         
         # Check if account is active
         if not user.is_active:
-            self.logger.warning(f"Authentication failed: account disabled", username=username)
+            self.logger.warning("Authentication failed: account disabled", username=username)
             return None
         
         # Check if account is locked
         if user.is_locked:
-            self.logger.warning(f"Authentication failed: account locked", username=username)
+            self.logger.warning("Authentication failed: account locked", username=username)
             return None
         
         # Check failed attempts lockout
@@ -659,7 +659,7 @@ class UserAccessControl:
             # Check if lockout period has expired
             lockout_duration = timedelta(minutes=self.config.account_lockout_duration_minutes)
             if user.last_login and (datetime.now() - user.last_login) < lockout_duration:
-                self.logger.warning(f"Authentication failed: account temporarily locked", username=username)
+                self.logger.warning("Authentication failed: account temporarily locked", username=username)
                 return None
             else:
                 # Reset failed attempts after lockout period
@@ -672,14 +672,14 @@ class UserAccessControl:
             user.failed_login_attempts += 1
             self._store_user(user)
             
-            self.logger.warning(f"Authentication failed: invalid password", 
+            self.logger.warning("Authentication failed: invalid password", 
                                username=username,
                                failed_attempts=user.failed_login_attempts)
             return None
         
         # Check password expiration
         if self.password_manager.is_password_expired(user.password_changed_at):
-            self.logger.warning(f"Authentication failed: password expired", username=username)
+            self.logger.warning("Authentication failed: password expired", username=username)
             return None
         
         # Reset failed login attempts on successful authentication
@@ -692,7 +692,7 @@ class UserAccessControl:
             user, ip_address, user_agent, [AuthenticationMethod.PASSWORD]
         )
         
-        self.logger.info(f"User authenticated successfully", 
+        self.logger.info("User authenticated successfully", 
                         username=username, 
                         session_id=session.session_id)
         
@@ -713,17 +713,17 @@ class UserAccessControl:
         """
         session = self.session_manager.validate_session(session_id)
         if not session:
-            self.logger.warning(f"Authorization failed: invalid session", session_id=session_id)
+            self.logger.warning("Authorization failed: invalid session", session_id=session_id)
             return False
         
         # Check if user has required permission
         if required_permission in session.permissions:
-            self.logger.debug(f"Operation authorized", 
+            self.logger.debug("Operation authorized", 
                              user_id=session.user_id,
                              permission=required_permission.value)
             return True
         
-        self.logger.warning(f"Authorization failed: insufficient permissions",
+        self.logger.warning("Authorization failed: insufficient permissions",
                            user_id=session.user_id,
                            required_permission=required_permission.value)
         return False
@@ -739,12 +739,12 @@ class UserAccessControl:
         # Validate password
         is_valid, errors = self.password_manager.validate_password_complexity(password)
         if not is_valid:
-            self.logger.warning(f"User creation failed: password validation", errors=errors)
+            self.logger.warning("User creation failed: password validation", errors=errors)
             return None
         
         # Check if username/email already exists
         if self.get_user_by_username(username) or self.get_user_by_email(email):
-            self.logger.warning(f"User creation failed: username or email already exists")
+            self.logger.warning("User creation failed: username or email already exists")
             return None
         
         # Create user
@@ -761,7 +761,7 @@ class UserAccessControl:
         )
         
         if self._store_user(user):
-            self.logger.info(f"User created successfully", username=username, role=role.value)
+            self.logger.info("User created successfully", username=username, role=role.value)
             return user
         
         return None
@@ -910,4 +910,4 @@ if __name__ == "__main__":
                 print(f"Can read files: {can_read}")
                 print(f"Can admin system: {can_admin}")
     
-    print("Access control demonstration completed!")    print("Access control demonstration completed!")
+    print("Access control demonstration completed!")

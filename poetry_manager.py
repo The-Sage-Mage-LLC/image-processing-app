@@ -346,12 +346,12 @@ class PoetryManager:
             print("   4. Create environment: poetry_manager.py --setup-env")
         
         print(f"\n?? Poetry Benefits:")
-        print("   • Deterministic dependency resolution")
-        print("   • Separate virtual environment management")
-        print("   • Dependency groups for different environments")
-        print("   • Built-in security scanning")
-        print("   • Simplified packaging and publishing")
-        print("   • Better dependency conflict resolution")
+        print("   - Deterministic dependency resolution")
+        print("   - Separate virtual environment management")
+        print("   - Dependency groups for different environments")
+        print("   - Built-in security scanning")
+        print("   - Simplified packaging and publishing")
+        print("   - Better dependency conflict resolution")
 
 
 def main():

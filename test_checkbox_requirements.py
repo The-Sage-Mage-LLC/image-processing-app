@@ -214,22 +214,22 @@ def main():
     if passed_checks == total_checks:
         print("\n?? SUCCESS: ALL CHECKBOX REQUIREMENTS FULLY IMPLEMENTED!")
         print("\n?? CONFIRMED CHECKBOX BEHAVIORS:")
-        print("• Seven (7) checkboxes in horizontal row (left to right)")
-        print("• Default state: ALL checkboxes unchecked on application start")
-        print("• Checkbox 1 'All': Controls all 6 other checkboxes")
-        print("• Checkbox 2 'BWG': Black and White (grayscale) - Menu item 7")
-        print("• Checkbox 3 'SEP': Sepia-toned - Menu item 8") 
-        print("• Checkbox 4 'PSK': Pencil Sketch - Menu item 9")
-        print("• Checkbox 5 'BK_CLR': Coloring book - Menu item 10")
-        print("• Checkbox 6 'BK_CTD': Connect-the-dots - Menu item 11")
-        print("• Checkbox 7 'BK_CBN': Color-by-numbers - Menu item 12")
+        print("- Seven (7) checkboxes in horizontal row (left to right)")
+        print("- Default state: ALL checkboxes unchecked on application start")
+        print("- Checkbox 1 'All': Controls all 6 other checkboxes")
+        print("- Checkbox 2 'BWG': Black and White (grayscale) - Menu item 7")
+        print("- Checkbox 3 'SEP': Sepia-toned - Menu item 8") 
+        print("- Checkbox 4 'PSK': Pencil Sketch - Menu item 9")
+        print("- Checkbox 5 'BK_CLR': Coloring book - Menu item 10")
+        print("- Checkbox 6 'BK_CTD': Connect-the-dots - Menu item 11")
+        print("- Checkbox 7 'BK_CBN': Color-by-numbers - Menu item 12")
         print("\n?? CONFIRMED INTERACTION BEHAVIORS:")
-        print("• Check 'All' ? Auto-checks all 6 other checkboxes")
-        print("• Uncheck 'All' ? Auto-unchecks all 6 other checkboxes")
-        print("• Check all 6 individually ? Auto-checks 'All' checkbox")
-        print("• Uncheck any individual ? Auto-unchecks 'All' checkbox")
-        print("• Single and multiple selection support ?")
-        print("• Reset to defaults functionality ?")
+        print("- Check 'All' ? Auto-checks all 6 other checkboxes")
+        print("- Uncheck 'All' ? Auto-unchecks all 6 other checkboxes")
+        print("- Check all 6 individually ? Auto-checks 'All' checkbox")
+        print("- Uncheck any individual ? Auto-unchecks 'All' checkbox")
+        print("- Single and multiple selection support ?")
+        print("- Reset to defaults functionality ?")
         
         print("\n? FRAME B ROW 1 REQUIREMENTS: COMPLETELY SATISFIED")
         return True
@@ -238,7 +238,7 @@ def main():
         failed_checks = [name for name, result in results if not result]
         print("Failed requirements:")
         for check in failed_checks:
-            print(f"  • {check}")
+            print(f"  - {check}")
         return False
 
 if __name__ == "__main__":

@@ -388,10 +388,10 @@ if __name__ == "__main__":
     if success:
         print("? EXTERNAL COLOR DICTIONARY ENHANCEMENT: COMPLETE")
         print("\nThe ColorAnalyzer is now fully functional with:")
-        print("  • External JSON color dictionary support")
-        print("  • 8 different color standard databases")
-        print("  • Comprehensive color analysis capabilities")
-        print("  • Robust fallback mechanisms")
+        print("  - External JSON color dictionary support")
+        print("  - 8 different color standard databases")
+        print("  - Comprehensive color analysis capabilities")
+        print("  - Robust fallback mechanisms")
     else:
         print("? EXTERNAL COLOR DICTIONARY ENHANCEMENT: NEEDS FIXES")
         print("\nSome functionality may not be working correctly.")

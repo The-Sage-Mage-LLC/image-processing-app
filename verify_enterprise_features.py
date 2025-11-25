@@ -179,10 +179,10 @@ def verify_enterprise_features():
         print(f"? ALL ENTERPRISE FEATURES ARE SUCCESSFULLY INSTALLED!")
         print(f"?? Your Image Processing Application is now ENTERPRISE-READY with MODERN PATTERNS!")
         print(f"\n?? Next Steps:")
-        print(f"   • Run: python demo_modern_features.py")
-        print(f"   • Test: python run_comprehensive_tests.py")
-        print(f"   • Review: IMPLEMENTATION_SUMMARY.md")
-        print(f"   • Deploy: Follow deployment guide in documentation")
+        print(f"   - Run: python demo_modern_features.py")
+        print(f"   - Test: python run_comprehensive_tests.py")
+        print(f"   - Review: IMPLEMENTATION_SUMMARY.md")
+        print(f"   - Deploy: Follow deployment guide in documentation")
         return True
     else:
         print(f"\n??  SOME FEATURES ARE MISSING")

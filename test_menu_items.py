@@ -195,10 +195,10 @@ def main():
         print("? Menu Item 11: Connect-the-dots (BK_CTD)")
         print("? Menu Item 12: Color-by-numbers (BK_CBN)")
         print("\nAll requirements appear to be met:")
-        print("• Proper folder structure maintenance")
-        print("• Correct file naming conventions")
-        print("• Sequence number handling for duplicates")
-        print("• Configurable settings for advanced features")
+        print("- Proper folder structure maintenance")
+        print("- Correct file naming conventions")
+        print("- Sequence number handling for duplicates")
+        print("- Configurable settings for advanced features")
     else:
         print("? Some components need attention")
         

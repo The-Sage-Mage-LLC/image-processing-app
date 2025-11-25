@@ -53,7 +53,7 @@ class EnterpriseIntegrationSummary:
         
         print("\n?? IMPLEMENTATION STATUS:")
         for feature, status in features.items():
-            print(f"   • {feature}: {status}")
+            print(f"   - {feature}: {status}")
         
         # File structure summary
         print("\n?? NEW FILE STRUCTURE:")
@@ -70,7 +70,7 @@ class EnterpriseIntegrationSummary:
         ]
         
         for file_desc in new_files:
-            print(f"   • {file_desc}")
+            print(f"   - {file_desc}")
         
         # Integration benefits
         print("\n?? ENTERPRISE BENEFITS ACHIEVED:")
@@ -86,7 +86,7 @@ class EnterpriseIntegrationSummary:
         ]
         
         for benefit in benefits:
-            print(f"   • {benefit}")
+            print(f"   - {benefit}")
         
         # Usage examples
         print("\n?? QUICK START EXAMPLES:")
