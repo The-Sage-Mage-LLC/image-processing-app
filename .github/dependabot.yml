@@ -1,0 +1,110 @@
+version: 2
+
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "The-Sage-Mage"
+    assignees:
+      - "The-Sage-Mage"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # Ignore major version updates for stable dependencies
+      - dependency-name: "numpy"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "opencv-python"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "PyQt6*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      # Group related dependencies together
+      ai-ml:
+        patterns:
+          - "torch*"
+          - "transformers"
+          - "ultralytics"
+          - "scikit-*"
+      image-processing:
+        patterns:
+          - "opencv-*"
+          - "Pillow"
+          - "scikit-image"
+          - "piexif"
+      gui:
+        patterns:
+          - "PyQt6*"
+      data-science:
+        patterns:
+          - "numpy"
+          - "pandas"
+          - "scipy"
+          - "matplotlib"
+      dev-tools:
+        patterns:
+          - "pytest*"
+          - "black"
+          - "mypy"
+          - "ruff"
+          - "pre-commit"
+          - "bandit"
+          - "safety"
+      web:
+        patterns:
+          - "fastapi"
+          - "uvicorn"
+          - "websockets"
+          - "jinja2"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "The-Sage-Mage"
+    assignees:
+      - "The-Sage-Mage"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ci/cd"
+
+  # Docker base images
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "The-Sage-Mage"
+    assignees:
+      - "The-Sage-Mage"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "docker"
