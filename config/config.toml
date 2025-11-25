@@ -191,3 +191,25 @@ enable_realtime_alerts = true  # send immediate alerts for critical issues
 enable_performance_benchmarking = true  # compare against performance benchmarks
 enable_trend_analysis = true  # analyze performance trends over time
 monitoring_data_retention = 1000  # keep last N items for analysis
+
+# Add image quality configuration section
+
+[image_quality]
+# Image quality constraints - enforced across ALL transforms
+min_dpi = 256                    # Minimum pixels per inch (higher is better)
+max_dpi = 600                    # Maximum DPI to prevent excessive file sizes
+min_width_inches = 3.0           # Minimum width in inches (greater is better within limits)
+max_width_inches = 19.0          # Maximum width in inches (greater is better within limits)  
+min_height_inches = 3.0          # Minimum height in inches (greater is better within limits)
+max_height_inches = 19.0         # Maximum height in inches (greater is better within limits)
+target_dpi = 300                 # Target DPI for optimal viewing and printing quality
+preserve_aspect_ratio = true     # Maintain aspect ratio to prevent distortion
+prevent_distortion = true        # Ensure no distortion is created or added
+prevent_blur = true              # Ensure no blur is created or added
+optimize_for_printing = true     # Optimize for best image viewing and printing quality
+
+# Quality control settings
+jpeg_quality = 95                # High quality JPEG compression (1-100)
+png_compression = 6              # PNG compression level (0-9)
+enable_quality_validation = true # Validate output meets constraints
+log_quality_metrics = true      # Log detailed quality metrics
