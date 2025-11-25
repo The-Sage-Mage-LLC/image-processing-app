@@ -778,19 +778,11 @@ class ColorAnalyzer:
             self.logger.warning("No color analysis results to save")
             return
         
-        # Apply text processing to all results
-        try:
-            # Import text processor
-            from src.utils.text_processor import text_processor
-        except ImportError:
-            # Fallback if text processor not available
-            self.logger.warning("Text processor not available, skipping text processing")
-            processed_results = analysis_results
-        else:
-            processed_results = []
-            for result in analysis_results:
-                processed = text_processor.process_all_text_fields(result)
-                processed_results.append(processed)
+        # Apply simple text processing without importing text_processor to avoid circular dependencies
+        processed_results = []
+        for result in analysis_results:
+            processed = self._process_text_fields_simple(result)
+            processed_results.append(processed)
         
         # Handle file name collision by appending sequence number
         final_output_path = self._get_unique_filename(output_path)
@@ -838,6 +830,25 @@ class ColorAnalyzer:
             
         except Exception as e:
             self.logger.error(f"Error saving color analysis to CSV: {e}")
+    
+    def _process_text_fields_simple(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Simple text processing without external dependencies."""
+        processed_data = {}
+        
+        for key, value in data.items():
+            if isinstance(value, str) and value:
+                # Basic text cleaning
+                cleaned_value = str(value).strip()
+                # Remove extra spaces
+                cleaned_value = ' '.join(cleaned_value.split())
+                # Basic capitalization for color names
+                if 'color_name' in key.lower():
+                    cleaned_value = cleaned_value.title()
+                processed_data[key] = cleaned_value
+            else:
+                processed_data[key] = value
+        
+        return processed_data
     
     def _get_unique_filename(self, base_path: Path) -> Path:
         """Generate unique filename if base path already exists."""
