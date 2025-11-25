@@ -1,7 +1,8 @@
 """
-Advanced Color Analysis Module with Multiple AI Models
+Advanced Color Analysis Module with External Color Dictionary Support
 Project ID: Image Processing App 20251119
 Created: 2025-11-19 07:08:42 UTC
+Enhanced: 2025-01-25 - Added external JSON color dictionary support and fallback methods
 Author: The-Sage-Mage
 """
 
@@ -11,9 +12,17 @@ from pathlib import Path
 from typing import Dict, Any, List, Tuple, Optional
 import logging
 from datetime import datetime
-from sklearn.cluster import KMeans
 import colorsys
 import math
+import json
+
+# Optional sklearn import
+SKLEARN_AVAILABLE = False
+try:
+    from sklearn.cluster import KMeans
+    SKLEARN_AVAILABLE = True
+except ImportError:
+    SKLEARN_AVAILABLE = False
 
 # Optional import for webcolors
 try:
@@ -24,7 +33,7 @@ except ImportError:
 
 
 class ColorAnalyzer:
-    """Advanced color analysis using multiple AI models and color science."""
+    """Advanced color analysis using multiple AI models and external color dictionaries."""
     
     def __init__(self, config: dict, logger: logging.Logger):
         self.config = config
@@ -33,25 +42,189 @@ class ColorAnalyzer:
         # Number of dominant colors to extract (fixed at 4 as per requirements)
         self.num_colors = 4
         
-        # Initialize color databases
-        self.color_databases = self._initialize_color_databases()
+        # Check sklearn availability
+        if not SKLEARN_AVAILABLE:
+            self.logger.warning("sklearn not available, using fallback color extraction methods")
+        
+        # Initialize color databases from external JSON files
+        self.color_databases = self._initialize_color_databases_from_files()
         
         # Initialize AI models for color analysis
         self._initialize_ai_models()
     
-    def _initialize_color_databases(self) -> Dict[str, Dict[str, Tuple[int, int, int]]]:
-        """Initialize comprehensive color name databases."""
-        databases = {
-            'CSS3': self._get_css3_colors(),
-            'X11': self._get_x11_colors(),
-            'Pantone_Basic': self._get_pantone_basic_colors(),
-            'RAL_Classic': self._get_ral_colors(),
-            'Crayola': self._get_crayola_colors(),
-            'Natural': self._get_natural_colors()
+    def _initialize_color_databases_from_files(self) -> Dict[str, Dict[str, Tuple[int, int, int]]]:
+        """Initialize comprehensive color name databases from external JSON files."""
+        databases = {}
+        
+        # Define color dictionary file mappings
+        color_dict_files = {
+            'CSS3': 'config/colors/css3_colors.json',
+            'X11': 'config/colors/x11_colors.json', 
+            'Pantone': 'config/colors/pantone_colors.json',
+            'RAL_Classic': 'config/colors/ral_classic_colors.json',
+            'Crayola': 'config/colors/crayola_colors.json',
+            'Natural': 'config/colors/natural_colors.json',
+            'ISO': 'config/colors/iso_colors.json',
+            'Lab_Scientific': 'config/colors/lab_scientific_colors.json'
         }
         
-        self.logger.info(f"Initialized {len(databases)} color databases with {sum(len(db) for db in databases.values())} total colors")
+        # Load each color dictionary from JSON files
+        for db_name, file_path in color_dict_files.items():
+            try:
+                colors_dict = self._load_color_dictionary_from_json(file_path, db_name)
+                if colors_dict:
+                    databases[db_name] = colors_dict
+                    self.logger.debug(f"Loaded {len(colors_dict)} colors from {db_name} dictionary")
+                else:
+                    self.logger.warning(f"No colors loaded from {db_name} dictionary ({file_path})")
+            except Exception as e:
+                self.logger.error(f"Failed to load {db_name} color dictionary from {file_path}: {e}")
+                # Fallback to built-in dictionary for critical databases
+                if db_name in ['CSS3', 'X11']:
+                    fallback_dict = self._get_fallback_color_dict(db_name)
+                    if fallback_dict:
+                        databases[db_name] = fallback_dict
+                        self.logger.info(f"Using fallback {db_name} dictionary with {len(fallback_dict)} colors")
+        
+        total_colors = sum(len(db) for db in databases.values())
+        self.logger.info(f"Initialized {len(databases)} color databases with {total_colors} total colors")
+        
+        # Ensure we have at least basic color support
+        if not databases:
+            self.logger.warning("No external color dictionaries loaded, using minimal fallback")
+            databases['Basic'] = self._get_basic_fallback_colors()
+        
         return databases
+    
+    def _load_color_dictionary_from_json(self, file_path: str, db_name: str) -> Optional[Dict[str, Tuple[int, int, int]]]:
+        """
+        Load a color dictionary from a JSON file.
+        
+        Args:
+            file_path: Path to the JSON color dictionary file
+            db_name: Name of the database for logging
+            
+        Returns:
+            Dictionary mapping color names to RGB tuples, or None if error
+        """
+        try:
+            json_file = Path(file_path)
+            if not json_file.exists():
+                self.logger.warning(f"Color dictionary file not found: {file_path}")
+                return None
+            
+            with open(json_file, 'r', encoding='utf-8') as f:
+                color_data = json.load(f)
+            
+            # Validate JSON structure
+            if 'colors' not in color_data:
+                self.logger.error(f"Invalid color dictionary format in {file_path}: missing 'colors' key")
+                return None
+            
+            colors_dict = {}
+            
+            # Parse colors based on the JSON structure
+            for color_key, color_info in color_data['colors'].items():
+                try:
+                    # Handle different JSON structures
+                    if 'rgb' in color_info:
+                        rgb_values = color_info['rgb']
+                        if isinstance(rgb_values, list) and len(rgb_values) >= 3:
+                            # Standard format: "rgb": [r, g, b]
+                            r, g, b = int(rgb_values[0]), int(rgb_values[1]), int(rgb_values[2])
+                            colors_dict[color_key] = (r, g, b)
+                        else:
+                            self.logger.warning(f"Invalid RGB format for {color_key} in {db_name}: {rgb_values}")
+                    else:
+                        self.logger.warning(f"Missing RGB data for {color_key} in {db_name}")
+                        
+                except (ValueError, TypeError, KeyError) as e:
+                    self.logger.warning(f"Error parsing color {color_key} in {db_name}: {e}")
+                    continue
+            
+            # Log metadata if available
+            if 'metadata' in color_data:
+                metadata = color_data['metadata']
+                self.logger.debug(f"Loaded {db_name}: {metadata.get('name', 'Unknown')} "
+                                f"v{metadata.get('version', '?')} with {len(colors_dict)} colors")
+            
+            return colors_dict if colors_dict else None
+            
+        except json.JSONDecodeError as e:
+            self.logger.error(f"JSON decode error in {file_path}: {e}")
+            return None
+        except Exception as e:
+            self.logger.error(f"Unexpected error loading {file_path}: {e}")
+            return None
+    
+    def _get_fallback_color_dict(self, db_name: str) -> Optional[Dict[str, Tuple[int, int, int]]]:
+        """Get fallback built-in color dictionary for critical databases."""
+        if db_name == 'CSS3':
+            return self._get_fallback_css3_colors()
+        elif db_name == 'X11':
+            return self._get_fallback_x11_colors()
+        else:
+            return None
+    
+    def _get_fallback_css3_colors(self) -> Dict[str, Tuple[int, int, int]]:
+        """Get fallback CSS3 color database if external file fails."""
+        if WEBCOLORS_AVAILABLE:
+            try:
+                css_colors = {}
+                for name in webcolors.CSS3_HEX_TO_NAMES.values():
+                    try:
+                        rgb = webcolors.name_to_rgb(name)
+                        css_colors[name] = rgb
+                    except ValueError:
+                        continue
+                return css_colors
+            except Exception:
+                pass
+        
+        # Minimal CSS3 colors fallback
+        return {
+            'red': (255, 0, 0), 'green': (0, 128, 0), 'blue': (0, 0, 255),
+            'yellow': (255, 255, 0), 'cyan': (0, 255, 255), 'magenta': (255, 0, 255),
+            'white': (255, 255, 255), 'black': (0, 0, 0), 'gray': (128, 128, 128),
+            'orange': (255, 165, 0), 'purple': (128, 0, 128), 'pink': (255, 192, 203),
+            'brown': (165, 42, 42), 'navy': (0, 0, 128), 'olive': (128, 128, 0),
+            'lime': (0, 255, 0), 'aqua': (0, 255, 255), 'silver': (192, 192, 192),
+            'maroon': (128, 0, 0), 'teal': (0, 128, 128)
+        }
+    
+    def _get_fallback_x11_colors(self) -> Dict[str, Tuple[int, int, int]]:
+        """Get fallback X11 color database if external file fails."""
+        return {
+            'AliceBlue': (240, 248, 255), 'AntiqueWhite': (250, 235, 215),
+            'Aqua': (0, 255, 255), 'Aquamarine': (127, 255, 212),
+            'Azure': (240, 255, 255), 'Beige': (245, 245, 220),
+            'Bisque': (255, 228, 196), 'BlanchedAlmond': (255, 235, 205),
+            'Blue': (0, 0, 255), 'BlueViolet': (138, 43, 226),
+            'Brown': (165, 42, 42), 'BurlyWood': (222, 184, 135),
+            'CadetBlue': (95, 158, 160), 'Chartreuse': (127, 255, 0),
+            'Chocolate': (210, 105, 30), 'Coral': (255, 127, 80),
+            'CornflowerBlue': (100, 149, 237), 'Cornsilk': (255, 248, 220),
+            'Crimson': (220, 20, 60), 'Cyan': (0, 255, 255),
+            'DarkBlue': (0, 0, 139), 'DarkCyan': (0, 139, 139),
+            'DarkGreen': (0, 100, 0), 'DarkOrange': (255, 140, 0),
+            'DeepPink': (255, 20, 147), 'DeepSkyBlue': (0, 191, 255),
+            'Gold': (255, 215, 0), 'Green': (0, 128, 0),
+            'HotPink': (255, 105, 180), 'Indigo': (75, 0, 130),
+            'Lime': (0, 255, 0), 'Magenta': (255, 0, 255),
+            'Navy': (0, 0, 128), 'Orange': (255, 165, 0),
+            'Pink': (255, 192, 203), 'Purple': (128, 0, 128),
+            'Red': (255, 0, 0), 'Silver': (192, 192, 192),
+            'White': (255, 255, 255), 'Yellow': (255, 255, 0)
+        }
+    
+    def _get_basic_fallback_colors(self) -> Dict[str, Tuple[int, int, int]]:
+        """Get basic color dictionary as absolute fallback."""
+        return {
+            'Red': (255, 0, 0), 'Green': (0, 255, 0), 'Blue': (0, 0, 255),
+            'Yellow': (255, 255, 0), 'Cyan': (0, 255, 255), 'Magenta': (255, 0, 255),
+            'White': (255, 255, 255), 'Black': (0, 0, 0), 'Gray': (128, 128, 128),
+            'Orange': (255, 165, 0), 'Purple': (128, 0, 128), 'Pink': (255, 192, 203)
+        }
     
     def _initialize_ai_models(self):
         """Initialize AI models for enhanced color analysis."""
@@ -110,7 +283,11 @@ class ColorAnalyzer:
             
             # Add summary statistics
             results['total_colors_analyzed'] = len(dominant_colors)
-            results['color_extraction_method'] = 'K-Means + Advanced CV'
+            extraction_method = 'OpenCV + External Dictionaries'
+            if SKLEARN_AVAILABLE:
+                extraction_method = 'K-Means + OpenCV + External Dictionaries'
+            results['color_extraction_method'] = extraction_method
+            results['color_dictionaries_loaded'] = len(self.color_databases)
             
         except Exception as e:
             self.logger.error(f"Error analyzing colors in {image_path}: {e}")
@@ -139,17 +316,20 @@ class ColorAnalyzer:
         else:
             image_resized = image.copy()
         
-        # Method 1: K-Means clustering (primary method)
-        colors_kmeans = self._extract_colors_kmeans(image_resized)
+        if SKLEARN_AVAILABLE:
+            # Method 1: K-Means clustering (primary method)
+            colors_kmeans = self._extract_colors_kmeans(image_resized)
+        else:
+            colors_kmeans = []
         
         # Method 2: Histogram-based analysis (validation)
         colors_histogram = self._extract_colors_histogram(image_resized)
         
-        # Method 3: Quantization-based analysis
-        colors_quantized = self._extract_colors_quantized(image_resized)
+        # Method 3: Quantization-based analysis using OpenCV only
+        colors_quantized = self._extract_colors_quantized_opencv(image_resized)
         
-        # Combine and validate results using ensemble approach
-        final_colors = self._ensemble_color_selection(
+        # Combine and validate results
+        final_colors = self._ensemble_color_selection_safe(
             colors_kmeans, colors_histogram, colors_quantized, image_resized
         )
         
@@ -157,9 +337,13 @@ class ColorAnalyzer:
         if len(final_colors) > 4:
             final_colors = final_colors[:4]
         elif len(final_colors) < 4:
-            # Pad with additional colors from K-means if needed
-            while len(final_colors) < 4 and len(colors_kmeans) > len(final_colors):
-                final_colors.append(colors_kmeans[len(final_colors)])
+            # Pad with additional colors if needed
+            if colors_histogram and len(colors_histogram) > len(final_colors):
+                while len(final_colors) < 4 and len(colors_histogram) > len(final_colors):
+                    final_colors.append(colors_histogram[len(final_colors)])
+            elif colors_quantized and len(colors_quantized) > len(final_colors):
+                while len(final_colors) < 4 and len(colors_quantized) > len(final_colors):
+                    final_colors.append(colors_quantized[len(final_colors)])
         
         # Normalize percentages to sum to 100%
         total_percentage = sum(percentage for _, percentage in final_colors)
@@ -170,7 +354,10 @@ class ColorAnalyzer:
         return final_colors
     
     def _extract_colors_kmeans(self, image: np.ndarray) -> List[Tuple[np.ndarray, float]]:
-        """Extract colors using K-Means clustering."""
+        """Extract colors using K-Means clustering (requires sklearn)."""
+        if not SKLEARN_AVAILABLE:
+            return []
+        
         # Reshape image to list of pixels
         pixels = image.reshape(-1, 3)
         
@@ -227,9 +414,9 @@ class ColorAnalyzer:
         
         return colors
     
-    def _extract_colors_quantized(self, image: np.ndarray) -> List[Tuple[np.ndarray, float]]:
-        """Extract colors using color quantization."""
-        # Quantize image to reduce color space
+    def _extract_colors_quantized_opencv(self, image: np.ndarray) -> List[Tuple[np.ndarray, float]]:
+        """Extract colors using OpenCV-only color quantization (no sklearn)."""
+        # Quantize image to reduce color space using OpenCV kmeans
         data = image.reshape((-1, 3))
         data = np.float32(data)
         
@@ -249,15 +436,19 @@ class ColorAnalyzer:
         result.sort(key=lambda x: x[1], reverse=True)
         return result
     
-    def _ensemble_color_selection(self, colors_kmeans: List, colors_histogram: List, 
-                                 colors_quantized: List, image: np.ndarray) -> List[Tuple[np.ndarray, float]]:
-        """Select best colors using ensemble of methods."""
+    def _ensemble_color_selection_safe(self, colors_kmeans: List, colors_histogram: List, 
+                                      colors_quantized: List, image: np.ndarray) -> List[Tuple[np.ndarray, float]]:
+        """Select best colors using ensemble of methods (safe version)."""
         all_colors = []
         
         # Add all candidate colors
         all_colors.extend(colors_kmeans)
         all_colors.extend(colors_histogram)
         all_colors.extend(colors_quantized)
+        
+        # If no colors found, use simple fallback
+        if not all_colors:
+            return self._extract_colors_simple_fallback(image)
         
         # Remove very similar colors (merge similar ones)
         merged_colors = []
@@ -282,13 +473,43 @@ class ColorAnalyzer:
         # Sort by percentage and take top colors
         merged_colors.sort(key=lambda x: x[1], reverse=True)
         
-        # Validate colors by checking actual presence in image
-        validated_colors = []
-        for color, percentage in merged_colors:
-            if self._validate_color_in_image(color, image):
-                validated_colors.append((color, percentage))
+        return merged_colors
+    
+    def _extract_colors_simple_fallback(self, image: np.ndarray) -> List[Tuple[np.ndarray, float]]:
+        """Simple fallback method to extract colors if all other methods fail."""
+        # Simple approach: sample pixels and find most common colors
+        height, width = image.shape[:2]
         
-        return validated_colors
+        # Sample pixels at regular intervals
+        sample_pixels = []
+        step = max(10, min(width, height) // 20)
+        for y in range(0, height, step):
+            for x in range(0, width, step):
+                sample_pixels.append(image[y, x])
+        
+        # Convert to numpy array
+        sample_pixels = np.array(sample_pixels)
+        
+        # Quantize to reduce color space (simple binning)
+        quantized = sample_pixels // 32 * 32  # Reduce to 8 levels per channel
+        
+        # Find unique colors and their counts
+        unique_colors, counts = np.unique(quantized, axis=0, return_counts=True)
+        
+        # Sort by frequency
+        sorted_indices = np.argsort(counts)[::-1]
+        
+        # Return top 4 colors
+        result = []
+        total_pixels = len(sample_pixels)
+        
+        for i in range(min(4, len(unique_colors))):
+            idx = sorted_indices[i]
+            color = unique_colors[idx].astype(np.float64)
+            percentage = (counts[idx] / total_pixels) * 100
+            result.append((color, percentage))
+        
+        return result
     
     def _validate_color_in_image(self, target_color: np.ndarray, image: np.ndarray) -> bool:
         """Validate that a color appears significantly in the image."""
@@ -303,7 +524,7 @@ class ColorAnalyzer:
     
     def _analyze_single_color_comprehensive(self, rgb: np.ndarray, percentage: float, color_number: int) -> Dict[str, Any]:
         """
-        Perform comprehensive analysis of a single color.
+        Perform comprehensive analysis of a single color using external dictionaries.
         
         Args:
             rgb: RGB color values
@@ -355,6 +576,7 @@ class ColorAnalyzer:
             'ral_color_name': '',
             'crayola_color_name': '',
             'natural_color_name': '',
+            'lab_scientific_color_name': '',
             'web_safe_color': '',
             'color_temperature_k': '',
             'color_family': '',
@@ -376,7 +598,7 @@ class ColorAnalyzer:
         data['cmyk_k'] = k
         data['cmyk_combined'] = f"cmyk({c}%; {m}%; {y}%; {k}%)"
         
-        # Find color names from all databases
+        # Find color names from all loaded external databases
         color_matches = self._find_comprehensive_color_names(r, g, b)
         
         # Assign best matches to fields
@@ -384,19 +606,18 @@ class ColorAnalyzer:
         data['color_name_source'] = color_matches.get('best_source', 'Algorithm')
         data['css3_color_name'] = color_matches.get('CSS3', '')
         data['x11_color_name'] = color_matches.get('X11', '')
-        data['pantone_approximation'] = color_matches.get('Pantone_Basic', '')
+        data['pantone_approximation'] = color_matches.get('Pantone', '')
         data['ral_color_name'] = color_matches.get('RAL_Classic', '')
         data['crayola_color_name'] = color_matches.get('Crayola', '')
         data['natural_color_name'] = color_matches.get('Natural', '')
+        data['lab_scientific_color_name'] = color_matches.get('Lab_Scientific', '')
+        data['iso_color_name'] = color_matches.get('ISO', '')
         
         # Additional color science calculations
         data['web_safe_color'] = self._get_web_safe_color(r, g, b)
         data['color_temperature_k'] = self._estimate_color_temperature(r, g, b)
         data['color_family'] = self._get_color_family(r, g, b)
         data['color_harmony_type'] = self._get_color_harmony_type(h)
-        
-        # ISO color name (simplified approximation)
-        data['iso_color_name'] = self._get_iso_color_approximation(r, g, b)
         
         return data
     
@@ -432,13 +653,13 @@ class ColorAnalyzer:
         return int(c * 100), int(m * 100), int(y * 100), int(k * 100)
     
     def _find_comprehensive_color_names(self, r: int, g: int, b: int) -> Dict[str, str]:
-        """Find color names from all available databases."""
+        """Find color names from all available external databases."""
         matches = {}
         best_name = 'Unknown'
         best_source = 'Algorithm'
         min_distance = float('inf')
         
-        # Check each database
+        # Check each loaded database
         for db_name, color_db in self.color_databases.items():
             match = self._find_nearest_color_in_database(r, g, b, color_db)
             if match:
@@ -545,168 +766,6 @@ class ColorAnalyzer:
         
         return "Unknown"
     
-    def _get_iso_color_approximation(self, r: int, g: int, b: int) -> str:
-        """Get ISO color approximation (simplified)."""
-        # This is a simplified approximation of ISO color standards
-        iso_colors = {
-            'ISO_Red': (255, 0, 0),
-            'ISO_Green': (0, 255, 0),
-            'ISO_Blue': (0, 0, 255),
-            'ISO_Yellow': (255, 255, 0),
-            'ISO_Orange': (255, 165, 0),
-            'ISO_White': (255, 255, 255),
-            'ISO_Black': (0, 0, 0),
-            'ISO_Gray': (128, 128, 128)
-        }
-        
-        min_distance = float('inf')
-        nearest_iso = ''
-        
-        for name, (ir, ig, ib) in iso_colors.items():
-            distance = math.sqrt((r - ir)**2 + (g - ig)**2 + (b - ib)**2)
-            if distance < min_distance:
-                min_distance = distance
-                nearest_iso = name
-        
-        return nearest_iso if min_distance < 150 else ''
-    
-    def _get_css3_colors(self) -> Dict[str, Tuple[int, int, int]]:
-        """Get CSS3 color database."""
-        if WEBCOLORS_AVAILABLE:
-            try:
-                # Use webcolors library if available
-                css_colors = {}
-                for name in webcolors.CSS3_HEX_TO_NAMES.values():
-                    try:
-                        rgb = webcolors.name_to_rgb(name)
-                        css_colors[name] = rgb
-                    except ValueError:
-                        continue
-                return css_colors
-            except Exception:
-                pass
-        
-        # Fallback to comprehensive CSS colors database
-        return {
-            'aliceblue': (240, 248, 255), 'antiquewhite': (250, 235, 215), 'aqua': (0, 255, 255),
-            'aquamarine': (127, 255, 212), 'azure': (240, 255, 255), 'beige': (245, 245, 220),
-            'bisque': (255, 228, 196), 'black': (0, 0, 0), 'blanchedalmond': (255, 235, 205),
-            'blue': (0, 0, 255), 'blueviolet': (138, 43, 226), 'brown': (165, 42, 42),
-            'burlywood': (222, 184, 135), 'cadetblue': (95, 158, 160), 'chartreuse': (127, 255, 0),
-            'chocolate': (210, 105, 30), 'coral': (255, 127, 80), 'cornflowerblue': (100, 149, 237),
-            'cornsilk': (255, 248, 220), 'crimson': (220, 20, 60), 'cyan': (0, 255, 255),
-            'darkblue': (0, 0, 139), 'darkcyan': (0, 139, 139), 'darkgoldenrod': (184, 134, 11),
-            'darkgray': (169, 169, 169), 'darkgreen': (0, 100, 0), 'darkkhaki': (189, 183, 107),
-            'darkmagenta': (139, 0, 139), 'darkolivegreen': (85, 107, 47), 'darkorange': (255, 140, 0),
-            'darkorchid': (153, 50, 204), 'darkred': (139, 0, 0), 'darksalmon': (233, 150, 122),
-            'darkseagreen': (143, 188, 143), 'darkslateblue': (72, 61, 139), 'darkslategray': (47, 79, 79),
-            'darkturquoise': (0, 206, 209), 'darkviolet': (148, 0, 211), 'deeppink': (255, 20, 147),
-            'deepskyblue': (0, 191, 255), 'dimgray': (105, 105, 105), 'dodgerblue': (30, 144, 255),
-            'firebrick': (178, 34, 34), 'floralwhite': (255, 250, 240), 'forestgreen': (34, 139, 34),
-            'fuchsia': (255, 0, 255), 'gainsboro': (220, 220, 220), 'ghostwhite': (248, 248, 255),
-            'gold': (255, 215, 0), 'goldenrod': (218, 165, 32), 'gray': (128, 128, 128),
-            'green': (0, 128, 0), 'greenyellow': (173, 255, 47), 'honeydew': (240, 255, 240),
-            'hotpink': (255, 105, 180), 'indianred': (205, 92, 92), 'indigo': (75, 0, 130),
-            'ivory': (255, 255, 240), 'khaki': (240, 230, 140), 'lavender': (230, 230, 250),
-            'lavenderblush': (255, 240, 245), 'lawngreen': (124, 252, 0), 'lemonchiffon': (255, 250, 205),
-            'lightblue': (173, 216, 230), 'lightcoral': (240, 128, 128), 'lightcyan': (224, 255, 255),
-            'lightgoldenrodyellow': (250, 250, 210), 'lightgray': (211, 211, 211), 'lightgreen': (144, 238, 144),
-            'lightpink': (255, 182, 193), 'lightsalmon': (255, 160, 122), 'lightseagreen': (32, 178, 170),
-            'lightskyblue': (135, 206, 250), 'lightslategray': (119, 136, 153), 'lightsteelblue': (176, 196, 222),
-            'lightyellow': (255, 255, 224), 'lime': (0, 255, 0), 'limegreen': (50, 205, 50),
-            'linen': (250, 240, 230), 'magenta': (255, 0, 255), 'maroon': (128, 0, 0),
-            'mediumaquamarine': (102, 205, 170), 'mediumblue': (0, 0, 205), 'mediumorchid': (186, 85, 211),
-            'mediumpurple': (147, 112, 219), 'mediumseagreen': (60, 179, 113), 'mediumslateblue': (123, 104, 238),
-            'mediumspringgreen': (0, 250, 154), 'mediumturquoise': (72, 209, 204), 'mediumvioletred': (199, 21, 133),
-            'midnightblue': (25, 25, 112), 'mintcream': (245, 255, 250), 'mistyrose': (255, 228, 225),
-            'moccasin': (255, 228, 181), 'navajowhite': (255, 222, 173), 'navy': (0, 0, 128),
-            'oldlace': (253, 245, 230), 'olive': (128, 128, 0), 'olivedrab': (107, 142, 35),
-            'orange': (255, 165, 0), 'orangered': (255, 69, 0), 'orchid': (218, 112, 214),
-            'palegoldenrod': (238, 232, 170), 'palegreen': (152, 251, 152), 'paleturquoise': (175, 238, 238),
-            'palevioletred': (219, 112, 147), 'papayawhip': (255, 239, 213), 'peachpuff': (255, 218, 185),
-            'peru': (205, 133, 63), 'pink': (255, 192, 203), 'plum': (221, 160, 221),
-            'powderblue': (176, 224, 230), 'purple': (128, 0, 128), 'red': (255, 0, 0),
-            'rosybrown': (188, 143, 143), 'royalblue': (65, 105, 225), 'saddlebrown': (139, 69, 19),
-            'salmon': (250, 128, 114), 'sandybrown': (244, 164, 96), 'seagreen': (46, 139, 87),
-            'seashell': (255, 245, 238), 'sienna': (160, 82, 45), 'silver': (192, 192, 192),
-            'skyblue': (135, 206, 235), 'slateblue': (106, 90, 205), 'slategray': (112, 128, 144),
-            'snow': (255, 250, 250), 'springgreen': (0, 255, 127), 'steelblue': (70, 130, 180),
-            'tan': (210, 180, 140), 'teal': (0, 128, 128), 'thistle': (216, 191, 216),
-            'tomato': (255, 99, 71), 'turquoise': (64, 224, 208), 'violet': (238, 130, 238),
-            'wheat': (245, 222, 179), 'white': (255, 255, 255), 'whitesmoke': (245, 245, 245),
-            'yellow': (255, 255, 0), 'yellowgreen': (154, 205, 50)
-        }
-    
-    def _get_x11_colors(self) -> Dict[str, Tuple[int, int, int]]:
-        """Get X11 color database."""
-        return {
-            'AliceBlue': (240, 248, 255), 'AntiqueWhite': (250, 235, 215),
-            'Aqua': (0, 255, 255), 'Aquamarine': (127, 255, 212),
-            'Azure': (240, 255, 255), 'Beige': (245, 245, 220),
-            'Bisque': (255, 228, 196), 'BlanchedAlmond': (255, 235, 205),
-            'BlueViolet': (138, 43, 226), 'BurlyWood': (222, 184, 135),
-            'CadetBlue': (95, 158, 160), 'Chartreuse': (127, 255, 0),
-            'Chocolate': (210, 105, 30), 'Coral': (255, 127, 80),
-            'CornflowerBlue': (100, 149, 237), 'Cornsilk': (255, 248, 220),
-            'Crimson': (220, 20, 60), 'DarkBlue': (0, 0, 139),
-            'DarkGreen': (0, 100, 0), 'DarkOrange': (255, 140, 0),
-            'DeepPink': (255, 20, 147), 'DeepSkyBlue': (0, 191, 255),
-            'DodgerBlue': (30, 144, 255), 'FireBrick': (178, 34, 34),
-            'ForestGreen': (34, 139, 34), 'Gold': (255, 215, 0),
-            'GoldenRod': (218, 165, 32), 'HotPink': (255, 105, 180),
-            'IndianRed': (205, 92, 92), 'Indigo': (75, 0, 130),
-            'Ivory': (255, 255, 240), 'Khaki': (240, 230, 140),
-            'Lavender': (230, 230, 250), 'LemonChiffon': (255, 250, 205),
-            'LightBlue': (173, 216, 230), 'LightGreen': (144, 238, 144),
-            'LightPink': (255, 182, 193), 'LightSalmon': (255, 160, 122),
-            'Lime': (0, 255, 0), 'Maroon': (128, 0, 0), 'Navy': (0, 0, 128),
-            'Olive': (128, 128, 0), 'Pink': (255, 192, 203), 'Plum': (221, 160, 221),
-            'Salmon': (250, 128, 114), 'Silver': (192, 192, 192),
-            'Teal': (0, 128, 128), 'Tomato': (255, 99, 71), 'Turquoise': (64, 224, 208),
-            'Violet': (238, 130, 238), 'Wheat': (245, 222, 179)
-        }
-    
-    def _get_pantone_basic_colors(self) -> Dict[str, Tuple[int, int, int]]:
-        """Get basic Pantone color approximations."""
-        return {
-            'Pantone Red 032': (237, 41, 57), 'Pantone Blue 072': (29, 66, 138),
-            'Pantone Yellow 012': (254, 221, 0), 'Pantone Green 354': (0, 174, 79),
-            'Pantone Orange 021': (255, 88, 0), 'Pantone Purple 2685': (102, 45, 145),
-            'Pantone Pink 212': (242, 101, 170), 'Pantone Brown 4695': (138, 107, 87),
-            'Pantone Gray 423': (200, 201, 203), 'Pantone Black 419': (77, 79, 83)
-        }
-    
-    def _get_ral_colors(self) -> Dict[str, Tuple[int, int, int]]:
-        """Get basic RAL Classic colors."""
-        return {
-            'RAL 1000 Green beige': (205, 186, 136), 'RAL 1001 Beige': (208, 176, 132),
-            'RAL 2000 Yellow orange': (237, 92, 42), 'RAL 2001 Red orange': (186, 56, 43),
-            'RAL 3000 Flame red': (175, 35, 51), 'RAL 3001 Signal red': (165, 42, 42),
-            'RAL 4000 Violet': (143, 76, 130), 'RAL 5000 Violet blue': (54, 65, 118),
-            'RAL 6000 Patina green': (49, 120, 115), 'RAL 7000 Squirrel grey': (120, 138, 138),
-            'RAL 8000 Green brown': (131, 99, 71), 'RAL 9000 Pure white': (244, 243, 239)
-        }
-    
-    def _get_crayola_colors(self) -> Dict[str, Tuple[int, int, int]]:
-        """Get Crayola color database."""
-        return {
-            'Red': (238, 32, 77), 'Yellow': (252, 232, 131), 'Blue': (31, 117, 254),
-            'Green': (0, 204, 120), 'Orange': (255, 117, 56), 'Purple': (146, 110, 174),
-            'Brown': (180, 103, 77), 'Black': (35, 35, 35), 'White': (237, 237, 237),
-            'Pink': (255, 172, 203), 'Sky Blue': (118, 215, 234), 'Forest Green': (95, 167, 119),
-            'Sunset Orange': (253, 94, 83), 'Lavender': (181, 126, 220), 'Tan': (250, 167, 108)
-        }
-    
-    def _get_natural_colors(self) -> Dict[str, Tuple[int, int, int]]:
-        """Get natural color references."""
-        return {
-            'Sky Blue': (135, 206, 250), 'Ocean Blue': (0, 119, 190), 'Grass Green': (124, 252, 0),
-            'Earth Brown': (139, 69, 19), 'Stone Gray': (128, 128, 128), 'Sand Beige': (244, 164, 96),
-            'Sunset Orange': (255, 94, 77), 'Rose Red': (255, 0, 127), 'Violet Purple': (138, 43, 226),
-            'Snow White': (255, 250, 250), 'Coal Black': (36, 36, 36), 'Leaf Green': (50, 205, 50),
-            'Fire Red': (178, 34, 34), 'Sun Yellow': (255, 215, 0), 'Cloud White': (248, 248, 255)
-        }
-    
     def save_color_analysis_to_csv(self, analysis_results: List[Dict[str, Any]], output_path: Path):
         """
         Save color analysis results to CSV with comprehensive text processing and formatting.
@@ -720,12 +779,18 @@ class ColorAnalyzer:
             return
         
         # Apply text processing to all results
-        from ..utils.text_processor import text_processor
-        
-        processed_results = []
-        for result in analysis_results:
-            processed = text_processor.process_all_text_fields(result)
-            processed_results.append(processed)
+        try:
+            # Import text processor
+            from src.utils.text_processor import text_processor
+        except ImportError:
+            # Fallback if text processor not available
+            self.logger.warning("Text processor not available, skipping text processing")
+            processed_results = analysis_results
+        else:
+            processed_results = []
+            for result in analysis_results:
+                processed = text_processor.process_all_text_fields(result)
+                processed_results.append(processed)
         
         # Handle file name collision by appending sequence number
         final_output_path = self._get_unique_filename(output_path)
@@ -798,7 +863,7 @@ class ColorAnalyzer:
     
     def _order_color_csv_fields(self, fields: set) -> List[str]:
         """Order CSV fields logically for color analysis."""
-        # Define field order
+        # Define field order (updated to include new fields from external dictionaries)
         field_order = [
             # Primary key (first)
             ['primary_key'],
@@ -817,8 +882,8 @@ class ColorAnalyzer:
                 'nearest_color_name', 'color_name_source',
                 'css3_color_name', 'x11_color_name', 'pantone_approximation',
                 'ral_color_name', 'crayola_color_name', 'natural_color_name',
-                'iso_color_name', 'web_safe_color', 'color_temperature_k',
-                'color_family', 'color_harmony_type'
+                'lab_scientific_color_name', 'iso_color_name', 'web_safe_color', 
+                'color_temperature_k', 'color_family', 'color_harmony_type'
             ]],
             
             # Color 2 data
@@ -829,8 +894,8 @@ class ColorAnalyzer:
                 'nearest_color_name', 'color_name_source',
                 'css3_color_name', 'x11_color_name', 'pantone_approximation',
                 'ral_color_name', 'crayola_color_name', 'natural_color_name',
-                'iso_color_name', 'web_safe_color', 'color_temperature_k',
-                'color_family', 'color_harmony_type'
+                'lab_scientific_color_name', 'iso_color_name', 'web_safe_color',
+                'color_temperature_k', 'color_family', 'color_harmony_type'
             ]],
             
             # Color 3 data
@@ -841,8 +906,8 @@ class ColorAnalyzer:
                 'nearest_color_name', 'color_name_source',
                 'css3_color_name', 'x11_color_name', 'pantone_approximation',
                 'ral_color_name', 'crayola_color_name', 'natural_color_name',
-                'iso_color_name', 'web_safe_color', 'color_temperature_k',
-                'color_family', 'color_harmony_type'
+                'lab_scientific_color_name', 'iso_color_name', 'web_safe_color',
+                'color_temperature_k', 'color_family', 'color_harmony_type'
             ]],
             
             # Color 4 data
@@ -853,12 +918,12 @@ class ColorAnalyzer:
                 'nearest_color_name', 'color_name_source',
                 'css3_color_name', 'x11_color_name', 'pantone_approximation',
                 'ral_color_name', 'crayola_color_name', 'natural_color_name',
-                'iso_color_name', 'web_safe_color', 'color_temperature_k',
-                'color_family', 'color_harmony_type'
+                'lab_scientific_color_name', 'iso_color_name', 'web_safe_color',
+                'color_temperature_k', 'color_family', 'color_harmony_type'
             ]],
             
-            # Summary fields
-            ['total_colors_analyzed', 'color_extraction_method'],
+            # Summary fields (updated)
+            ['total_colors_analyzed', 'color_extraction_method', 'color_dictionaries_loaded'],
             
             # Analysis timestamp
             ['analysis_timestamp'],
