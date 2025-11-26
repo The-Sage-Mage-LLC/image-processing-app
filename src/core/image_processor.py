@@ -133,75 +133,92 @@ class ImageProcessor:
     
     def _initialize_gpu(self):
         """Initialize GPU/CUDA support if available."""
+        self.gpu_available = False
+        self.torch_gpu_available = False
+        
+        # Check PyTorch CUDA FIRST (most reliable and commonly available)
+        try:
+            import torch
+            if torch.cuda.is_available():
+                device_count = torch.cuda.device_count()
+                current_device = torch.cuda.current_device()
+                device_name = torch.cuda.get_device_name(current_device)
+                cuda_version = torch.version.cuda
+                
+                self.logger.info(f"? PyTorch CUDA available: {device_count} device(s)")
+                self.logger.info(f"  Device: {device_name}")
+                self.logger.info(f"  CUDA Version: {cuda_version}")
+                
+                # Get GPU memory info
+                total_memory = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+                self.logger.info(f"  GPU Memory: {total_memory:.2f} GB")
+                
+                self.torch_gpu_available = True
+                self.gpu_available = True
+                
+                # Set PyTorch to use limited threads for compatibility
+                torch.set_num_threads(1)
+                
+                self.logger.info("GPU acceleration enabled via PyTorch")
+                return  # Success - exit early
+                
+        except ImportError:
+            self.logger.debug("PyTorch not available")
+        except Exception as e:
+            self.logger.debug(f"PyTorch CUDA check failed: {e}")
+        
+        # Fallback: Check OpenCV CUDA (less common, requires special build)
         try:
             # Check if OpenCV was compiled with CUDA support
             if not hasattr(cv2, 'cuda') or not hasattr(cv2.cuda, 'getCudaEnabledDeviceCount'):
-                self.logger.info("OpenCV not compiled with CUDA support - using CPU processing")
-                self.gpu_available = False
+                self.logger.info("OpenCV not compiled with CUDA support")
+                self.logger.info("Using CPU processing (GPU acceleration unavailable)")
                 self.enable_gpu = False
                 return
             
             # Check for CUDA availability with OpenCV
             cuda_device_count = cv2.cuda.getCudaEnabledDeviceCount()
             if cuda_device_count > 0:
-                self.logger.info(f"CUDA enabled devices found: {cuda_device_count}")
+                self.logger.info(f"? OpenCV CUDA devices found: {cuda_device_count}")
                 self.gpu_available = True
                 
                 # Set CUDA device
                 cv2.cuda.setDevice(0)
                 device_info = cv2.cuda.getDevice()
-                self.logger.info(f"Using CUDA device {device_info}")
+                self.logger.info(f"  Using OpenCV CUDA device {device_info}")
                 
-                # Test CUDA functionality with thread safety
+                # Test CUDA functionality
                 try:
-                    # Create a test GPU memory allocation
                     test_gpu_mat = cv2.cuda_GpuMat()
                     test_cpu_mat = np.zeros((100, 100), dtype=np.uint8)
                     test_gpu_mat.upload(test_cpu_mat)
                     test_result = test_gpu_mat.download()
-                    
-                    # Clean up immediately to prevent memory issues
                     del test_gpu_mat, test_cpu_mat, test_result
-                    
-                    self.logger.info("CUDA memory operations test passed")
-                    self.gpu_available = True
+                    self.logger.info("  OpenCV CUDA test passed")
                 except Exception as cuda_test_error:
-                    self.logger.warning(f"CUDA test failed, falling back to CPU: {cuda_test_error}")
+                    self.logger.warning(f"OpenCV CUDA test failed: {cuda_test_error}")
                     self.gpu_available = False
                     self.enable_gpu = False
             else:
-                self.logger.info("No CUDA devices available - using CPU processing")
+                self.logger.info("No OpenCV CUDA devices available")
+                self.logger.info("Using CPU processing (GPU acceleration unavailable)")
                 self.gpu_available = False
                 self.enable_gpu = False
+                
         except AttributeError:
-            # OpenCV doesn't have CUDA module
-            self.logger.info("OpenCV CUDA module not available - using CPU processing")
+            self.logger.info("OpenCV CUDA module not available")
+            self.logger.info("Using CPU processing (GPU acceleration unavailable)")
             self.gpu_available = False
             self.enable_gpu = False
         except Exception as e:
-            self.logger.info(f"GPU not available ({e}) - using CPU processing")
+            self.logger.info(f"OpenCV CUDA check failed: {e}")
+            self.logger.info("Using CPU processing (GPU acceleration unavailable)")
             self.gpu_available = False
             self.enable_gpu = False
-        
-        # Additional check for PyTorch CUDA if available
-        try:
-            import torch
-            if torch.cuda.is_available() and self.enable_gpu:
-                device_count = torch.cuda.device_count()
-                current_device = torch.cuda.current_device()
-                device_name = torch.cuda.get_device_name(current_device)
-                self.logger.info(f"PyTorch CUDA available: {device_count} devices, using {device_name}")
-                self.torch_gpu_available = True
-                
-                # Set PyTorch to use limited threads for compatibility
-                torch.set_num_threads(1)
-            else:
-                self.torch_gpu_available = False
-        except ImportError:
-            self.torch_gpu_available = False
     
     def process_with_progress(self, process_func, items: List[Any], 
-                            description: str, use_parallel: bool = True) -> List[Any]:
+                            description: str, use_parallel: bool = True,
+                            operation_type: str = 'transformation') -> List[Any]:
         """
         Process items with progress bar, comprehensive monitoring, and thread-safe QA/QC.
         
@@ -210,6 +227,7 @@ class ImageProcessor:
             items: List of items to process
             description: Description for progress bar
             use_parallel: Whether to use parallel processing
+            operation_type: Type of operation - 'transformation' (creates files) or 'analysis' (no files)
             
         Returns:
             List of results with comprehensive monitoring
@@ -221,14 +239,15 @@ class ImageProcessor:
         if self.max_workers <= 1:
             use_parallel = False
         
-        # Start comprehensive monitoring
-        self.monitor.start_operation(description, len(items))
+        # Start comprehensive monitoring with correct operation type
+        self.monitor.start_operation(description, len(items), operation_type=operation_type)
         
         self.logger.info(f">> Starting {description} with thread-safe monitoring")
         self.logger.info(f">> Processing {len(items)} items with {self.max_workers if use_parallel else 1} workers (thread-safe mode)")
         
-        # Create progress bar
-        with tqdm(total=len(items), desc=description, unit='file') as pbar:
+        # Create progress bar with ASCII-only characters for Windows compatibility
+        with tqdm(total=len(items), desc=description, unit='file', 
+                 ascii=True, ncols=80) as pbar:
             if use_parallel and self.max_workers > 1:
                 # Thread-safe parallel processing
                 with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
@@ -679,12 +698,13 @@ class ImageProcessor:
         if not hasattr(self, 'blur_detector'):
             self.blur_detector = BlurDetector(self.config, self.logger)
         
-        # Process with progress tracking
+        # Process with progress tracking - THIS IS AN ANALYSIS OPERATION
         results = self.process_with_progress(
             self._process_single_blur_detection,
             image_files,
             "Detecting Blur",
-            use_parallel=True
+            use_parallel=True,
+            operation_type='analysis'
         )
         
         self.logger.info(f"Blur detection completed: {len(results)} images analyzed")
@@ -722,12 +742,13 @@ class ImageProcessor:
         if not hasattr(self, 'metadata_handler'):
             self.metadata_handler = MetadataHandler(self.config, self.logger)
         
-        # Process with progress tracking
+        # Process with progress tracking - THIS IS AN ANALYSIS OPERATION
         results = self.process_with_progress(
             self._process_single_metadata_extraction,
             image_files,
             "Extracting Metadata",
-            use_parallel=True
+            use_parallel=True,
+            operation_type='analysis'
         )
         
         self.logger.info(f"Metadata extraction completed: {len(results)} images processed")
@@ -765,12 +786,13 @@ class ImageProcessor:
         if not hasattr(self, 'caption_generator'):
             self.caption_generator = CaptionGenerator(self.config, self.logger)
         
-        # Process with progress tracking
+        # Process with progress tracking - THIS IS AN ANALYSIS OPERATION
         results = self.process_with_progress(
             self._process_single_caption_generation,
             image_files,
             "Generating Captions",
-            use_parallel=False  # Sequential for AI operations
+            use_parallel=False,  # Sequential for AI operations
+            operation_type='analysis'
         )
         
         self.logger.info(f"Caption generation completed: {len(results)} captions generated")
@@ -804,12 +826,13 @@ class ImageProcessor:
         
         self.logger.info(f"Found {len(image_files)} image files for color analysis")
         
-        # Process with progress tracking
+        # Process with progress tracking - THIS IS AN ANALYSIS OPERATION
         results = self.process_with_progress(
             self._process_single_color_analysis,
             image_files,
             "Analyzing Colors",
-            use_parallel=True
+            use_parallel=True,
+            operation_type='analysis'
         )
         
         self.logger.info(f"Color analysis completed: {len(results)} images analyzed")

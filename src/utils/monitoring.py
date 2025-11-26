@@ -138,9 +138,17 @@ class EnhancedProcessingMonitor:
         except Exception as e:
             self.logger.warning(f"Could not initialize system monitoring: {e}")
     
-    def start_operation(self, operation_name: str, total_items: int):
-        """Start monitoring a new processing operation with enhanced tracking."""
+    def start_operation(self, operation_name: str, total_items: int, operation_type: str = 'transformation'):
+        """
+        Start monitoring a new processing operation with enhanced tracking.
+        
+        Args:
+            operation_name: Name of the operation
+            total_items: Total number of items to process
+            operation_type: Type of operation - 'transformation' (creates files) or 'analysis' (no files)
+        """
         self.current_operation = operation_name
+        self.operation_type = operation_type
         self.total_items = total_items
         self.processed_items = 0
         self.failed_items = 0
@@ -283,7 +291,23 @@ class EnhancedProcessingMonitor:
         
         # DUAL TRACKING LOGIC:
         # - success=True means processing was attempted and returned True
-        # - But actual success = output file exists
+        # - But actual success = output file exists (ONLY FOR TRANSFORMATIONS)
+        
+        # For analysis operations (blur detection, metadata, color analysis),
+        # success is based on completion, not file creation
+        if hasattr(self, 'operation_type') and self.operation_type == 'analysis':
+            # Analysis operation - no file expected
+            if success:
+                self.processed_items += 1
+            else:
+                self.failed_items += 1
+                self.qa_checks['processing_failures'] += 1
+                self._track_error_pattern(file_path, "Analysis failed")
+            # Don't check for file creation
+            qa_time = time.time() - start_qa_time
+            return
+        
+        # For transformation operations, check if file was created
         actual_file_created = success and processed_path and processed_path.exists()
         
         # Basic progress tracking - count processing attempts
