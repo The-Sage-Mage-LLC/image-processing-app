@@ -211,8 +211,8 @@ class ImageProcessor:
         # Start comprehensive monitoring
         self.monitor.start_operation(description, len(items))
         
-        self.logger.info(f"?? Starting {description} with thread-safe monitoring")
-        self.logger.info(f"?? Processing {len(items)} items with {self.max_workers if use_parallel else 1} workers (thread-safe mode)")
+        self.logger.info(f">> Starting {description} with thread-safe monitoring")
+        self.logger.info(f">> Processing {len(items)} items with {self.max_workers if use_parallel else 1} workers (thread-safe mode)")
         
         # Create progress bar
         with tqdm(total=len(items), desc=description, unit='file') as pbar:
@@ -256,7 +256,7 @@ class ImageProcessor:
                             if pbar.n % 10 == 0:
                                 monitoring_summary = self.monitor.get_monitoring_summary()
                                 rate = monitoring_summary.get('timing', {}).get('items_per_hour', 0)
-                                self.logger.info(f"?? Progress: {pbar.n}/{len(items)} files processed "
+                                self.logger.info(f">> Progress: {pbar.n}/{len(items)} files processed "
                                                f"({pbar.n/len(items)*100:.1f}%) - "
                                                f"Rate: {rate:.0f} items/hour - "
                                                f"QA Issues: {sum(monitoring_summary.get('qa_checks', {}).values())}")
@@ -299,7 +299,7 @@ class ImageProcessor:
                         if (i + 1) % 10 == 0:
                             monitoring_summary = self.monitor.get_monitoring_summary()
                             rate = monitoring_summary.get('timing', {}).get('items_per_hour', 0)
-                            self.logger.info(f"?? Progress: {i+1}/{len(items)} files processed "
+                            self.logger.info(f">> Progress: {i+1}/{len(items)} files processed "
                                            f"({(i+1)/len(items)*100:.1f}%) - "
                                            f"Rate: {rate:.0f} items/hour - "
                                            f"QA Issues: {sum(monitoring_summary.get('qa_checks', {}).values())}")

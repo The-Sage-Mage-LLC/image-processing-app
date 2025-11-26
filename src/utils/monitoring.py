@@ -271,7 +271,7 @@ class EnhancedProcessingMonitor:
         """Enhanced processing result recording with comprehensive QA checks."""
         start_qa_time = time.time()
         
-        # Basic progress tracking
+        # Basic progress tracking - FIXED: Properly count failures
         if success:
             self.processed_items += 1
         else:
@@ -279,6 +279,8 @@ class EnhancedProcessingMonitor:
             self.qa_checks['processing_failures'] += 1
             self._track_error_pattern(file_path, "Processing failed")
             self.logger.warning(f"Processing failed for: {file_path.name}")
+            # CRITICAL: Return early to prevent further processing of failed items
+            return
         
         # Record processing time and original size
         self.processing_times.append(processing_time)

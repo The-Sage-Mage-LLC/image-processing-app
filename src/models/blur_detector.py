@@ -419,3 +419,28 @@ class BlurDetector:
         except Exception as e:
             self.logger.error(f"Brenner gradient calculation failed: {e}")
             return 0.0, True
+    
+    def analyze_blur(self, image_path: Path) -> float:
+        """
+        Analyze blur in an image and return a simple blur score.
+        
+        Args:
+            image_path: Path to image file
+            
+        Returns:
+            Float blur score (higher = less blurry)
+        """
+        try:
+            # Use the existing detect_blur method
+            results = self.detect_blur(image_path)
+            
+            # Return weighted score, defaulting to 0 if error
+            if 'error' in results:
+                self.logger.warning(f"Blur detection error for {image_path}: {results['error']}")
+                return 0.0
+            
+            return results.get('weighted_score', 0.0)
+            
+        except Exception as e:
+            self.logger.error(f"Error analyzing blur for {image_path}: {e}")
+            return 0.0
