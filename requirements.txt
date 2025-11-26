@@ -12,7 +12,7 @@ scikit-image>=0.22.0  # Python 3.13 compatible
 piexif>=1.1.3
 
 # Data processing and analysis - Python 3.13.9 Compatible with nptyping constraint
-numpy>=1.20.0,<2.0.0  # Compatible with nptyping requirement and Python 3.13
+numpy>=1.20.0,<3.0.0  # Compatible with nptyping requirement and Python 3.13
 pandas>=2.0.3  # Python 3.13 compatible
 scipy>=1.11.0  # Stable for Python 3.13
 scikit-learn>=1.3.0  # Stable for Python 3.13
