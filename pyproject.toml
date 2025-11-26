@@ -41,7 +41,7 @@ classifiers = [
 
 dependencies = [
     # Core dependencies
-    "click>=8.1.0,<8.2.2",
+    "click>=8.1.0,<8.3.2",
     "colorama>=0.4.6",
     "tomli>=2.0.1",
     "tomli-w>=1.0.0",
