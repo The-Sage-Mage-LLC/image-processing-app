@@ -245,9 +245,10 @@ class ImageProcessor:
         self.logger.info(f">> Starting {description} with thread-safe monitoring")
         self.logger.info(f">> Processing {len(items)} items with {self.max_workers if use_parallel else 1} workers (thread-safe mode)")
         
-        # Create progress bar with ASCII-only characters for Windows compatibility
-        with tqdm(total=len(items), desc=description, unit='file', 
-                 ascii=True, ncols=80) as pbar:
+        # Create progress bar with clear numeric display
+        with tqdm(total=len(items), desc=description, unit='file',
+                 bar_format='{desc}: {percentage:3.0f}% |{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
+                 ascii=True, ncols=100) as pbar:
             if use_parallel and self.max_workers > 1:
                 # Thread-safe parallel processing
                 with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
@@ -284,8 +285,8 @@ class ImageProcessor:
                         finally:
                             pbar.update(1)
                             
-                            # Enhanced progress message with monitoring
-                            if pbar.n % 10 == 0:
+                            # Enhanced progress message with monitoring - REDUCE FREQUENCY
+                            if pbar.n % 100 == 0:  # Changed from 10 to 100 to reduce spam
                                 monitoring_summary = self.monitor.get_monitoring_summary()
                                 rate = monitoring_summary.get('timing', {}).get('items_per_hour', 0)
                                 self.logger.info(f">> Progress: {pbar.n}/{len(items)} files processed "
@@ -327,8 +328,8 @@ class ImageProcessor:
                     finally:
                         pbar.update(1)
                         
-                        # Enhanced progress message
-                        if (i + 1) % 10 == 0:
+                        # Enhanced progress message - REDUCE FREQUENCY
+                        if (i + 1) % 100 == 0:  # Changed from 10 to 100 to reduce spam
                             monitoring_summary = self.monitor.get_monitoring_summary()
                             rate = monitoring_summary.get('timing', {}).get('items_per_hour', 0)
                             self.logger.info(f">> Progress: {i+1}/{len(items)} files processed "
