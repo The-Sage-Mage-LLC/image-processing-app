@@ -14,6 +14,7 @@ from datetime import datetime
 import time
 import traceback
 import os
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Configure NumPy threading before any NumPy operations
@@ -246,9 +247,11 @@ class ImageProcessor:
         self.logger.info(f">> Processing {len(items)} items with {self.max_workers if use_parallel else 1} workers (thread-safe mode)")
         
         # Create progress display with numeric-only output (no visual bar)
+        # Use thread lock to ensure all updates are displayed
+        pbar_lock = threading.Lock()
         with tqdm(total=len(items), desc=description, unit='file',
                  bar_format='{desc}: {percentage:3.0f}% ({n_fmt}/{total_fmt}) [{elapsed}<{remaining}, {rate_fmt}]',
-                 mininterval=0.1, smoothing=0, ncols=100) as pbar:
+                 mininterval=0, smoothing=0, ncols=100) as pbar:
             if use_parallel and self.max_workers > 1:
                 # Thread-safe parallel processing
                 with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
@@ -283,7 +286,9 @@ class ImageProcessor:
                                 0, None, 0, False
                             )
                         finally:
-                            pbar.update(1)
+                            # Thread-safe progress update
+                            with pbar_lock:
+                                pbar.update(1)
                             
                             # Enhanced progress message with monitoring - REDUCE FREQUENCY
                             if pbar.n % 100 == 0:  # Changed from 10 to 100 to reduce spam
