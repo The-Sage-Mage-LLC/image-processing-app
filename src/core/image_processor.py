@@ -245,10 +245,10 @@ class ImageProcessor:
         self.logger.info(f">> Starting {description} with thread-safe monitoring")
         self.logger.info(f">> Processing {len(items)} items with {self.max_workers if use_parallel else 1} workers (thread-safe mode)")
         
-        # Create progress bar with clear numeric display
+        # Create progress display with numeric-only output (no visual bar)
         with tqdm(total=len(items), desc=description, unit='file',
-                 bar_format='{desc}: {percentage:3.0f}% |{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]',
-                 ascii=True, ncols=100) as pbar:
+                 bar_format='{desc}: {percentage:3.0f}% ({n_fmt}/{total_fmt}) [{elapsed}<{remaining}, {rate_fmt}]',
+                 mininterval=0.1, smoothing=0, ncols=100) as pbar:
             if use_parallel and self.max_workers > 1:
                 # Thread-safe parallel processing
                 with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
