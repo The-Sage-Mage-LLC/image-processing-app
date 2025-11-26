@@ -429,6 +429,17 @@ _old/
 _archive/
 deprecated/
 
+# Cleanup target directories
+test_temp/
+quality_reports/
+validation_reports/
+venv_*/
+
+# Temporary requirements files
+requirements - *.txt
+requirements_temp*.txt
+requirements_old*.txt
+
 # Large file patterns
 *.weights
 *.h5
