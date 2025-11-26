@@ -63,10 +63,10 @@ except Exception as e:
     print(f"! Warning: NumPy compatibility fix failed: {e}")
 
 # CRITICAL: Enable array safety to prevent NumPy access violations
-# This fixes the 0xC0000005 crash in _multiarray_umath.cp314-win_amd64.pyd
+# FIXED: Disabled patching to prevent infinite recursion loop
 try:
     from .utils.array_safety import enable_array_safety
-    enable_array_safety()
+    enable_array_safety(patch_numpy=False)  # CRITICAL: patch_numpy=False to prevent recursion
     print("+ Array safety enabled - NumPy access violation protection active")
 except ImportError as e:
     print(f"! Warning: Could not enable array safety: {e}")

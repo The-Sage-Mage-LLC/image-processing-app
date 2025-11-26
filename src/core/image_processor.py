@@ -648,3 +648,355 @@ class ImageProcessor:
         except Exception as e:
             self.logger.error(f"Error processing color-by-numbers for {image_path}: {e}")
             return False
+    
+    def detect_blur(self):
+        """Execute blur detection (Menu Item 2)."""
+        self.logger.info("Starting blur detection (Menu Item 2)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for blur detection")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for blur detection")
+        
+        # Initialize blur detector if not already done
+        if not hasattr(self, 'blur_detector'):
+            self.blur_detector = BlurDetector(self.config, self.logger)
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_blur_detection,
+            image_files,
+            "Detecting Blur",
+            use_parallel=True
+        )
+        
+        self.logger.info(f"Blur detection completed: {len(results)} images analyzed")
+    
+    def _process_single_blur_detection(self, image_path: Path) -> bool:
+        """Process single image for blur detection."""
+        try:
+            # Use blur detector
+            blur_score = self.blur_detector.analyze_blur(image_path)
+            
+            if blur_score is not None:
+                self.logger.debug(f"Blur score for {image_path.name}: {blur_score:.2f}")
+                return True
+            else:
+                self.logger.warning(f"Failed to analyze blur for: {image_path}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error detecting blur for {image_path}: {e}")
+            return False
+    
+    def extract_metadata(self):
+        """Execute metadata extraction (Menu Item 3)."""
+        self.logger.info("Starting metadata extraction (Menu Item 3)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for metadata extraction")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for metadata extraction")
+        
+        # Initialize metadata handler if not already done
+        if not hasattr(self, 'metadata_handler'):
+            self.metadata_handler = MetadataHandler(self.config, self.logger)
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_metadata_extraction,
+            image_files,
+            "Extracting Metadata",
+            use_parallel=True
+        )
+        
+        self.logger.info(f"Metadata extraction completed: {len(results)} images processed")
+    
+    def _process_single_metadata_extraction(self, image_path: Path) -> bool:
+        """Process single image for metadata extraction."""
+        try:
+            # Use metadata handler
+            metadata = self.metadata_handler.extract_metadata(image_path)
+            
+            if metadata:
+                self.logger.debug(f"Extracted metadata for {image_path.name}: {len(metadata)} fields")
+                return True
+            else:
+                self.logger.warning(f"Failed to extract metadata for: {image_path}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error extracting metadata for {image_path}: {e}")
+            return False
+    
+    def generate_captions(self):
+        """Execute caption generation (Menu Item 4)."""
+        self.logger.info("Starting caption generation (Menu Item 4)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for caption generation")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for caption generation")
+        
+        # Initialize caption generator if not already done
+        if not hasattr(self, 'caption_generator'):
+            self.caption_generator = CaptionGenerator(self.config, self.logger)
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_caption_generation,
+            image_files,
+            "Generating Captions",
+            use_parallel=False  # Sequential for AI operations
+        )
+        
+        self.logger.info(f"Caption generation completed: {len(results)} captions generated")
+    
+    def _process_single_caption_generation(self, image_path: Path) -> bool:
+        """Process single image for caption generation."""
+        try:
+            # Use caption generator
+            caption = self.caption_generator.generate_caption(image_path)
+            
+            if caption:
+                self.logger.debug(f"Generated caption for {image_path.name}: {caption[:50]}...")
+                return True
+            else:
+                self.logger.warning(f"Failed to generate caption for: {image_path}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error generating caption for {image_path}: {e}")
+            return False
+    
+    def execute_menu_option_5(self):
+        """Execute comprehensive color analysis (Menu Item 5)."""
+        self.logger.info("Starting color analysis (Menu Item 5)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for color analysis")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for color analysis")
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_color_analysis,
+            image_files,
+            "Analyzing Colors",
+            use_parallel=True
+        )
+        
+        self.logger.info(f"Color analysis completed: {len(results)} images analyzed")
+    
+    def _process_single_color_analysis(self, image_path: Path) -> bool:
+        """Process single image for color analysis."""
+        try:
+            # Use basic transforms for color analysis
+            analysis = self.basic_transforms.analyze_colors(image_path)
+            
+            if analysis:
+                self.logger.debug(f"Color analysis for {image_path.name} completed")
+                return True
+            else:
+                self.logger.warning(f"Failed to analyze colors for: {image_path}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error analyzing colors for {image_path}: {e}")
+            return False
+    
+    def copy_color_images(self):
+        """Execute color copy (Menu Item 6)."""
+        self.logger.info("Starting color copy (Menu Item 6)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for color copy")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for color copy")
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_color_copy,
+            image_files,
+            "Copying Color Images",
+            use_parallel=True
+        )
+        
+        self.logger.info(f"Color copy completed: {len(results)} images copied")
+    
+    def _process_single_color_copy(self, image_path: Path) -> bool:
+        """Process single image for color copy."""
+        try:
+            # Create output path with CLR_ORIG folder structure
+            relative_path = self.file_manager.get_relative_path(image_path)
+            output_folder = self.file_manager.output_path / "CLR_ORIG" / relative_path.parent
+            output_folder.mkdir(parents=True, exist_ok=True)
+            
+            # Create filename with CLR_ORIG_ prefix
+            new_filename = f"CLR_ORIG_{image_path.name}"
+            output_path = output_folder / new_filename
+            
+            # Handle duplicate filenames with sequence numbers
+            counter = 1
+            while output_path.exists():
+                name_stem = image_path.stem
+                name_suffix = image_path.suffix
+                new_filename = f"CLR_ORIG_{name_stem}_{counter}{name_suffix}"
+                output_path = output_folder / new_filename
+                counter += 1
+            
+            # Copy the image
+            import shutil
+            shutil.copy2(str(image_path), str(output_path))
+            
+            self.logger.debug(f"Copied color image: {output_path}")
+            return True
+                
+        except Exception as e:
+            self.logger.error(f"Error copying color image {image_path}: {e}")
+            return False
+    
+    def convert_grayscale(self):
+        """Execute grayscale conversion (Menu Item 7)."""
+        self.logger.info("Starting grayscale conversion (Menu Item 7)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for grayscale conversion")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for grayscale conversion")
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_grayscale,
+            image_files,
+            "Converting to Grayscale",
+            use_parallel=True
+        )
+        
+        self.logger.info(f"Grayscale conversion completed: {len(results)} successful")
+    
+    def _process_single_grayscale(self, image_path: Path) -> bool:
+        """Process single image for grayscale conversion."""
+        try:
+            # Use basic transforms
+            gray_image = self.basic_transforms.convert_to_grayscale(image_path)
+            
+            if gray_image is None:
+                self.logger.warning(f"Failed to convert to grayscale: {image_path}")
+                return False
+            
+            # Create output path with BWG_ORIG folder structure
+            relative_path = self.file_manager.get_relative_path(image_path)
+            output_folder = self.file_manager.output_path / "BWG_ORIG" / relative_path.parent
+            output_folder.mkdir(parents=True, exist_ok=True)
+            
+            # Create filename with BWG_ORIG_ prefix
+            new_filename = f"BWG_ORIG_{image_path.name}"
+            output_path = output_folder / new_filename
+            
+            # Handle duplicate filenames with sequence numbers
+            counter = 1
+            while output_path.exists():
+                name_stem = image_path.stem
+                name_suffix = image_path.suffix
+                new_filename = f"BWG_ORIG_{name_stem}_{counter}{name_suffix}"
+                output_path = output_folder / new_filename
+                counter += 1
+            
+            # Save the image
+            import cv2
+            success = cv2.imwrite(str(output_path), gray_image)
+            
+            if success:
+                self.logger.debug(f"Saved grayscale image: {output_path}")
+                return True
+            else:
+                self.logger.error(f"Failed to save grayscale image: {output_path}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error converting to grayscale {image_path}: {e}")
+            return False
+    
+    def convert_sepia(self):
+        """Execute sepia conversion (Menu Item 8)."""
+        self.logger.info("Starting sepia conversion (Menu Item 8)")
+        
+        # Get all image files
+        image_files = self.file_manager.get_image_files()
+        if not image_files:
+            self.logger.warning("No image files found for sepia conversion")
+            return
+        
+        self.logger.info(f"Found {len(image_files)} image files for sepia conversion")
+        
+        # Process with progress tracking
+        results = self.process_with_progress(
+            self._process_single_sepia,
+            image_files,
+            "Converting to Sepia",
+            use_parallel=True
+        )
+        
+        self.logger.info(f"Sepia conversion completed: {len(results)} successful")
+    
+    def _process_single_sepia(self, image_path: Path) -> bool:
+        """Process single image for sepia conversion."""
+        try:
+            # Use basic transforms
+            sepia_image = self.basic_transforms.convert_to_sepia(image_path)
+            
+            if sepia_image is None:
+                self.logger.warning(f"Failed to convert to sepia: {image_path}")
+                return False
+            
+            # Create output path with SEP_ORIG folder structure
+            relative_path = self.file_manager.get_relative_path(image_path)
+            output_folder = self.file_manager.output_path / "SEP_ORIG" / relative_path.parent
+            output_folder.mkdir(parents=True, exist_ok=True)
+            
+            # Create filename with SEP_ORIG_ prefix
+            new_filename = f"SEP_ORIG_{image_path.name}"
+            output_path = output_folder / new_filename
+            
+            # Handle duplicate filenames with sequence numbers
+            counter = 1
+            while output_path.exists():
+                name_stem = image_path.stem
+                name_suffix = image_path.suffix
+                new_filename = f"SEP_ORIG_{name_stem}_{counter}{name_suffix}"
+                output_path = output_folder / new_filename
+                counter += 1
+            
+            # Save the image
+            import cv2
+            success = cv2.imwrite(str(output_path), sepia_image)
+            
+            if success:
+                self.logger.debug(f"Saved sepia image: {output_path}")
+                return True
+            else:
+                self.logger.error(f"Failed to save sepia image: {output_path}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error converting to sepia {image_path}: {e}")
+            return False

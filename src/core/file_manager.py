@@ -302,3 +302,40 @@ class FileManager:
         import gc
         gc.collect()
         self.logger.debug("File handles cleaned up")
+    
+    def get_image_files(self) -> List[Path]:
+        """
+        Get all image files from source paths as a list.
+        
+        Returns:
+            List of Path objects for found image files
+        """
+        image_files = []
+        
+        # Use the existing scan_for_images generator to collect all files
+        for file_path in self.scan_for_images():
+            image_files.append(file_path)
+        
+        self.logger.info(f"Found {len(image_files)} image files total")
+        return image_files
+    
+    def get_relative_path(self, file_path: Path) -> Path:
+        """
+        Get the relative path from the source root for a file.
+        
+        Args:
+            file_path: The file path to get relative path for
+            
+        Returns:
+            Relative path from source root
+        """
+        # Find which source root this file belongs to
+        for source_root in self.source_paths:
+            try:
+                relative = file_path.relative_to(source_root)
+                return relative
+            except ValueError:
+                continue
+        
+        # If no source root matches, return just the filename
+        return Path(file_path.name)
