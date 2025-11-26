@@ -57,6 +57,6 @@ pytest-cov>=4.1.0
 exifread>=3.0.0
 
 # Build tools - Python 3.13.9 Compatible with pths constraint
-setuptools>=68.2.2,<69.0.0  # Compatible with pths requirement
+setuptools>=68.2.2,<81.0.0  # Compatible with pths requirement
 wheel>=0.40.0  # Stable wheel version
 packaging>=23.1  # Stable packaging
