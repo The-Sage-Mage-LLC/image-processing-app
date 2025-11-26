@@ -28,14 +28,9 @@ class BasicTransforms:
         self.config = config
         self.logger = logger
         
-        # Initialize quality control if available
-        if QUALITY_CONTROL_AVAILABLE:
-            from ..utils.image_quality_manager import ImageQualityManager
-            self.quality_manager = ImageQualityManager(config, logger)
-            self.logger.info("BasicTransforms initialized WITH quality control")
-        else:
-            self.quality_manager = None
-            self.logger.warning("BasicTransforms initialized WITHOUT quality control (fallback mode)")
+        # Quality control DISABLED - no longer initializing
+        # (Was causing unwanted upscaling and false warnings)
+        self.quality_manager = None
         
         # Load configuration settings
         self.grayscale_config = config.get('grayscale', {})
@@ -43,62 +38,25 @@ class BasicTransforms:
         self.preserve_metadata = config.get('basic_transforms', {}).get('preserve_metadata', False)
         self.strip_sensitive = config.get('processing', {}).get('strip_sensitive_metadata', True)
         
-        self.logger.debug("BasicTransforms initialized with thread safety")
+        self.logger.debug("BasicTransforms initialized (quality control disabled)")
     
     def convert_to_grayscale(self, image_path: Path) -> Optional[Image.Image]:
         """
-        Convert image to grayscale with quality control enforcement.
-        
-        ENFORCED CONSTRAINTS:
-        - Minimum resolution: 256 pixels/inch (higher is better)
-        - Width: 3-19 inches (greater is better within limits) 
-        - Height: 3-19 inches (greater is better within limits)
-        - No distortion or blur added
-        - Optimized for viewing and printing quality
+        Convert image to grayscale - processes images as-is.
         
         Args:
             image_path: Path to input image
             
         Returns:
-            Processed PIL Image meeting all quality constraints or None if error
+            Processed PIL Image or None if error
         """
         try:
-            # Use quality-controlled processing if available
-            if self.quality_manager:
-                return self._convert_to_grayscale_with_quality_control(image_path)
-            else:
-                # Fallback to basic processing
-                return self._convert_to_grayscale_basic(image_path)
+            # ALWAYS use basic processing - NO quality control
+            return self._convert_to_grayscale_basic(image_path)
                 
         except Exception as e:
             self.logger.error(f"Error converting {image_path} to grayscale: {e}")
             return None
-    
-    def _convert_to_grayscale_with_quality_control(self, image_path: Path) -> Optional[Image.Image]:
-        """Grayscale conversion with full quality control."""
-        def grayscale_transform(path):
-            return self._convert_to_grayscale_basic(path)
-        
-        # Analyze source metrics
-        source_metrics = self.quality_manager.analyze_image_metrics(image_path)
-        
-        # Log quality status
-        if source_metrics.meets_constraints:
-            self.logger.info(f"Source image meets quality constraints: {image_path.name}")
-        else:
-            self.logger.info(f"Source image quality issues (will be fixed): {image_path.name}")
-            for issue in source_metrics.issues:
-                self.logger.info(f"  - {issue}")
-        
-        # Apply transformation with quality control
-        from ..utils.quality_controlled_transforms import QualityControlledTransformBase
-        quality_processor = QualityControlledTransformBase(self.config, self.logger)
-        
-        result = quality_processor.process_with_quality_control(
-            image_path, grayscale_transform
-        )
-        
-        return result
     
     def _convert_to_grayscale_basic(self, image_path: Path) -> Optional[Image.Image]:
         """Basic grayscale conversion without quality control."""
@@ -177,37 +135,65 @@ class BasicTransforms:
     
     def convert_to_sepia(self, image_path: Path) -> Optional[Image.Image]:
         """
-        Convert image to sepia tone with quality control enforcement.
-        
-        ENFORCED CONSTRAINTS:
-        - Minimum resolution: 256 pixels/inch (higher is better)
-        - Width: 3-19 inches (greater is better within limits)
-        - Height: 3-19 inches (greater is better within limits) 
-        - No distortion or blur added
-        - Optimized for viewing and printing quality
+        Convert image to sepia tone - processes images as-is.
         
         Args:
             image_path: Path to input image
             
         Returns:
-            Processed PIL Image meeting all quality constraints or None if error
+            Processed PIL Image or None if error
         """
         try:
-            # Use quality-controlled processing if available
-            if self.quality_manager:
-                return self._convert_to_sepia_with_quality_control(image_path)
-            else:
-                # Fallback to basic processing
-                return self._convert_to_sepia_basic(image_path)
+            # ALWAYS use basic processing - NO quality control
+            return self._convert_to_sepia_basic(image_path)
                 
         except Exception as e:
             self.logger.error(f"Error converting {image_path} to sepia: {e}")
             return None
     
+    def _convert_to_sepia_with_smart_quality_control(self, image_path: Path) -> Optional[Image.Image]:
+        """Sepia conversion with smart quality optimization - only upscale when beneficial."""
+        # Analyze source image
+        source_metrics = self.quality_manager.analyze_image_metrics(image_path)
+        
+        # Determine if optimization would be beneficial
+        should_optimize = self._should_apply_quality_optimization(source_metrics)
+        
+        if should_optimize:
+            # Apply quality-controlled transformation
+            def sepia_transform(path):
+                return self._convert_to_sepia_basic(path)
+            
+            self.logger.debug(f"Applying quality optimization for: {image_path.name}")
+            
+            from ..utils.quality_controlled_transforms import QualityControlledTransformBase
+            quality_processor = QualityControlledTransformBase(self.config, self.logger)
+            
+            result = quality_processor.process_with_quality_control(
+                image_path, sepia_transform
+            )
+            
+            return result
+        else:
+            # Image already good quality or optimization not beneficial
+            # Process WITHOUT any quality warnings or logging
+            return self._convert_to_sepia_basic(image_path)
+    
     def _convert_to_sepia_with_quality_control(self, image_path: Path) -> Optional[Image.Image]:
         """Sepia conversion with full quality control."""
         def sepia_transform(path):
             return self._convert_to_sepia_basic(path)
+        
+        # Analyze source metrics
+        source_metrics = self.quality_manager.analyze_image_metrics(image_path)
+        
+        # Log quality status
+        if source_metrics.meets_constraints:
+            self.logger.info(f"Source image meets quality constraints: {image_path.name}")
+        else:
+            self.logger.info(f"Source image quality issues (will be fixed): {image_path.name}")
+            for issue in source_metrics.issues:
+                self.logger.info(f"  - {issue}")
         
         # Apply transformation with quality control
         from ..utils.quality_controlled_transforms import QualityControlledTransformBase
@@ -290,3 +276,32 @@ class BasicTransforms:
                 self.logger.warning(f"Failed to preserve metadata for {image_path}: {e}")
         
         return sepia_image
+    
+    def analyze_colors(self, image_path: Path) -> Optional[dict]:
+        """
+        Analyze colors in an image.
+        
+        Args:
+            image_path: Path to input image
+            
+        Returns:
+            Dictionary with color analysis results or None if error
+        """
+        try:
+            # Import color analyzer
+            from ..models.color_analyzer import ColorAnalyzer
+            
+            # Initialize color analyzer
+            color_analyzer = ColorAnalyzer(self.config, self.logger)
+            
+            # Analyze colors
+            results = color_analyzer.analyze_colors(image_path)
+            
+            return results if results and 'error' not in results else None
+            
+        except ImportError as e:
+            self.logger.error(f"ColorAnalyzer not available: {e}")
+            return None
+        except Exception as e:
+            self.logger.error(f"Error analyzing colors for {image_path}: {e}")
+            return None

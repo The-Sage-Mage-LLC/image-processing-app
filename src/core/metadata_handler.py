@@ -129,6 +129,18 @@ class MetadataHandler:
         
         return metadata
     
+    def extract_metadata(self, image_path: Path) -> Dict[str, Any]:
+        """
+        Extract metadata from image file (alias for extract_all_metadata).
+        
+        Args:
+            image_path: Path to image file
+            
+        Returns:
+            Dictionary containing extracted metadata
+        """
+        return self.extract_all_metadata(image_path)
+    
     def _extract_file_metadata(self, path: Path, metadata: Dict[str, Any]):
         """Extract file system metadata."""
         try:

@@ -134,9 +134,17 @@ class ImageProcessor:
     def _initialize_gpu(self):
         """Initialize GPU/CUDA support if available."""
         try:
+            # Check if OpenCV was compiled with CUDA support
+            if not hasattr(cv2, 'cuda') or not hasattr(cv2.cuda, 'getCudaEnabledDeviceCount'):
+                self.logger.info("OpenCV not compiled with CUDA support - using CPU processing")
+                self.gpu_available = False
+                self.enable_gpu = False
+                return
+            
             # Check for CUDA availability with OpenCV
-            if cv2.cuda.getCudaEnabledDeviceCount() > 0:
-                self.logger.info(f"CUDA enabled devices found: {cv2.cuda.getCudaEnabledDeviceCount()}")
+            cuda_device_count = cv2.cuda.getCudaEnabledDeviceCount()
+            if cuda_device_count > 0:
+                self.logger.info(f"CUDA enabled devices found: {cuda_device_count}")
                 self.gpu_available = True
                 
                 # Set CUDA device
@@ -162,11 +170,16 @@ class ImageProcessor:
                     self.gpu_available = False
                     self.enable_gpu = False
             else:
-                self.logger.warning("CUDA enabled but no devices found")
+                self.logger.info("No CUDA devices available - using CPU processing")
                 self.gpu_available = False
                 self.enable_gpu = False
+        except AttributeError:
+            # OpenCV doesn't have CUDA module
+            self.logger.info("OpenCV CUDA module not available - using CPU processing")
+            self.gpu_available = False
+            self.enable_gpu = False
         except Exception as e:
-            self.logger.warning(f"GPU initialization failed: {e}")
+            self.logger.info(f"GPU not available ({e}) - using CPU processing")
             self.gpu_available = False
             self.enable_gpu = False
         
@@ -347,15 +360,10 @@ class ImageProcessor:
             elif isinstance(result, Path) and result.exists():
                 processed_path = result
             elif isinstance(result, bool) and result:
-                # For boolean returns, try to infer the output path
-                if isinstance(item, Path):
-                    # Common output patterns based on operation type
-                    base_name = item.stem
-                    for prefix in ['CLR_ORIG_', 'BWG_ORIG_', 'SEP_ORIG_', 'PSK_ORIG_', 'BK_Coloring_', 'BK_CTD_', 'BK_CBN_']:
-                        potential_path = self.file_manager.output_path / prefix.rstrip('_') / f"{prefix}{item.name}"
-                        if potential_path.exists():
-                            processed_path = potential_path
-                            break
+                # For boolean returns, DON'T try to infer path
+                # The monitoring path detection was finding wrong files (CLR_ORIG instead of actual transform)
+                # Just mark as successful without hash comparison
+                processed_path = None
             
             processing_time = time.time() - start_time
             
@@ -534,7 +542,10 @@ class ImageProcessor:
             use_parallel=False  # Sequential for complex processing
         )
         
-        self.logger.info(f"Connect-the-dots conversion completed: {len(results)} successful")
+        # Count actual files created (True results only)
+        successful_files = sum(1 for r in results if r is True)
+        
+        self.logger.info(f"Connect-the-dots conversion completed: {successful_files} files created ({len(image_files)} attempted)")
     
     def _process_single_connect_dots(self, image_path: Path) -> bool:
         """Process single image for connect-the-dots conversion."""
@@ -604,7 +615,10 @@ class ImageProcessor:
             use_parallel=False  # Sequential for complex processing
         )
         
-        self.logger.info(f"Color-by-numbers conversion completed: {len(results)} successful")
+        # Count actual files created (True results only)
+        successful_files = sum(1 for r in results if r is True)
+        
+        self.logger.info(f"Color-by-numbers conversion completed: {successful_files} files created ({len(image_files)} attempted)")
     
     def _process_single_color_by_numbers(self, image_path: Path) -> bool:
         """Process single image for color-by-numbers conversion."""
@@ -921,9 +935,15 @@ class ImageProcessor:
                 output_path = output_folder / new_filename
                 counter += 1
             
-            # Save the image
-            import cv2
-            success = cv2.imwrite(str(output_path), gray_image)
+            # Save the image - gray_image is PIL Image, need to convert for OpenCV
+            if isinstance(gray_image, Image.Image):
+                # Convert PIL Image to numpy array for OpenCV
+                import numpy as np
+                gray_array = np.array(gray_image)
+                success = cv2.imwrite(str(output_path), gray_array)
+            else:
+                # Already numpy array
+                success = cv2.imwrite(str(output_path), gray_image)
             
             if success:
                 self.logger.debug(f"Saved grayscale image: {output_path}")
@@ -986,9 +1006,18 @@ class ImageProcessor:
                 output_path = output_folder / new_filename
                 counter += 1
             
-            # Save the image
-            import cv2
-            success = cv2.imwrite(str(output_path), sepia_image)
+            # Save the image - sepia_image is PIL Image, need to convert for OpenCV
+            if isinstance(sepia_image, Image.Image):
+                # Convert PIL Image to numpy array for OpenCV (RGB to BGR)
+                import numpy as np
+                sepia_array = np.array(sepia_image)
+                # PIL uses RGB, OpenCV uses BGR
+                if len(sepia_array.shape) == 3 and sepia_array.shape[2] == 3:
+                    sepia_array = cv2.cvtColor(sepia_array, cv2.COLOR_RGB2BGR)
+                success = cv2.imwrite(str(output_path), sepia_array)
+            else:
+                # Already numpy array
+                success = cv2.imwrite(str(output_path), sepia_image)
             
             if success:
                 self.logger.debug(f"Saved sepia image: {output_path}")

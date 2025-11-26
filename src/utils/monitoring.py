@@ -268,23 +268,46 @@ class EnhancedProcessingMonitor:
     def record_processing_result(self, file_path: Path, original_size: int, 
                                processed_path: Optional[Path], processing_time: float,
                                success: bool, original_hash: str = None):
-        """Enhanced processing result recording with comprehensive QA checks."""
+        """
+        Enhanced processing result recording with comprehensive QA checks.
+        
+        Implements dual success tracking:
+        1. Processing attempted (for monitoring progress)
+        2. File created (for actual success count)
+        """
         start_qa_time = time.time()
         
-        # Basic progress tracking - FIXED: Properly count failures
+        # Record processing time ALWAYS (whether success or failure)
+        self.processing_times.append(processing_time)
+        self.file_sizes_original.append(original_size)
+        
+        # DUAL TRACKING LOGIC:
+        # - success=True means processing was attempted and returned True
+        # - But actual success = output file exists
+        actual_file_created = success and processed_path and processed_path.exists()
+        
+        # Basic progress tracking - count processing attempts
         if success:
+            # Processing function returned True (even if no file created)
             self.processed_items += 1
+            
+            # But if no file was created, it's a quality issue
+            if not actual_file_created:
+                self.qa_checks['processing_failures'] += 1
+                self._track_error_pattern(file_path, "No output file created (rejected)")
+                self.logger.debug(f"Processing completed but no output file for: {file_path.name}")
+                # Still record as "processed" but note the QA issue
+                qa_time = time.time() - start_qa_time
+                return
         else:
+            # Processing function returned False or raised exception
             self.failed_items += 1
             self.qa_checks['processing_failures'] += 1
             self._track_error_pattern(file_path, "Processing failed")
-            self.logger.warning(f"Processing failed for: {file_path.name}")
-            # CRITICAL: Return early to prevent further processing of failed items
+            self.logger.debug(f"Processing failed for: {file_path.name}")
+            # Still record timing metrics for failed items, then return
+            qa_time = time.time() - start_qa_time
             return
-        
-        # Record processing time and original size
-        self.processing_times.append(processing_time)
-        self.file_sizes_original.append(original_size)
         
         if success and processed_path and processed_path.exists():
             try:
@@ -311,15 +334,24 @@ class EnhancedProcessingMonitor:
                     self.qa_checks['corrupted_outputs'] += 1
                     self.logger.warning(f"QA Alert: Output image appears corrupted: {processed_path.name}")
                 
-                # QA Check 4: Hash comparison (enhanced)
-                if original_hash:
+                # QA Check 4: Hash comparison (context-aware for copy operations)
+                # ONLY if we have a reliable processed_path
+                if original_hash and processed_path:  # Added processed_path check
                     processed_hash = self._calculate_file_hash(processed_path)
                     if original_hash == processed_hash:
-                        self.qa_checks['hash_duplicates'] += 1
-                        self.logger.warning(f"QA Alert: Processed file identical to original (same hash): {processed_path.name}")
+                        # Only flag as issue if NOT a copy operation
+                        if self.current_operation and 'copy' not in self.current_operation.lower():
+                            self.qa_checks['hash_duplicates'] += 1
+                            self.logger.warning(f"QA Alert: Processed file identical to original (same hash): {processed_path.name}")
+                        else:
+                            # For copy operations, identical hashes are expected and correct
+                            self.logger.debug(f"Hash match expected for copy operation: {processed_path.name}")
                     else:
                         self.logger.debug(f"Hash verification passed: {processed_path.name}")
                     self.hash_comparisons.append((original_hash, processed_hash))
+                elif original_hash and not processed_path:
+                    # No reliable processed path available - skip hash comparison
+                    self.logger.debug(f"Skipping hash comparison - processed file path unavailable")
                 
                 # QA Check 5: Statistical analysis (enhanced)
                 if len(self.file_sizes_processed) >= 10:
@@ -654,7 +686,7 @@ class EnhancedProcessingMonitor:
                 self.logger.info(f"   Disk: Min Free Space {min(self.disk_usage):.1f}GB")
     
     def _log_comprehensive_qa_summary(self, total_processed: int):
-        """Log comprehensive QA/QC summary."""
+        """Log comprehensive QA/QC summary with dual success tracking."""
         self.logger.info(f"** COMPREHENSIVE QUALITY ASSURANCE SUMMARY:")
         total_qa_issues = sum(self.qa_checks.values())
         self.logger.info(f"   Total QA Issues: {total_qa_issues:,}")
@@ -662,6 +694,14 @@ class EnhancedProcessingMonitor:
         if total_processed > 0:
             qa_rate = (total_qa_issues / total_processed * 100)
             self.logger.info(f"   QA Issue Rate: {qa_rate:.2f}%")
+            
+            # Calculate actual file creation success rate
+            # QA issues include "no file created" rejections
+            rejections = self.qa_checks.get('processing_failures', 0)
+            actual_files_created = total_processed - rejections
+            actual_success_rate = (actual_files_created / total_processed * 100) if total_processed > 0 else 0
+            
+            self.logger.info(f"   Files Successfully Created: {actual_files_created:,}/{total_processed:,} ({actual_success_rate:.1f}%)")
             
             if qa_rate == 0:
                 self.logger.info(f"   EXCELLENT: No quality issues detected")
@@ -676,7 +716,11 @@ class EnhancedProcessingMonitor:
         for check_name, count in self.qa_checks.items():
             if count > 0:
                 percentage = (count / total_processed * 100) if total_processed > 0 else 0
-                self.logger.info(f"   - {check_name.replace('_', ' ').title()}: {count:,} ({percentage:.2f}%)")
+                # Special handling for "processing_failures" which includes rejections
+                if check_name == 'processing_failures':
+                    self.logger.info(f"   - Files Not Created (includes rejections): {count:,} ({percentage:.2f}%)")
+                else:
+                    self.logger.info(f"   - {check_name.replace('_', ' ').title()}: {count:,} ({percentage:.2f}%)")
         
         # Hash analysis
         if self.hash_comparisons:

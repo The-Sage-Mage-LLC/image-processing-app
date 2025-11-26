@@ -206,6 +206,23 @@ class CaptionGenerator:
         
         return metadata
     
+    def generate_caption(self, image_path: Path) -> Optional[str]:
+        """
+        Generate caption for image (simplified interface).
+        
+        Args:
+            image_path: Path to image file
+            
+        Returns:
+            Primary caption string or None if error
+        """
+        try:
+            results = self.generate_captions(image_path)
+            return results.get('primary_caption', None)
+        except Exception as e:
+            self.logger.error(f"Error generating caption for {image_path}: {e}")
+            return None
+    
     def _generate_with_cv(self, image: np.ndarray, image_path: Path, metadata: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generate content using computer vision techniques with enhanced object detection.
