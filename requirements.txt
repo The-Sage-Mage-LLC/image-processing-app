@@ -1,5 +1,5 @@
 # Core dependencies - Python 3.13.9 Compatible with resolved conflicts
-click>=8.1.0,<8.2.2  # Compatible with bump-my-version requirement
+click>=8.1.0,<8.3.2  # Compatible with bump-my-version requirement
 colorama>=0.4.6
 tomli>=2.0.1
 tomli-w>=1.0.0
